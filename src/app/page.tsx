@@ -1,8 +1,8 @@
 'use client'
 import { Button } from '@/components/ui/button'
+import signInWithGoogle from '@/lib/auth/signinWithGoogle'
 import Link from 'next/link'
 import React from 'react'
-import { handleSignInWithGoogle } from './lib/handleSigninWithGoogle'
 
 const HomePage = () => {
   return (
@@ -26,14 +26,14 @@ const HomePage = () => {
           </p>
           <div className="flex gap-2 mt-2">
             <Button
-            onClick={() => handleSignInWithGoogle()}
+            onClick={() => signInWithGoogle()}
               className="text-hub-blue rounded border-2 border-hub-blue py-2 px-4 hover:bg-hub-blue hover:text-hub-white hover:cursor-pointer">
               Entrar
             </Button>
             <Link
               className="
           text-hub-blue rounded border-2 border-hub-blue py-2 px-4 hover:bg-hub-blue hover:text-hub-white hover:cursor-pointer"
-              href="/signup">
+              href="/educ-signin">
               Para instituições</Link>
           </div>
         </section>
