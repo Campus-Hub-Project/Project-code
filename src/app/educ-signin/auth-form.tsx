@@ -1,12 +1,13 @@
 'use client'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { Form, useForm } from 'react-hook-form'
 import { formSchema, formSchemaType } from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/button'
 import signInWithEmail from '@/lib/auth/signinWithEmail'
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+
 
 const AuthForm = () => {
 
@@ -27,21 +28,29 @@ const AuthForm = () => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitForm)}>
+            <form onSubmit={form.handleSubmit(submitForm)} className='w-full mx-12'>
                 <FormField
                     control={form.control}
                     name='email'
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Email:</FormLabel>
+                            <FormLabel className='text-hub-blue font-semibold'>Email:</FormLabel>
                             <FormControl>
-                                <Input {...field} type='text' placeholder='E-mail da instituição aqui...' />
+                                <Input
+                                    className='
+                                px-3 py-1 h-9 w-full rounded border-2 border-hub-middlegray text-hub-middlegray
+                                outline-none focus:border-hub-blue focus:text-hub-blue'
+                                    {...field} placeholder='E-mail da sua instituição aqui...' />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <Button type='submit'>Enviar</Button>
+                <Button type='submit'
+                    className='mt-4 border-hub-blue border-2 rounded flex items-center justify-center px-4 text-sm
+                    text-hub-blue hover:bg-hub-blue hover:text-hub-white'>
+                    Enviar
+                </Button>
             </form>
         </Form>
     )

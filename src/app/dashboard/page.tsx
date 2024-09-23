@@ -1,15 +1,18 @@
 import { redirect } from 'next/navigation'
 import React from 'react'
-import { checkIfIsAuthenticated } from '../lib/isAuthenticated'
+
+import isAuthenticated from '@/lib/auth/isAuthenticated'
 
 const DashboardPage = async () => {
-  const isAuthenticated = await checkIfIsAuthenticated()
- 
-  if (!isAuthenticated) {
+  const isAuth = await isAuthenticated()
+
+  if (!isAuth) {
     redirect('/')
   } else {
     return (
-      <div>DashboardPage</div>
+      <div>
+        
+      </div>
     )
   }
 }

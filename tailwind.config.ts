@@ -10,16 +10,16 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-			hub: {
-				black: '#0a0907',
-				gray: '#252525',
-				white: '#fcfcfc',
-				blue: '#2873af',
-				middlegray: '#858585',
-				lightgray: '#adabac',
-				darkgray: '#252525',
-				red: '#FD0028'
-			},
+  			hub: {
+  				black: '#0a0907',
+  				gray: '#252525',
+  				white: '#fcfcfc',
+  				blue: '#2873af',
+  				middlegray: '#858585',
+  				lightgray: '#adabac',
+  				darkgray: '#252525',
+  				red: '#FD0028'
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
