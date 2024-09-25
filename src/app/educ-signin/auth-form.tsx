@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
-import { Form, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { formSchema, formSchemaType } from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import signInWithEmail from '@/lib/auth/signinWithEmail'
-import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
@@ -38,8 +38,8 @@ const AuthForm = () => {
                             <FormControl>
                                 <Input
                                     className='
-                                px-3 py-1 h-9 w-full rounded border-2 border-hub-middlegray text-hub-middlegray
-                                outline-none focus:border-hub-blue focus:text-hub-blue'
+                                w-full rounded border-2 border-hub-middlegray text-hub-middlegray
+                                 focus:border-hub-blue focus:text-hub-blue'
                                     {...field} placeholder='E-mail da sua instituição aqui...' />
                             </FormControl>
                             <FormMessage />
@@ -47,7 +47,7 @@ const AuthForm = () => {
                     )}
                 />
                 <Button type='submit'
-                    className='mt-4 border-hub-blue border-2 rounded flex items-center justify-center px-4 text-sm
+                    className='mt-4 border-hub-blue border-2 rounded bg-hub-white text-sm
                     text-hub-blue hover:bg-hub-blue hover:text-hub-white'>
                     Enviar
                 </Button>

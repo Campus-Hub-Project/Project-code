@@ -1,6 +1,18 @@
-import { AlertDialogHeader, AlertDialogFooter } from '@/components/ui/alert-dialog'
-import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from '@radix-ui/react-alert-dialog'
+'use client'
 import React from 'react'
+
+import {
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction
+} from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
 
 interface Props {
   children: React.ReactNode
@@ -10,16 +22,27 @@ const Logout = ({ children }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        {children}
+        <Button variant='ghost'
+          className='text-center hover:bg-hub-white hover:text-hub-blue'>{children}</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className='rounded'>
         <AlertDialogHeader>
-          <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
-          <AlertDialogDescription>Você está prestes a sair de sua conta, é isso mesmo?</AlertDialogDescription>
+          <AlertDialogTitle className='text-hub-blue'>Você tem certeza?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Você está prestes a sair de sua conta, é isso mesmo que voce deseja?
+            Seus dados serão salvos.
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Não</AlertDialogCancel>
-          <AlertDialogAction>Sair</AlertDialogAction>
+          <AlertDialogCancel
+            className='text-hub-blue border-2 rounded border-hub-blue bg-hub-white
+          hover:text-hub-white hover:bg-hub-blue'>
+            Voltar
+          </AlertDialogCancel>
+          <AlertDialogAction className='border-2 rounded text-hub-white bg-hub-blue border-hub-blue
+                    hover:text-hub-blue hover:bg-hub-white'>
+            Sair
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

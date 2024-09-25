@@ -13,7 +13,7 @@ const HomePage = () => {
       <section className='border-hub-middlegray shadow-lg flex-grow border-none rounded px-0 flex h-full'>
 
         <div className='w-1/2 flex flex-col justify-center'>
-          <Card className='mx-6 border-none'>
+          <Card className='mx-6 border-none shadow-none bg-hub-white'>
             <CardHeader className=''>
               <CardTitle className='text-5xl font-semibold text-hub-black'>
                 Olá, seja bem-vindo ao <span className='text-hub-blue font-bold'>campus_hub</span>
@@ -27,7 +27,7 @@ const HomePage = () => {
               <Button
                 onClick={() => signInWithGoogle()}
                 className='
-              flex text-center justify-center border-2 border-hub-blue gap-1 rounded py-2 text-sm text-hub-blue
+              border-2 border-hub-blue gap-1 rounded text-sm text-hub-blue bg-hub-white
               hover:bg-hub-blue hover:text-hub-white'>
                 <FcGoogle size={20} />
                 Entrar com Google</Button>

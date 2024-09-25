@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 import EventForm from './_components/event-form'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 
@@ -11,7 +11,7 @@ const NewEventPage = () => {
             Novo evento
           </CardTitle>
           <CardDescription className='mx-4 font-medium text-base text-hub-middlegray'>
-            Insira as informações necesárias e crie um novo evento.
+            Insira as informações necesárias e crie um novo evento
           </CardDescription>
         </CardHeader>
         <CardContent className='flex justify-center'>

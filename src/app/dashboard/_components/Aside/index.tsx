@@ -26,26 +26,27 @@ const Aside = ({ icons }: Props) => {
             </div>
 
             {icons.map((icon) => (
-                <div className='text-hub-middlegray hover:text-sc-blue' key={icon.id}>
+                <div className='text-hub-middlegray hover:text-hub-blue' key={icon.id}>
                     {icon.to ? (
-                        <Link href={icon.to} className='flex flex-col items-center text-center gap-2 cursor-pointer hover:text-hub-blue'>
+                        <Link href={icon.to} className='flex flex-col items-center text-center gap-2 cursor-pointer'>
                             {icon.svg}
                             <span className='text-xs'>{icon.span}</span>
                         </Link>
                     ) : icon.span === 'Sair' ? (
-                        <Drop>
-
-                            {icon.svg}
-                            <span className='text-xs'>{icon.span}</span>
-
-                        </Drop>
-                    ) : (
                         <Logout>
-                            <Button className='flex flex-col items-center text-center gap-2 cursor-pointer hover:text-hub-blue'>
+                            <div className='flex flex-col items-center gap-2 mt-2'>
                                 {icon.svg}
                                 <span className='text-xs'>{icon.span}</span>
-                            </Button>
+                            </div>
+
                         </Logout>
+                    ) : (
+                        <Drop>
+                            <div className='flex flex-col items-center gap-2 mt-6'>
+                                {icon.svg}
+                                <span className='text-xs'>{icon.span}</span>
+                            </div>
+                        </Drop>
                     )}
 
                 </div>
