@@ -13,6 +13,7 @@ import {
   AlertDialogAction
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
+import logout from '@/lib/auth/logout'
 
 interface Props {
   children: React.ReactNode
@@ -41,7 +42,7 @@ const Logout = ({ children }: Props) => {
           </AlertDialogCancel>
           <AlertDialogAction className='border-2 rounded text-hub-white bg-hub-blue border-hub-blue
                     hover:text-hub-blue hover:bg-hub-white'>
-            Sair
+            <button onClick={() => logout()}>Sair</button>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

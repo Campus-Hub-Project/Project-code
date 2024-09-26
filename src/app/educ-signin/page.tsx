@@ -11,7 +11,7 @@ const EducSigninPage = () => {
           ALGUMA IMAGEM AQUI
         </div>
         <div className='w-1/2 flex flex-col justify-center'>
-          <Card className='border-none mx-24'>
+          <Card className='border-none mx-24 bg-hub-white shadow-none'>
             <CardHeader className='text-center'>
               <CardTitle className='text-3xl font-semibold text-hub-blue'>
                 Login
