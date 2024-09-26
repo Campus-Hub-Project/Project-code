@@ -13,12 +13,25 @@ import {
     AlertDialogCancel,
     AlertDialogAction
 } from '@/components/ui/alert-dialog'
+import drop from '@/lib/auth/drop'
+import logout from '@/lib/auth/logout'
 
 interface Props {
     children: React.ReactNode
 }
 
 const Drop = ({ children }: Props) => {
+
+    const handleDeleteAccount = async () => {
+        try {
+            const response = await drop()
+
+            if (response.success) logout()
+        } catch (error) {
+            throw error
+        }
+    }
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -43,7 +56,7 @@ const Drop = ({ children }: Props) => {
                     <AlertDialogAction
                     className='border-2 rounded text-hub-white bg-hub-blue border-hub-blue
                     hover:text-hub-blue hover:bg-hub-white'>
-                        Deletar conta
+                        <button onClick={() => handleDeleteAccount()}>Deletar conta</button>
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
