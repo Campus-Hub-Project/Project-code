@@ -26,7 +26,7 @@ const Logout = ({ children }: Props) => {
         <Button variant='ghost'
           className='text-center hover:bg-hub-white hover:text-hub-blue'>{children}</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className='rounded'>
+      <AlertDialogContent className='rounded bg-hub-white'>
         <AlertDialogHeader>
           <AlertDialogTitle className='text-hub-blue'>Você tem certeza?</AlertDialogTitle>
           <AlertDialogDescription>

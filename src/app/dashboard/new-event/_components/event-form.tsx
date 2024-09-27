@@ -1,4 +1,5 @@
 'use client'
+
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
@@ -10,10 +11,24 @@ import React from 'react'
 import { format } from "date-fns"
 
 import { useForm } from 'react-hook-form'
+import { newEventSchemaType, newEventSchema } from './schema'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const EventForm = () => {
 
-  const form = useForm()
+  const form = useForm<newEventSchemaType>({
+    resolver: zodResolver(newEventSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+      eventType: undefined,
+      eventFormat: undefined,
+      eventDay: { from: undefined, to: undefined },
+      applicationPeriod: {from: undefined, to: undefined},
+      eventValue: 0.0,
+      eventLimit: 0
+    }
+  })
 
   const submitForm = async () => {
     console.log("Form submetido");
@@ -120,10 +135,24 @@ const EventForm = () => {
                   className='rounded border-2 border-hub-lightgray text-hub-lightgray hover:text-hub-blue hover:border-hub-blue'>
                   <FormControl>
                     <Button variant='outline'>
-                      {field.value ? (
-                        format(field.value, "PPP")
+                      {/*
+                      Tem algum valor no campo from ? 
+                        Tem algum valor no campo to ?
+                          -- Mostre formatado assim --
+                        -- Mostre formatado assim --
+                      -- Mostre a frase --
+                      */}
+                      {field.value?.from ? (
+                        field.value.to ? (
+                          <>
+                            {format(field.value.from, "LLL dd, y")} - {" "}
+                            {format(field.value.to, "LLL dd, y")}
+                          </>
+                        ) : (
+                          format(field.value.from, 'LLL dd, y')
+                        )
                       ) : (
-                        <span>Escolha uma data</span>
+                        <span>Data que ocorrerá o evento aqui...</span>
                       )}
                     </Button>
                   </FormControl>
@@ -133,8 +162,7 @@ const EventForm = () => {
                     mode="range"
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
+                    disabled={(date) => date < new Date("2024-08-01")
                     }
                     initialFocus
                   />
@@ -155,10 +183,17 @@ const EventForm = () => {
                   className='rounded border-2 border-hub-lightgray text-hub-lightgray hover:text-hub-blue hover:border-hub-blue'>
                   <FormControl>
                     <Button variant='outline'>
-                      {field.value ? (
-                        format(field.value, "PPP")
+                      {field.value.from ? (
+                        field.value.to ? (
+                          <>
+                            {format(field.value.from, 'LLL dd, y')} - {" "}
+                            {format(field.value.to, 'LLL dd, y')}
+                          </>
+                        ) : (
+                          format(field.value.from, 'LLL dd, y')
+                        )
                       ) : (
-                        <span>Escolha uma data</span>
+                        <span>Abertura e encerramento das inscrições aqui...</span>
                       )}
                     </Button>
                   </FormControl>
@@ -168,6 +203,7 @@ const EventForm = () => {
                     mode='range'
                     selected={field.value}
                     onSelect={field.onChange}
+                    disabled={(date) => date < new Date('2024-08-10')}
                     initialFocus
                   />
                 </PopoverContent>
