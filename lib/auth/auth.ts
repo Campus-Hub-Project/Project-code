@@ -2,8 +2,7 @@ import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "../db"
 import Google from 'next-auth/providers/google'
-import Email from 'next-auth/providers/nodemailer'
-
+import Nodemailer from 'next-auth/providers/nodemailer'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     adapter: PrismaAdapter(prisma),
@@ -18,8 +17,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            profile(profile) {
+                return {
+                    id: profile.sub,
+                    name: profile.name,
+                    email: profile.email,
+                    image: profile.picture,
+                    emailVerified: profile.email_verified,
+                    role: "user",
+                };
+            },
         }),
-        Email({
+        Nodemailer({
             id: 'email',
             name: 'email',
             server: {
@@ -38,7 +47,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             if (user) {
                 return {
                     ...token,
-                    id: user.id
+                    id: user.id,
+                    role: user.role || 'instituition'
                 }
             }
             return token
@@ -48,10 +58,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 ...session,
                 user: {
                     ...session.user,
-                    id: token.id as string
+                    id: token.id as string,
+                    role: token.role as string
                 }
             }
-        }
+        },
+        async signIn({ user }) {
+            if (!user.role && user.email) {
+                await prisma.user.update({
+                    where: { email: user.email },
+                    data: { role: "instituition" },
+                });
+            }
+            return true;
+        },
     },
     secret: "abcd1234"
 })

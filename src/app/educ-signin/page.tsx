@@ -17,7 +17,7 @@ const EducSigninPage = () => {
                 Login
               </CardTitle>
               <CardDescription className='mx-4 font-medium text-base text-hub-middlegray'>
-                Insira o e-mail de sua instituição. Você receberá uma mensagem de confirmação para continuar
+                Insira o e-mail da instituição. Você receberá uma mensagem de confirmação para continuar
               </CardDescription>
             </CardHeader>
             <CardContent className='mt-3 flex gap-3'>

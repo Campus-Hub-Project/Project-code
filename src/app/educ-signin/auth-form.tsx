@@ -40,7 +40,7 @@ const AuthForm = () => {
                                     className='
                                 w-full rounded border-2 border-hub-middlegray text-hub-middlegray
                                  focus:border-hub-blue focus:text-hub-blue'
-                                    {...field} placeholder='E-mail da sua instituição aqui...' />
+                                    {...field} placeholder='E-mail da instituição aqui...' />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
