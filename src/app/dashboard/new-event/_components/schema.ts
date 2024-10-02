@@ -1,5 +1,10 @@
 import { z } from 'zod'
 
+// valores constantes e específicos, não apenas um array de strings
+export const eventTypeEnum = ['lectures', 'workshop', 'bootcamp', 'conference', 'congress', 'other' ] as const 
+
+const eventFormatEnum = ['inperson', 'online', 'hybrid'] as const
+
 export const newEventSchema = z.object({
     name: z.
         string({ message: 'O campo "Nome" é obrigatório' })
@@ -7,9 +12,9 @@ export const newEventSchema = z.object({
     description: z
         .string({ message: 'O campo "Descrição" é obrigatório' }),
     eventType: z
-        .string({ message: 'Obrigatório' }),
+        .enum(eventTypeEnum),
     eventFormat: z
-        .string({ message: "Obrigatório" }),
+        .enum(eventFormatEnum),
     eventDay: z
         .object({
             from: z
@@ -29,11 +34,11 @@ export const newEventSchema = z.object({
             to: z
                 .date({ message: 'Escolha as datas de início e encerramento das inscrições.' })
                 .optional()
-        })
-        .refine(
-            (data) => data.to === undefined || data.from >= data.to,
-            { message: 'As inscrições não pode terminar antes de começar' }
-        ),
+        }),
+        // .refine(
+        //     (data) => data.to === undefined || data.from >= data.to,
+        //     { message: 'As inscrições não pode terminar antes de começar' }
+        // ),
     eventValue: z
         .number({ message: 'Esse campo aceita apenas números positivos' })
         .default(0.0)

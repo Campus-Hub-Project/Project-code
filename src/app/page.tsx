@@ -16,7 +16,7 @@ const HomePage = () => {
           <Card className='mx-6 border-none shadow-none bg-hub-white'>
             <CardHeader className=''>
               <CardTitle className='text-5xl font-semibold text-hub-black'>
-                Olá, seja bem-vindo ao <span className='text-hub-blue font-bold'>campus_hub</span>
+                Olá, seja bem-vindo(a) ao <span className='text-hub-blue font-bold'>campus_hub</span>
               </CardTitle>
               <CardDescription className=' font-medium text-base text-hub-middlegray'>
                 Aqui, você pode ficar por dentro das mais diversas novidades do mundo acadêmico.

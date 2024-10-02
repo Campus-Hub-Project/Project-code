@@ -13,6 +13,7 @@ import { format } from "date-fns"
 import { useForm } from 'react-hook-form'
 import { newEventSchemaType, newEventSchema } from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { createNewEvent } from '@/lib/events/newEvent'
 
 const EventForm = () => {
 
@@ -24,15 +25,20 @@ const EventForm = () => {
       eventType: undefined,
       eventFormat: undefined,
       eventDay: { from: undefined, to: undefined },
-      applicationPeriod: {from: undefined, to: undefined},
+      applicationPeriod: { from: undefined, to: undefined },
       eventValue: 0.0,
       eventLimit: 0
     }
   })
 
-  const submitForm = async () => {
-    console.log("Form submetido");
-
+  const submitForm = async (data: newEventSchemaType) => {
+    try {
+      await createNewEvent(data)
+      console.log("Pronto");
+      
+    } catch (error) {
+      throw error
+    }
   }
 
   return (
@@ -106,20 +112,19 @@ const EventForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className='text-hub-blue'>Formato:</FormLabel>
-              <FormControl>
-                <Select {...field}>
-                  <SelectTrigger className='rounded border-2 border-hub-lightgray text-hub-lightgray outline-none'>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger
+                    className='rounded border-2 border-hub-lightgray text-hub-lightgray outline-none'>
                     <SelectValue placeholder="Seu evento é..." />
                   </SelectTrigger>
-                  <SelectContent className='cursor-pointer bg-hub-white rounded border-2 border-hub-lightgray text-hub-lightgray'>
-                    <SelectGroup className='bg-hub-white cursor-pointer'>
-                      <SelectItem value="lectures" className='cursor-pointer focus:text-hub-blue'>Presencial</SelectItem>
-                      <SelectItem value="workshop" className='cursor-pointer focus:text-hub-blue'>Online</SelectItem>
-                      <SelectItem value="bootcamp" className='cursor-pointer focus:text-hub-blue'>Híbrido</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </FormControl>
+                </FormControl>
+                <SelectContent className='cursor-pointer bg-hub-white rounded border-2 border-hub-lightgray text-hub-lightgray'>
+                  <SelectItem value="inperson" className='cursor-pointer focus:text-hub-blue'>Presencial</SelectItem>
+                  <SelectItem value="online" className='cursor-pointer focus:text-hub-blue'>Online</SelectItem>
+                  <SelectItem value="hybrid" className='cursor-pointer focus:text-hub-blue'>Híbrido</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
@@ -145,11 +150,11 @@ const EventForm = () => {
                       {field.value?.from ? (
                         field.value.to ? (
                           <>
-                            {format(field.value.from, "LLL dd, y")} - {" "}
-                            {format(field.value.to, "LLL dd, y")}
+                            {format(field.value.from, "dd LLL, y")} - {" "}
+                            {format(field.value.to, "dd LLL, y")}
                           </>
                         ) : (
-                          format(field.value.from, 'LLL dd, y')
+                          format(field.value.from, "dd LLL, y")
                         )
                       ) : (
                         <span>Data que ocorrerá o evento aqui...</span>
