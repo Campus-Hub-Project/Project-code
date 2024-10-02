@@ -11,7 +11,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         maxAge: 30 * 24 * 60 * 60, // 30 dias em segundos
     },
     pages: {
-        signIn: '/'
+        signIn: '/',
+        verifyRequest: '/signin/email-send'
     },
     providers: [
         Google({
@@ -72,6 +73,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }
             return true;
         },
+        async redirect({ baseUrl }) {
+            return `${baseUrl}/dashboard`
+        }
     },
     secret: "abcd1234"
 })

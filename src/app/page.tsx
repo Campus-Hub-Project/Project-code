@@ -31,7 +31,7 @@ const HomePage = () => {
               hover:bg-hub-blue hover:text-hub-white'>
                 <FcGoogle size={20} />
                 Entrar com Google</Button>
-              <Link href="/educ-signin"
+              <Link href="/signin"
                 className='border-hub-blue border-2 rounded flex items-center justify-center px-4 text-sm text-hub-blue
                 hover:bg-hub-blue hover:text-hub-white'>
                 Para instituições</Link>

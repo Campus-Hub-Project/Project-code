@@ -8,7 +8,6 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-
 const AuthForm = () => {
 
     const form = useForm<formSchemaType>({

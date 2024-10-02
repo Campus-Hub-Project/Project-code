@@ -1,6 +1,6 @@
 'use server'
 
-import { formSchemaType } from "@/src/app/educ-signin/schema"
+import { formSchemaType } from "@/src/app/signin/schema"
 import { signIn } from "./auth"
 
 const signInWithEmail = async (data: formSchemaType) => {
