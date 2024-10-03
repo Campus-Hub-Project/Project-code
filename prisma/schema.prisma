@@ -50,16 +50,18 @@ model VerificationToken {
 }
 
 model Event {
-  id                String   @id @default(uuid())
-  userId            String   @map("user_id")
-  name              String
-  description       String   @db.Text
-  eventType         String   @map("event_type")
-  eventFormat       String   @map("event_format")
-  eventDay          DateTime @map("event_day")
-  applicationPeriod DateTime @map("application_period")
-  eventValue        Float    @default(0.0) @map("event_value")
-  eventLimit        Int      @default(0) @map("event_limit")
+  id                    String   @id @default(uuid())
+  userId                String   @map("user_id")
+  name                  String
+  description           String   @db.Text
+  eventType             String   @map("event_type")
+  eventFormat           String   @map("event_format")
+  eventDayTo            DateTime @map("event_day_to")
+  eventDayFrom          DateTime @map("event_day_from")
+  applicationPeriodTo   DateTime @map("application_period_to")
+  applicationPeriodFrom DateTime @map("application_period_from")
+  eventValue            Float    @default(0.0) @map("event_value")
+  eventLimit            Int      @default(0) @map("event_limit")
 
   user User @relation(fields: [userId], references: [id])
 

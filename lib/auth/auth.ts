@@ -65,13 +65,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }
         },
         async signIn({ user }) {
-            if (!user.role && user.email) {
-                await prisma.user.update({
-                    where: { email: user.email },
-                    data: { role: "instituition" },
-                });
+
+            if (user.email) {
+                let existingUser = await prisma.user.findUnique({
+                    where: {
+                        email: user.email,
+                    }
+                })
+
+                if (!existingUser) {
+                    await prisma.user.create({
+                        data: {
+                            email: user.email,
+                            role: 'instituition'
+                        }
+                    })
+                }
             }
-            return true;
+            return true
         },
         async redirect({ baseUrl }) {
             return `${baseUrl}/dashboard`

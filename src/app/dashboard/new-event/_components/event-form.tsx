@@ -1,21 +1,27 @@
 'use client'
 
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import React from 'react'
-import { format } from "date-fns"
 
+import { Textarea } from '@/components/ui/textarea'
+import React, { useTransition } from 'react'
+
+import { format } from "date-fns"
 import { useForm } from 'react-hook-form'
+
 import { newEventSchemaType, newEventSchema } from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+
 import { createNewEvent } from '@/lib/events/newEvent'
 
 const EventForm = () => {
+
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm<newEventSchemaType>({
     resolver: zodResolver(newEventSchema),
@@ -32,10 +38,13 @@ const EventForm = () => {
   })
 
   const submitForm = async (data: newEventSchemaType) => {
+
     try {
-      await createNewEvent(data)
-      console.log("Pronto");
-      
+      startTransition(async () => {
+        await createNewEvent(data)
+
+        form.reset()
+      })
     } catch (error) {
       throw error
     }
@@ -43,7 +52,7 @@ const EventForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submitForm)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(submitForm)} className="w-2/3 space-y-6 scroll-smooth">
         <FormField
           control={form.control}
           name="name"
@@ -52,6 +61,7 @@ const EventForm = () => {
               <FormLabel className='text-hub-blue'>Nome do evento:</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isPending}
                   placeholder="Nome do evento aqui..." {...field}
                   className='
                     rounded border-2 border-hub-lightgray text-hub-lightgray
@@ -70,6 +80,7 @@ const EventForm = () => {
               <FormLabel className='text-hub-blue'>Descrição do evento:</FormLabel>
               <FormControl>
                 <Textarea
+                  disabled={isPending}
                   placeholder='Pontos mais importantes do evento aqui...' {...field}
                   className='
                     h-28 rounded border-2 border-hub-lightgray text-hub-lightgray
@@ -93,13 +104,14 @@ const EventForm = () => {
                     <SelectValue placeholder="Seu evento é um(a)..." />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className='cursor-pointer bg-hub-white rounded border-2 border-hub-lightgray text-hub-lightgray'>
-                  <SelectItem value="lectures" className='cursor-pointer focus:text-hub-blue'>Palestra</SelectItem>
-                  <SelectItem value="workshop" className='cursor-pointer focus:text-hub-blue'>Workshop</SelectItem>
-                  <SelectItem value="bootcamp" className='cursor-pointer focus:text-hub-blue'>Bootcamp</SelectItem>
-                  <SelectItem value="conference" className='cursor-pointer focus:text-hub-blue'>Conferência</SelectItem>
-                  <SelectItem value="congress" className='cursor-pointer focus:text-hub-blue'>Congresso</SelectItem>
-                  <SelectItem value="other" className='cursor-pointer focus:text-hub-blue'>Outro</SelectItem>
+                <SelectContent
+                  className='cursor-pointer bg-hub-white rounded border-2 border-hub-lightgray text-hub-lightgray'>
+                  <SelectItem disabled={isPending} value="lectures" className='cursor-pointer focus:text-hub-blue'>Palestra</SelectItem>
+                  <SelectItem disabled={isPending} value="workshop" className='cursor-pointer focus:text-hub-blue'>Workshop</SelectItem>
+                  <SelectItem disabled={isPending} value="bootcamp" className='cursor-pointer focus:text-hub-blue'>Bootcamp</SelectItem>
+                  <SelectItem disabled={isPending} value="conference" className='cursor-pointer focus:text-hub-blue'>Conferência</SelectItem>
+                  <SelectItem disabled={isPending} value="congress" className='cursor-pointer focus:text-hub-blue'>Congresso</SelectItem>
+                  <SelectItem disabled={isPending} value="other" className='cursor-pointer focus:text-hub-blue'>Outro</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -120,9 +132,9 @@ const EventForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className='cursor-pointer bg-hub-white rounded border-2 border-hub-lightgray text-hub-lightgray'>
-                  <SelectItem value="inperson" className='cursor-pointer focus:text-hub-blue'>Presencial</SelectItem>
-                  <SelectItem value="online" className='cursor-pointer focus:text-hub-blue'>Online</SelectItem>
-                  <SelectItem value="hybrid" className='cursor-pointer focus:text-hub-blue'>Híbrido</SelectItem>
+                  <SelectItem disabled={isPending} value="inperson" className='cursor-pointer focus:text-hub-blue'>Presencial</SelectItem>
+                  <SelectItem disabled={isPending} value="online" className='cursor-pointer focus:text-hub-blue'>Online</SelectItem>
+                  <SelectItem disabled={isPending} value="hybrid" className='cursor-pointer focus:text-hub-blue'>Híbrido</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -139,7 +151,7 @@ const EventForm = () => {
                 <PopoverTrigger asChild
                   className='rounded border-2 border-hub-lightgray text-hub-lightgray hover:text-hub-blue hover:border-hub-blue'>
                   <FormControl>
-                    <Button variant='outline'>
+                    <Button variant='outline' disabled={isPending}>
                       {/*
                       Tem algum valor no campo from ? 
                         Tem algum valor no campo to ?
@@ -164,6 +176,7 @@ const EventForm = () => {
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
+                    className='text-hub-lightgray focus:bg-hub-blue'
                     mode="range"
                     selected={field.value}
                     onSelect={field.onChange}
@@ -187,7 +200,7 @@ const EventForm = () => {
                 <PopoverTrigger asChild
                   className='rounded border-2 border-hub-lightgray text-hub-lightgray hover:text-hub-blue hover:border-hub-blue'>
                   <FormControl>
-                    <Button variant='outline'>
+                    <Button variant='outline' disabled={isPending}>
                       {field.value.from ? (
                         field.value.to ? (
                           <>
@@ -205,6 +218,7 @@ const EventForm = () => {
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
+                    className='text-hub-lightgray'
                     mode='range'
                     selected={field.value}
                     onSelect={field.onChange}
@@ -225,6 +239,7 @@ const EventForm = () => {
               <FormLabel className='text-hub-blue'>Valor da inscrição: (deixe zero caso seja gratuito)</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isPending}
                   placeholder="Valor do evento aqui..." {...field} type='number'
                   className='
                     px-3 py-1 h-9 w-full rounded border-2 border-hub-lightgray text-hub-lightgray
@@ -242,7 +257,10 @@ const EventForm = () => {
             <FormItem>
               <FormLabel className='text-hub-blue'>Limite de participantes: (deixe zero caso não haja)</FormLabel>
               <FormControl>
-                <Input placeholder="Limite de participantes do evento aqui..." {...field} type='number'
+                <Input
+                  disabled={isPending}
+                  placeholder="Limite de participantes do evento aqui..."
+                  {...field} type='number'
                   className='
                 px-3 py-1 h-9 w-full rounded border-2 border-hub-lightgray text-hub-lightgray
                 outline-none focus:border-hub-blue focus:text-hub-blue'
