@@ -42,7 +42,7 @@ const EventForm = () => {
     try {
       startTransition(async () => {
         await createNewEvent(data)
-
+        alert("Evento criado com sucesso")
         form.reset()
       })
     } catch (error) {
@@ -176,7 +176,7 @@ const EventForm = () => {
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
-                    className='text-hub-lightgray focus:bg-hub-blue'
+                    className='text-hub-lightgray '
                     mode="range"
                     selected={field.value}
                     onSelect={field.onChange}

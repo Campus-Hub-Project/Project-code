@@ -11,12 +11,10 @@ interface Props {
 
 const DashboardLayout = async ({ children }: Props) => {
 
-    const isAuth = await isAuthenticated()
     const session = await auth()
 
 
     if (session?.user?.role === "instituition") {
-        console.log(session.user.role);
         
         return (
             <>

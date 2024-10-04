@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { formSchema, formSchemaType } from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,7 +8,11 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
+import btCss from '@/styles/Button.module.css'
+
 const AuthForm = () => {
+
+    const [isPending, startTransition] = useTransition()
 
     const form = useForm<formSchemaType>({
         resolver: zodResolver(formSchema),
@@ -19,7 +23,10 @@ const AuthForm = () => {
 
     const submitForm = async (data: formSchemaType) => {
         try {
-            await signInWithEmail(data);
+            startTransition(async () => {
+                await signInWithEmail(data)
+                form.reset()
+            })
         } catch (error) {
             console.error(error);
         }
@@ -36,6 +43,7 @@ const AuthForm = () => {
                             <FormLabel className='text-hub-blue font-semibold'>Email:</FormLabel>
                             <FormControl>
                                 <Input
+                                    disabled={isPending}
                                     className='
                                 w-full rounded border-2 border-hub-middlegray text-hub-middlegray
                                  focus:border-hub-blue focus:text-hub-blue'
@@ -46,8 +54,7 @@ const AuthForm = () => {
                     )}
                 />
                 <Button type='submit'
-                    className='mt-4 border-hub-blue border-2 rounded bg-hub-white text-sm
-                    text-hub-blue hover:bg-hub-blue hover:text-hub-white'>
+                    className={`${btCss['basic-button-config']} mt-4`}>
                     Enviar
                 </Button>
             </form>

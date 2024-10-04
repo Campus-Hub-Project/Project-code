@@ -15,11 +15,14 @@ import {
 import { Button } from '@/components/ui/button'
 import logout from '@/lib/auth/logout'
 
+import btCss from '@/styles/Button.module.css'
+
 interface Props {
   children: React.ReactNode
 }
 
 const Logout = ({ children }: Props) => {
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -36,8 +39,7 @@ const Logout = ({ children }: Props) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-            className='text-hub-blue border-2 rounded border-hub-blue bg-hub-white
-          hover:text-hub-white hover:bg-hub-blue'>
+          className={`${btCss['basic-button-config']}`}>
             Voltar
           </AlertDialogCancel>
           <AlertDialogAction className='border-2 rounded text-hub-white bg-hub-blue border-hub-blue

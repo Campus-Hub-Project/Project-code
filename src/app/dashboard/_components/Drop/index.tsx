@@ -16,6 +16,8 @@ import {
 import drop from '@/lib/auth/drop'
 import logout from '@/lib/auth/logout'
 
+import btCss from '@/styles/Button.module.css'
+
 interface Props {
     children: React.ReactNode
 }
@@ -49,8 +51,7 @@ const Drop = ({ children }: Props) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel
-                        className='text-hub-blue border-2 rounded border-hub-blue bg-hub-white
-                        hover:text-hub-white hover:bg-hub-blue'>
+                        className={`${btCss['basic-button-config']}`}>
                         Não
                     </AlertDialogCancel>
                     <AlertDialogAction

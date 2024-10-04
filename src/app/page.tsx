@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import signInWithGoogle from '@/lib/auth/signinWithGoogle'
 import Link from 'next/link'
 import React from 'react'
+import btCss from '@/styles/Button.module.css'
 
 import { FcGoogle } from "react-icons/fc";
 
@@ -26,14 +27,12 @@ const HomePage = () => {
             <CardContent className='mt-3 flex gap-3'>
               <Button
                 onClick={() => signInWithGoogle()}
-                className='
-              border-2 border-hub-blue gap-1 rounded text-sm text-hub-blue bg-hub-white
-              hover:bg-hub-blue hover:text-hub-white'>
+                className={`${btCss['basic-button-config']} gap-1`}>
                 <FcGoogle size={20} />
                 Entrar com Google</Button>
-              <Link href="/signin"
-                className='border-hub-blue border-2 rounded flex items-center justify-center px-4 text-sm text-hub-blue
-                hover:bg-hub-blue hover:text-hub-white'>
+              <Link
+                href="/signin"
+                className={`${btCss['basic-button-config']} flex items-center justify-center px-4`}>
                 Para instituições</Link>
             </CardContent>
           </Card>
