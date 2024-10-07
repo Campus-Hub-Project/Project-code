@@ -60,6 +60,7 @@ model Event {
   eventDayFrom          DateTime @map("event_day_from")
   applicationPeriodTo   DateTime @map("application_period_to")
   applicationPeriodFrom DateTime @map("application_period_from")
+  eventTime             String   @default("13:00") @map("event_time")
   eventValue            Float    @default(0.0) @map("event_value")
   eventLimit            Int      @default(0) @map("event_limit")
 

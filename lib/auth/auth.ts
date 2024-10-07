@@ -85,7 +85,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             return true
         },
         async redirect({ baseUrl }) {
-            return `${baseUrl}/dashboard`
+            return `${baseUrl}/dashboard/my-events`
         }
     },
     secret: "abcd1234"

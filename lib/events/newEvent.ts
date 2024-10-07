@@ -20,12 +20,13 @@ export const createNewEvent = async (data: newEventSchemaType) => {
         eventType,
         eventFormat,
         eventDay,
+        eventTime,
         applicationPeriod,
         eventValue,
         eventLimit } = isDataAsSchema.data
 
     if (eventDay.to === undefined || applicationPeriod.to === undefined) return null
-        
+
     const newEvent = await prisma.event.create({
         data: {
             name,
@@ -36,6 +37,7 @@ export const createNewEvent = async (data: newEventSchemaType) => {
             eventDayFrom: eventDay.from,
             applicationPeriodTo: applicationPeriod.to,
             applicationPeriodFrom: applicationPeriod.from,
+            eventTime,
             eventValue,
             eventLimit,
             userId: session.user?.id

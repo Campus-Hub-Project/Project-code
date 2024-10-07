@@ -31,6 +31,7 @@ const EventForm = () => {
       eventType: undefined,
       eventFormat: undefined,
       eventDay: { from: undefined, to: undefined },
+      eventTime: undefined,
       applicationPeriod: { from: undefined, to: undefined },
       eventValue: 0.0,
       eventLimit: 0
@@ -186,6 +187,26 @@ const EventForm = () => {
                   />
                 </PopoverContent>
               </Popover>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="eventTime"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className='text-hub-blue'>Horário de início do evento (Horas: minutos):</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={isPending}
+                  placeholder="Horário do evento aqui..." {...field}
+                  className='
+                    rounded border-2 border-hub-lightgray text-hub-lightgray
+                    outline-none focus:border-hub-blue focus:text-hub-blue cursor-pointer'
+                    type='time'
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

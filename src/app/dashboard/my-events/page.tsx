@@ -1,6 +1,6 @@
 import { getEventsCreated } from '@/lib/events/eventsCreated'
 import React from 'react'
-import EventCard from './_components/EventCard'
+import EventCard from './_components/event-card'
 
 const EventsCreatedPage = async () => {
 
