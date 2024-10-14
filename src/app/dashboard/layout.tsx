@@ -1,7 +1,6 @@
 import React from 'react'
 import Aside from './_components/Aside'
 import { instituitionIcons, userIcons } from './_components/Aside/icons'
-import isAuthenticated from '@/lib/auth/isAuthenticated'
 import { redirect } from 'next/navigation'
 import { auth } from '@/lib/auth/auth'
 
@@ -13,9 +12,7 @@ const DashboardLayout = async ({ children }: Props) => {
 
     const session = await auth()
 
-
     if (session?.user?.role === "instituition") {
-        
         return (
             <>
                 <Aside icons={instituitionIcons} />
