@@ -11,12 +11,13 @@ model User {
   id            String    @id @default(uuid())
   name          String?
   email         String    @unique
-  emailVerified DateTime?
+  emailVerified DateTime? @map("email_verified")
   image         String?
   role          String?
 
-  accounts Account[]
-  events   Event[]
+  accounts       Account[]
+  events         Event[]
+  participations Event[]   @relation("event_participants")
 
   @@map("users")
 }
@@ -63,6 +64,7 @@ model Event {
   eventTime             String   @default("13:00") @map("event_time")
   eventValue            Float    @default(0.0) @map("event_value")
   eventLimit            Int      @default(0) @map("event_limit")
+  participants          User[]   @relation("event_participants")
 
   user User @relation(fields: [userId], references: [id])
 

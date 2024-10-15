@@ -18,6 +18,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            authorization: {
+                params: {
+                    // Definindo o scope para acessar o Google Calendar
+                    scope: 'openid profile email https://www.googleapis.com/auth/calendar.events' 
+                }
+            },
             profile(profile) {
                 return {
                     id: profile.sub,
@@ -44,25 +50,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         })
     ],
     callbacks: {
-        async jwt({ user, token }) {
+        async jwt({ user, token, account }) {
+            // armazenando o access token no jwt
+            if (account && account.provider === 'google') token.accessToken = account.access_token
+                
             if (user) {
-                return {
-                    ...token,
-                    id: user.id,
-                    role: user.role || 'instituition'
-                }
+                token.id = user.id
+                token.role = user.role || "instituition"
             }
-            return token
+
+            return token;
         },
         async session({ session, token }) {
-            return {
-                ...session,
-                user: {
-                    ...session.user,
-                    id: token.id as string,
-                    role: token.role as string
-                }
-            }
+            session.user = {
+                ...session.user,
+                id: token.id as string,
+                role: token.role as string,
+            };
+            return session;
         },
         async signIn({ user }) {
 

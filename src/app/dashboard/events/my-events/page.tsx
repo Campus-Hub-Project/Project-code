@@ -1,10 +1,10 @@
-import { getEventsCreated } from '@/lib/events/eventsCreated'
+import getEventsCreatedByInstituition from '@/lib/events/eventsCreatedByInstituition'
 import React from 'react'
-import EventCard from './_components/event-card'
+import EventCard from '../_components/event-card'
 
 const EventsCreatedPage = async () => {
 
-  const events = await getEventsCreated()
+  const events = await getEventsCreatedByInstituition()
 
   if (!events) {
     return <div className='text-black text-7xl'>Você ainda não criou nenhum evento</div>

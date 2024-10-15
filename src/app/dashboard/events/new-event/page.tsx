@@ -1,5 +1,5 @@
 import React from 'react'
-import EventForm from './_components/event-form'
+import EventForm from '../../new-event/_components/event-form'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 
 const NewEventPage = () => {

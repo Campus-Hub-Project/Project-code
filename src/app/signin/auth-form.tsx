@@ -28,6 +28,7 @@ const AuthForm = () => {
                 form.reset()
             })
         } catch (error) {
+            alert('Algo deu errado, tente novamente mais tarde')
             console.error(error);
         }
     }
