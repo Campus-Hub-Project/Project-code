@@ -1,66 +1,75 @@
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle
+} from '@/components/ui/card'
 import React from 'react'
 
-import btCss from '@/styles/Button.module.css'
 import { auth } from '@/lib/auth/auth'
+
+import btCss from '@/styles/Button.module.css'
 
 interface Props {
     event: {
         name: string,
         description: string,
-        eventType: string,
-        eventFormat: string,
-        eventDayTo: Date,
-        eventDayFrom: Date,
-        applicationPeriodTo: Date,
-        applicationPeriodFrom: Date,
-        eventTime: string,
-        eventValue: number,
-        eventLimit: number,
-    }
+        type: string,
+        format: string,
+        starts: Date,
+        ends: Date,
+        subs_starts: Date,
+        subs_ends: Date,
+        price: number,
+        participants_limit: number,
+    },
 }
 
 const EventCard = async ({ event }: Props) => {
 
     const session = await auth()
 
-    const formatedEventType = event.eventType === 'lectures' ? 'Palestra'
-        : event.eventType === 'workshop' ? 'Workshop'
-            : event.eventType === 'bootcamp' ? 'Bootcamp'
-                : event.eventType === 'conference' ? 'Conferência'
-                    : event.eventType === 'congress' ? 'Congresso' : 'Outro'
+    const formatedEventType = event.type === 'lectures' ? 'Palestra'
+        : event.type === 'workshop' ? 'Workshop'
+            : event.type === 'bootcamp' ? 'Bootcamp'
+                : event.type === 'conference' ? 'Conferência'
+                    : event.type === 'congress' ? 'Congresso' : 'Outro'
 
-    const formatedEventFormat = event.eventFormat === 'inperson' ? 'Presencial'
-        : event.eventFormat === 'online' ? 'Online' : 'Híbrido'
+    const formatedEventFormat = event.format === 'inperson' ? 'Presencial'
+        : event.format === 'online' ? 'Online' : 'Híbrido'
 
-    const formatedEventDayTo = event.eventDayTo.toLocaleDateString('pt-BR', {
+    const formatedDateStarts = event.starts.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        timeStyle: 'long'
+    })
+
+    const formatedDateEnds = event.ends.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        timeStyle: 'long'
+    })
+
+    const formatedSubStarts = event.subs_starts.toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: 'long',
         year: 'numeric'
     })
 
-    const formatedEventDayFrom = event.eventDayFrom.toLocaleDateString('pt-BR', {
+    const formatedSubEnds = event.subs_ends.toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: 'long',
         year: 'numeric'
     })
 
-    const formatedEventApplicationTo = event.applicationPeriodTo.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-    })
+    const formatedEventValue = event.price === 0 ? 'Gratuito' : `R$ ${event.price}`
 
-    const formatedEventApplicationFrom = event.applicationPeriodFrom.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-    })
-
-    const formatedEventValue = event.eventValue === 0 ? 'Gratuito' : `R$ ${event.eventValue}`
-
-    const formatedEventLimit = event.eventLimit === 0 ? 'Não há limite de participantes' : `${event.eventLimit} vagas`
+    const formatedEventLimit = event.participants_limit === 0 ? 'Não há limite de participantes' : `${event.participants_limit} vagas`
 
     return (
         <section className='min-h-screen w-full bg-hub-white flex justify-center'>
@@ -72,9 +81,8 @@ const EventCard = async ({ event }: Props) => {
                 <CardContent className='flex flex-col'>
                     <span>Tipo do evento: {formatedEventType}</span>
                     <span>Formato: {formatedEventFormat}</span>
-                    <span>Data do evento: {formatedEventDayTo} até {formatedEventDayFrom}</span>
-                    <span>Horário: {event.eventTime}</span>
-                    <span>Período de inscrição: {formatedEventApplicationTo} até {formatedEventApplicationFrom}</span>
+                    <span>Data do evento: {formatedDateStarts} até {formatedDateEnds}</span>
+                    <span>Período de inscrição: {formatedSubStarts} até {formatedSubEnds}</span>
                     <span>Valor da inscrição: {formatedEventValue}</span>
                     <span>Limite de participantes: {formatedEventLimit}</span>
                 </CardContent>

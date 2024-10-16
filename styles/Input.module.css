@@ -1,0 +1,7 @@
+.basic-input-config {
+    @apply rounded border-2 border-hub-lightgray text-hub-lightgray outline-none
+}
+
+.basic-select-config {
+    @apply cursor-pointer focus:text-hub-blue
+}

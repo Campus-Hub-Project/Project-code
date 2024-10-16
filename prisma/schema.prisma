@@ -17,7 +17,7 @@ model User {
 
   accounts       Account[]
   events         Event[]
-  participations Event[]   @relation("event_participants")
+  participations Event[]   @relation("participants")
 
   @@map("users")
 }
@@ -51,20 +51,19 @@ model VerificationToken {
 }
 
 model Event {
-  id                    String   @id @default(uuid())
-  userId                String   @map("user_id")
-  name                  String
-  description           String   @db.Text
-  eventType             String   @map("event_type")
-  eventFormat           String   @map("event_format")
-  eventDayTo            DateTime @map("event_day_to")
-  eventDayFrom          DateTime @map("event_day_from")
-  applicationPeriodTo   DateTime @map("application_period_to")
-  applicationPeriodFrom DateTime @map("application_period_from")
-  eventTime             String   @default("13:00") @map("event_time")
-  eventValue            Float    @default(0.0) @map("event_value")
-  eventLimit            Int      @default(0) @map("event_limit")
-  participants          User[]   @relation("event_participants")
+  id                 String   @id @default(uuid())
+  userId             String   @map("user_id")
+  name               String
+  description        String   @db.Text
+  type               String
+  format             String
+  starts             DateTime
+  ends               DateTime
+  subs_starts        DateTime
+  subs_ends          DateTime
+  price              Float    @default(0.0)
+  participants_limit Int      @default(0)
+  participants       User[]   @relation("participants")
 
   user User @relation(fields: [userId], references: [id])
 

@@ -2,6 +2,7 @@
 
 import { auth } from "../auth/auth"
 import { prisma } from "../db"
+import addInGoogleCalendar from "./addInGoogleCalendar"
 
 const getIntoEvent = async (eventId: string) => {
     // pegando a sessão do usuário presente na função auth()
@@ -36,6 +37,9 @@ const getIntoEvent = async (eventId: string) => {
             }
         }
     })
+
+    // insiro o evento que o usuário vai participar na agenda Google dele
+    const eventInsertedInCalendar = await addInGoogleCalendar({ event: eventToGetInto, session: session });
 
     // retorna o evento atualizado
     return eventToGetInto

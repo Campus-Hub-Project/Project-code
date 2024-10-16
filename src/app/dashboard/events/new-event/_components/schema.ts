@@ -11,9 +11,9 @@ export const newEventSchema = z.object({
         .trim(),
     description: z
         .string({ message: 'O campo "Descrição" é obrigatório' }),
-    eventType: z
+    type: z
         .enum(eventTypeEnum),
-    eventFormat: z
+    format: z
         .enum(eventFormatEnum),
     eventDay: z
         .object({
@@ -27,9 +27,11 @@ export const newEventSchema = z.object({
             (data) => data.to === undefined || data.from <= data.to,
             { message: "O evento não pode terminar antes de começar" }
         ),
-    eventTime: z
-        .string({ message: "O campo do horário do evento é obrigatório1." }),
-    applicationPeriod: z
+    eventTimeStarts: z
+        .string({ message: "O campo do horário do início do evento é obrigatório." }),
+    eventTimeEnds: z
+        .string({ message: "O campo do horário do final do evento é obrigatório." }),
+    subscribePeriod: z
         .object({
             from: z
                 .date({ message: 'Escolha as datas de início e encerramento das inscrições.' }),
@@ -37,17 +39,13 @@ export const newEventSchema = z.object({
                 .date({ message: 'Escolha as datas de início e encerramento das inscrições.' })
                 .optional()
         }),
-    // .refine(
-    //     (data) => data.to === undefined || data.from >= data.to,
-    //     { message: 'As inscrições não pode terminar antes de começar' }
-    // ),
-    eventValue: z
+    price: z
         .number({ message: 'Esse campo aceita apenas números positivos' })
         .default(0.0)
         .refine(
             (value) => value >= 0, { message: 'Esse campo aceita apenas números positivos1' }
         ),
-    eventLimit: z
+    participants_limit: z
         .number({ message: 'Esse campo aceita apenas números inteiros positivos' })
         .int({ message: 'Esse campo aceita apenas números inteiros positivos' })
         .default(0),
