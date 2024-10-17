@@ -14,7 +14,10 @@ import React, { useTransition } from 'react'
 import { format } from "date-fns"
 import { useForm } from 'react-hook-form'
 
-import { newEventSchemaType, newEventSchema } from './schema'
+import {
+  createNewEventSchema,
+  createNewEventSchemaType
+} from '@/schemas/create-new-event-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { createNewEvent } from '@/lib/events/newEvent'
@@ -22,12 +25,12 @@ import { createNewEvent } from '@/lib/events/newEvent'
 import inputCss from '@/styles/Input.module.css'
 import btnCss from '@/styles/Button.module.css'
 
-const EventForm = () => {
+const CreateNewEventForm = () => {
 
   const [isPending, startTransition] = useTransition()
 
-  const form = useForm<newEventSchemaType>({
-    resolver: zodResolver(newEventSchema),
+  const form = useForm<createNewEventSchemaType>({
+    resolver: zodResolver(createNewEventSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -42,7 +45,7 @@ const EventForm = () => {
     }
   })
 
-  const submitForm = async (data: newEventSchemaType) => {
+  const submitForm = async (data: createNewEventSchemaType) => {
 
     try {
       startTransition(async () => {
@@ -315,4 +318,4 @@ const EventForm = () => {
   )
 }
 
-export default EventForm
+export default CreateNewEventForm

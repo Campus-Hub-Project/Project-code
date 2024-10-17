@@ -1,7 +1,6 @@
 'use client'
 import React, { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { formSchema, formSchemaType } from './schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import signInWithEmail from '@/lib/auth/signinWithEmail'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
@@ -9,19 +8,20 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 import btCss from '@/styles/Button.module.css'
+import { loginInstituitionSchema, loginInstituitionSchemaType } from '@/schemas/login-instituition-schema'
 
-const AuthForm = () => {
+const LoginInstituitionForm = () => {
 
     const [isPending, startTransition] = useTransition()
 
-    const form = useForm<formSchemaType>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<loginInstituitionSchemaType>({
+        resolver: zodResolver(loginInstituitionSchema),
         defaultValues: {
             email: "",
         }
     })
 
-    const submitForm = async (data: formSchemaType) => {
+    const submitForm = async (data: loginInstituitionSchemaType) => {
         try {
             startTransition(async () => {
                 await signInWithEmail(data)
@@ -63,4 +63,4 @@ const AuthForm = () => {
     )
 }
 
-export default AuthForm
+export default LoginInstituitionForm

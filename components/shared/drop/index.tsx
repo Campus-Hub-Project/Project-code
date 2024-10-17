@@ -16,7 +16,7 @@ import {
 import drop from '@/lib/auth/drop'
 import logout from '@/lib/auth/logout'
 
-import btCss from '@/styles/Button.module.css'
+import btnCss from '@/styles/Button.module.css'
 
 interface Props {
     children: React.ReactNode
@@ -51,19 +51,17 @@ const Drop = ({ children }: Props) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel
-                        className={`${btCss['basic-button-config']}`}>
+                        className={`${btnCss['basic-button-config']}`}>
                         Não
                     </AlertDialogCancel>
                     <AlertDialogAction
-                    className='border-2 rounded text-hub-white bg-hub-blue border-hub-blue
-                    hover:text-hub-blue hover:bg-hub-white'>
+                    className={`${btnCss['reverse-basic-button-config']}`}>
                         <button onClick={() => handleDeleteAccount()}>Deletar conta</button>
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
     )
-
 }
 
 export default Drop

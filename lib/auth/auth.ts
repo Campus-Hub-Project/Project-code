@@ -3,6 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "../db"
 import Google from 'next-auth/providers/google'
 import Nodemailer from 'next-auth/providers/nodemailer'
+import { findUniqueUserByEmail, findAccountByUserId } from "@/queries/user-queries"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     adapter: PrismaAdapter(prisma),
@@ -21,7 +22,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             authorization: {
                 params: {
                     // Definindo o scope para acessar o Google Calendar
-                    scope: 'openid profile email https://www.googleapis.com/auth/calendar.events' 
+                    scope: 'openid profile email https://www.googleapis.com/auth/calendar.events'
                 }
             },
             profile(profile) {
@@ -53,7 +54,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         async jwt({ user, token, account }) {
             // armazenando o access token no jwt
             if (account && account.provider === 'google') token.accessToken = account.access_token
-                
+
             if (user) {
                 token.id = user.id
                 token.role = user.role || "instituition"
@@ -66,28 +67,38 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 ...session.user,
                 id: token.id as string,
                 role: token.role as string,
-            };
+            }
+            session.accessToken = token.accessToken as string
             return session;
         },
-        async signIn({ user }) {
+        async signIn({ user, account, profile }) {
+            if (account?.provider !== 'google') return true 
+                
+            const existingUser = await findUniqueUserByEmail(user.email!)
+            if (!existingUser) return true
+                
+            const existingAccount = await findAccountByUserId(existingUser.id)
 
-            if (user.email) {
-                let existingUser = await prisma.user.findUnique({
-                    where: {
-                        email: user.email,
-                    }
-                })
+            if (!existingAccount) {
 
-                if (!existingUser) {
-                    await prisma.user.create({
-                        data: {
-                            email: user.email,
-                            role: 'instituition'
-                        }
-                    })
-                }
             }
-            return true
+            // if (user.email) {
+            //     let existingUser = await prisma.user.findUnique({
+            //         where: {
+            //             email: user.email,
+            //         }
+            //     })
+
+            //     if (!existingUser) {
+            //         await prisma.user.create({
+            //             data: {
+            //                 email: user.email,
+            //                 role: 'instituition'
+            //             }
+            //         })
+            //     }
+            // }
+            // return true
         },
         async redirect({ baseUrl }) {
             return `${baseUrl}/dashboard/my-events`

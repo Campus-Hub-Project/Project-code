@@ -1,5 +1,5 @@
 import React from 'react'
-import Aside from './_components/Aside'
+import Aside from '../../../components/shared/aside'
 import { instituitionIcons, userIcons } from './_components/Aside/icons'
 import { redirect } from 'next/navigation'
 import { auth } from '@/lib/auth/auth'

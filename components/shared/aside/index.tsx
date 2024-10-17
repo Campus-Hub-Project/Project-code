@@ -2,9 +2,8 @@
 
 import Link from 'next/link'
 import React from 'react'
-import Drop from '../Drop'
-import Logout from '../Logout'
-import { Button } from '@/components/ui/button'
+import Logout from '../logout'
+import Drop from '../drop'
 
 interface Props {
     icons: {
@@ -48,7 +47,6 @@ const Aside = ({ icons }: Props) => {
                             </div>
                         </Drop>
                     )}
-
                 </div>
             ))}
         </aside>

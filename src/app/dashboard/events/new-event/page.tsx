@@ -1,6 +1,6 @@
 import React from 'react'
-import EventForm from '../../new-event/_components/event-form'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import CreateNewEventForm from '@/components/shared/forms/create-new-event-form'
 
 const NewEventPage = () => {
   return (
@@ -15,7 +15,7 @@ const NewEventPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className='flex justify-center'>
-          <EventForm />
+          <CreateNewEventForm />
         </CardContent>
       </Card>
     </section>

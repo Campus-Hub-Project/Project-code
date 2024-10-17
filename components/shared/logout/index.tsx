@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/ui/button'
 import logout from '@/lib/auth/logout'
 
-import btCss from '@/styles/Button.module.css'
+import btnCss from '@/styles/Button.module.css'
 
 interface Props {
   children: React.ReactNode
@@ -39,11 +39,10 @@ const Logout = ({ children }: Props) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel
-          className={`${btCss['basic-button-config']}`}>
+          className={`${btnCss['basic-button-config']}`}>
             Voltar
           </AlertDialogCancel>
-          <AlertDialogAction className='border-2 rounded text-hub-white bg-hub-blue border-hub-blue
-                    hover:text-hub-blue hover:bg-hub-white'>
+          <AlertDialogAction className={`${btnCss['reverse-basic-button-config']}`}>
             <button onClick={() => logout()}>Sair</button>
           </AlertDialogAction>
         </AlertDialogFooter>

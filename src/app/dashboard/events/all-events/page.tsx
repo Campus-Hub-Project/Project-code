@@ -1,6 +1,6 @@
+import EventCard from '@/components/shared/card/event-card'
 import { allEventsCreated } from '@/lib/events/allEvents'
 import React from 'react'
-import EventCard from '../_components/event-card'
 
 const AllEventsPage = async () => {
     const events = await allEventsCreated()

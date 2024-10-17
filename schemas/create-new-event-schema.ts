@@ -1,20 +1,20 @@
 import { z } from 'zod'
 
 // valores constantes e específicos, não apenas um array de strings
-export const eventTypeEnum = ['lectures', 'workshop', 'bootcamp', 'conference', 'congress', 'other'] as const
+export const types = ['lectures', 'workshop', 'bootcamp', 'conference', 'congress', 'other'] as const
 
-const eventFormatEnum = ['inperson', 'online', 'hybrid'] as const
+const formats = ['inperson', 'online', 'hybrid'] as const
 
-export const newEventSchema = z.object({
+export const createNewEventSchema = z.object({
     name: z.
         string({ message: 'O campo "Nome" é obrigatório' })
         .trim(),
     description: z
         .string({ message: 'O campo "Descrição" é obrigatório' }),
     type: z
-        .enum(eventTypeEnum),
+        .enum(types),
     format: z
-        .enum(eventFormatEnum),
+        .enum(formats),
     eventDay: z
         .object({
             from: z
@@ -51,4 +51,4 @@ export const newEventSchema = z.object({
         .default(0),
 })
 
-export type newEventSchemaType = z.infer<typeof newEventSchema>
+export type createNewEventSchemaType = z.infer<typeof createNewEventSchema>
