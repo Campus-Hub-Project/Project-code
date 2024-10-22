@@ -1,9 +1,9 @@
 'use server'
 
-import { formSchemaType } from "@/src/app/signin/schema"
+import { loginInstituitionSchemaType } from "@/schemas/login-instituition-schema"
 import { signIn } from "./auth"
 
-const signInWithEmail = async (data: formSchemaType) => {
+const signInWithEmail = async (data: loginInstituitionSchemaType) => {
     try {
         await signIn('email', {
             email: data.email,

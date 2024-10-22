@@ -12,51 +12,37 @@ import { Textarea } from '@/components/ui/textarea'
 import React, { useTransition } from 'react'
 
 import { format } from "date-fns"
-import { useForm } from 'react-hook-form'
 
 import {
-  createNewEventSchema,
-  createNewEventSchemaType
+  CreateNewEventSchemaType,
+  
 } from '@/schemas/create-new-event-schema'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import { createNewEvent } from '@/lib/events/newEvent'
 
 import inputCss from '@/styles/Input.module.css'
 import btnCss from '@/styles/Button.module.css'
+import { createNewEventUseForm } from './useforms/new-event-useform'
 
-const CreateNewEventForm = () => {
+const CreateNewEventForm =  () => {
 
   const [isPending, startTransition] = useTransition()
 
-  const form = useForm<createNewEventSchemaType>({
-    resolver: zodResolver(createNewEventSchema),
-    defaultValues: {
-      name: "",
-      description: "",
-      type: undefined,
-      format: undefined,
-      eventDay: { from: undefined, to: undefined },
-      eventTimeStarts: undefined,
-      eventTimeEnds: undefined,
-      subscribePeriod: { from: undefined, to: undefined },
-      price: 0.0,
-      participants_limit: 0
-    }
-  })
+  const form = createNewEventUseForm()
 
-  const submitForm = async (data: createNewEventSchemaType) => {
-
+  const submitForm = (data: CreateNewEventSchemaType) => {
     try {
-      startTransition(async () => {
-        await createNewEvent(data)
-        alert("Evento criado com sucesso")
-        form.reset()
-      })
+        startTransition(
+            async () => {
+                await createNewEvent(data)
+                alert("Evento criado com sucesso")
+                form.reset()
+            })
     } catch (error) {
-      throw error
+        alert('Algo deu errado, evento não foi criado. Tente Novamente mais tarde')
+        throw error
     }
-  }
+}
 
   return (
     <Form {...form}>
@@ -88,7 +74,7 @@ const CreateNewEventForm = () => {
                 <Textarea
                   disabled={isPending}
                   placeholder='Pontos mais importantes do evento aqui...' {...field}
-                  className={`${inputCss['focus:border-hub-blue focus:text-hub-blue']} h-28 focus:border-hub-blue focus:text-hub-blue`}
+                  className={`${inputCss['basic-input-config']} h-28 focus:border-hub-blue focus:text-hub-blue`}
                 />
               </FormControl>
               <FormMessage />

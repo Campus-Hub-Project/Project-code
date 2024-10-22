@@ -9,7 +9,10 @@ export const getAllEventsFromPlataform = async () => {
 
 export const getAllEventsFromInstituition = async (userId: string) => {
     const events = await prisma.event.findMany({
-        where: { userId }
+        where: { userId },
+        include: {
+            participants: true
+        }
     })
     return events
 }
@@ -19,8 +22,8 @@ export const insertEventInDatabase = async (
     description: string,
     type: string,
     format: string,
-    starts: string,
-    ends: string,
+    starts: Date,
+    ends: Date,
     price: number,
     participants_limit: number,
     subs_starts: Date,

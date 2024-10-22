@@ -1,3 +1,5 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
 
 // valores constantes e específicos, não apenas um array de strings
@@ -51,4 +53,4 @@ export const createNewEventSchema = z.object({
         .default(0),
 })
 
-export type createNewEventSchemaType = z.infer<typeof createNewEventSchema>
+export type CreateNewEventSchemaType = z.infer<typeof createNewEventSchema>

@@ -22,7 +22,7 @@ const EmailSendPage = () => {
                 Muito bem!
               </CardTitle>
               <CardDescription className='mx-4 font-medium text-base text-hub-middlegray'>
-                Uma mesagem de confirmação foi enviada o e-mail. Por favor, verifique sua caixa de entrada.
+                Uma mesagem de confirmação foi enviada ao e-mail. Por favor, verifique sua caixa de entrada.
               </CardDescription>
             </CardHeader>
           </Card>

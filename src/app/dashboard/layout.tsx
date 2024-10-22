@@ -1,8 +1,8 @@
 import React from 'react'
 import Aside from '../../../components/shared/aside'
-import { instituitionIcons, userIcons } from './_components/Aside/icons'
 import { redirect } from 'next/navigation'
 import { auth } from '@/lib/auth/auth'
+import { instituitionIcons, userIcons } from '@/components/shared/aside/icons'
 
 interface Props {
     children: React.ReactNode

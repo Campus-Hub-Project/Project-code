@@ -3,7 +3,9 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { prisma } from "../db"
 import Google from 'next-auth/providers/google'
 import Nodemailer from 'next-auth/providers/nodemailer'
-import { findUniqueUserByEmail, findAccountByUserId } from "@/queries/user-queries"
+import handleConfigJWT from "./handleConfigJWT"
+import handleConfigSession from "./handleConfigSession"
+import handleConfigSignin from "./handleConfigSignin"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     adapter: PrismaAdapter(prisma),
@@ -51,57 +53,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         })
     ],
     callbacks: {
+        // sempre que um JWT é gerado, isso deve ser feito:
         async jwt({ user, token, account }) {
-            // armazenando o access token no jwt
-            if (account && account.provider === 'google') token.accessToken = account.access_token
-
-            if (user) {
-                token.id = user.id
-                token.role = user.role || "instituition"
-            }
-
-            return token;
+            const configuredToken = await handleConfigJWT(user, token, account!)
+            return configuredToken
         },
+        // sempre que uma sessão é criada ou cancelada, isso deve ser feito:
         async session({ session, token }) {
-            session.user = {
-                ...session.user,
-                id: token.id as string,
-                role: token.role as string,
-            }
-            session.accessToken = token.accessToken as string
-            return session;
+            const configuredSession = await handleConfigSession(session, token)
+            return configuredSession
         },
-        async signIn({ user, account, profile }) {
-            if (account?.provider !== 'google') return true 
-                
-            const existingUser = await findUniqueUserByEmail(user.email!)
-            if (!existingUser) return true
-                
-            const existingAccount = await findAccountByUserId(existingUser.id)
-
-            if (!existingAccount) {
-
-            }
-            // if (user.email) {
-            //     let existingUser = await prisma.user.findUnique({
-            //         where: {
-            //             email: user.email,
-            //         }
-            //     })
-
-            //     if (!existingUser) {
-            //         await prisma.user.create({
-            //             data: {
-            //                 email: user.email,
-            //                 role: 'instituition'
-            //             }
-            //         })
-            //     }
-            // }
-            // return true
+        // sempre que um usuário tentar o login, isso deve ser feito:
+        async signIn({ user, account }) {
+            return await handleConfigSignin(user, account!)
         },
         async redirect({ baseUrl }) {
-            return `${baseUrl}/dashboard/my-events`
+            return `${baseUrl}/dashboard`
         }
     },
     secret: "abcd1234"

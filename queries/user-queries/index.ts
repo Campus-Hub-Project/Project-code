@@ -24,3 +24,12 @@ export const deleteUser = async (id: string) => {
         where: { id }
     })
 }
+
+export const createNewInstituitionUser = async (email: string) => {
+    await prisma.user.create({
+        data: {
+            email,
+            role: 'instituition'
+        }
+    })
+}

@@ -12,6 +12,8 @@ import React from 'react'
 import { auth } from '@/lib/auth/auth'
 
 import btCss from '@/styles/Button.module.css'
+import { User } from 'next-auth'
+import { formatDateTime, formatFormat, formatLimit, formatPrice, formatTotalParticipants, formatType } from './format-event-data'
 
 interface Props {
     event: {
@@ -25,51 +27,13 @@ interface Props {
         subs_ends: Date,
         price: number,
         participants_limit: number,
+        participants: User[]
     },
 }
 
 const EventCard = async ({ event }: Props) => {
 
     const session = await auth()
-
-    const formatedEventType = event.type === 'lectures' ? 'Palestra'
-        : event.type === 'workshop' ? 'Workshop'
-            : event.type === 'bootcamp' ? 'Bootcamp'
-                : event.type === 'conference' ? 'Conferência'
-                    : event.type === 'congress' ? 'Congresso' : 'Outro'
-
-    const formatedEventFormat = event.format === 'inperson' ? 'Presencial'
-        : event.format === 'online' ? 'Online' : 'Híbrido'
-
-    const formatedDateStarts = event.starts.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-        timeStyle: 'long'
-    })
-
-    const formatedDateEnds = event.ends.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-        timeStyle: 'long'
-    })
-
-    const formatedSubStarts = event.subs_starts.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-    })
-
-    const formatedSubEnds = event.subs_ends.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-    })
-
-    const formatedEventValue = event.price === 0 ? 'Gratuito' : `R$ ${event.price}`
-
-    const formatedEventLimit = event.participants_limit === 0 ? 'Não há limite de participantes' : `${event.participants_limit} vagas`
 
     return (
         <section className='min-h-screen w-full bg-hub-white flex justify-center'>
@@ -79,12 +43,13 @@ const EventCard = async ({ event }: Props) => {
                     <CardDescription className='font-medium text-base'>{event.description}</CardDescription>
                 </CardHeader>
                 <CardContent className='flex flex-col'>
-                    <span>Tipo do evento: {formatedEventType}</span>
-                    <span>Formato: {formatedEventFormat}</span>
-                    <span>Data do evento: {formatedDateStarts} até {formatedDateEnds}</span>
-                    <span>Período de inscrição: {formatedSubStarts} até {formatedSubEnds}</span>
-                    <span>Valor da inscrição: {formatedEventValue}</span>
-                    <span>Limite de participantes: {formatedEventLimit}</span>
+                    <span>Tipo do evento: {formatType(event.type)}</span>
+                    <span>Formato: {formatFormat(event.format)}</span>
+                    <span>Data do evento: {formatDateTime(event.starts)} até {formatDateTime(event.ends)}</span>
+                    <span>Período de inscrição: {formatDateTime(event.subs_starts)} até {formatDateTime(event.subs_ends)}</span>
+                    <span>Valor da inscrição: {formatPrice(event.price)}</span>
+                    <span>Limite de participantes: {formatLimit(event.participants_limit)}</span>
+                    <span className='text-hub-blue font-semibold'>Atualmente inscritos: {formatTotalParticipants(event.participants)}</span>
                 </CardContent>
                 <CardFooter className='relative top-72'>
                     {session?.user?.role === 'user' ? (

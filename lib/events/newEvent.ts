@@ -6,6 +6,11 @@ import {
 } from "@/schemas/create-new-event-schema"
 import { auth } from "../auth/auth"
 import { insertEventInDatabase } from "@/queries/event-queries"
+import {
+    eventDayDateTimeFormatter,
+    eventSubsPeriodFormatter
+} from "./eventDateTimeFormatter"
+
 
 export const createNewEvent = async (data: createNewEventSchemaType) => {
 
@@ -33,9 +38,14 @@ export const createNewEvent = async (data: createNewEventSchemaType) => {
     // verifico se a data de início do evento ou a data de início das inscrições foram definidas
     if (eventDay.to === undefined || subscribePeriod.to === undefined) return null
 
-    // Junto o dia e horário que o evento começa/ termina para armazenar no banco de dados como DateTime
-    const startsEventDateTime = new Date(`${eventDay.to}T${eventTimeStarts}`).toISOString()
-    const endsEventDateTime = new Date(`${eventDay.from}T${eventTimeEnds}`).toISOString()
+    // formato as datas de início e fim do evento
+    const startsEventDateTime = await eventDayDateTimeFormatter(eventDay.from, eventTimeStarts);
+    const endsEventDateTime = await eventDayDateTimeFormatter(eventDay.to, eventTimeEnds)
+
+    // removo a hora padrão do subscribePeriod.to e .from
+    const subscribePeriodTo = await eventSubsPeriodFormatter(subscribePeriod.to)
+    const subscribePeriodFrom = await eventSubsPeriodFormatter(subscribePeriod.from)
+
 
     // Uso o prisma para criar o evento no banco de dados passando os dados necessários
     const event = await insertEventInDatabase(
@@ -47,8 +57,8 @@ export const createNewEvent = async (data: createNewEventSchemaType) => {
         endsEventDateTime,
         price,
         participants_limit,
-        subscribePeriod.to,
-        subscribePeriod.from,
+        subscribePeriodTo,
+        subscribePeriodFrom,
         session.user.id!
     )
 

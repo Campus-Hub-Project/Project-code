@@ -2,3 +2,8 @@
     @apply border-2 border-hub-blue rounded text-sm text-hub-blue bg-hub-white
     hover:bg-hub-blue hover:text-hub-white
 }
+
+.reverse-basic-button-config {
+    @apply border-2 rounded text-hub-white bg-hub-blue border-hub-blue
+    hover:text-hub-blue hover:bg-hub-white
+}

@@ -23,7 +23,7 @@ import { FcGoogle } from "react-icons/fc";
 const HomePage = () => {
   return (
     <main className={mainCss['main-tag-config']}>
-      <section className={mainCss['home-section-card-config']}>
+      <section className='border-hub-middlegray shadow-lg flex-grow border-none rounded px-0 flex h-full'>
         <div className='w-1/2 flex flex-col justify-center'>
           <Card className='mx-6 border-none shadow-none bg-hub-white'>
             <CardHeader>
