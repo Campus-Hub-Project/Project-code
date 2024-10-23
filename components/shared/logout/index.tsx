@@ -21,7 +21,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const Logout = ({ children }: Props) => {
+const Logout = async ({ children }: Props) => {
 
   return (
     <AlertDialog>
@@ -43,7 +43,7 @@ const Logout = ({ children }: Props) => {
             Voltar
           </AlertDialogCancel>
           <AlertDialogAction className={`${btnCss['reverse-basic-button-config']}`}>
-            <button onClick={() => logout()}>Sair</button>
+            <button onClick={async () => await logout()}>Sair</button>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

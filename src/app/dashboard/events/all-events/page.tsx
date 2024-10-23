@@ -1,6 +1,7 @@
+import React from 'react'
 import EventCard from '@/components/shared/card/event-card'
 import { allEventsCreated } from '@/lib/events/allEvents'
-import React from 'react'
+
 
 const AllEventsPage = async () => {
     const events = await allEventsCreated()
@@ -14,7 +15,7 @@ const AllEventsPage = async () => {
     return (
         <div>
             {events.map(e => (
-                <EventCard event={e} />
+                <EventCard event={e} key={e.id} />
             ))}
         </div>
     )

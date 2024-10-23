@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import {
     Card,
     CardContent,
@@ -9,14 +8,22 @@ import {
 } from '@/components/ui/card'
 import React from 'react'
 
-import { auth } from '@/lib/auth/auth'
-
-import btCss from '@/styles/Button.module.css'
 import { User } from 'next-auth'
-import { formatDateTime, formatFormat, formatLimit, formatPrice, formatTotalParticipants, formatType } from './format-event-data'
+import {
+    formatDateTime,
+    formatFormat,
+    formatLimit,
+    formatPrice,
+    formatTotalParticipants,
+    formatType
+} from './format-event-data'
+
+import { auth } from '@/lib/auth/auth'
+import SubscribeEvent from '../modal/SubscribeEvent'
 
 interface Props {
     event: {
+        id: string
         name: string,
         description: string,
         type: string,
@@ -43,18 +50,32 @@ const EventCard = async ({ event }: Props) => {
                     <CardDescription className='font-medium text-base'>{event.description}</CardDescription>
                 </CardHeader>
                 <CardContent className='flex flex-col'>
-                    <span>Tipo do evento: {formatType(event.type)}</span>
-                    <span>Formato: {formatFormat(event.format)}</span>
-                    <span>Data do evento: {formatDateTime(event.starts)} até {formatDateTime(event.ends)}</span>
-                    <span>Período de inscrição: {formatDateTime(event.subs_starts)} até {formatDateTime(event.subs_ends)}</span>
-                    <span>Valor da inscrição: {formatPrice(event.price)}</span>
-                    <span>Limite de participantes: {formatLimit(event.participants_limit)}</span>
-                    <span className='text-hub-blue font-semibold'>Atualmente inscritos: {formatTotalParticipants(event.participants)}</span>
+                    <span>
+                        Tipo do evento: {formatType(event.type)}
+                    </span>
+                    <span>
+                        Formato: {formatFormat(event.format)}
+                    </span>
+                    <span>
+                        Data do evento: {formatDateTime(event.starts)} até {formatDateTime(event.ends)}
+                    </span>
+                    <span>
+                        Período de inscrição: {formatDateTime(event.subs_starts)} até {formatDateTime(event.subs_ends)}
+                    </span>
+                    <span>
+                        Valor da inscrição: {formatPrice(event.price)}
+                    </span>
+                    <span>
+                        Limite de participantes: {formatLimit(event.participants_limit)}
+                    </span>
+                    <span className='text-hub-blue font-semibold'>
+                        Atualmente inscritos: {formatTotalParticipants(event.participants)}
+                    </span>
                 </CardContent>
-                <CardFooter className='relative top-72'>
-                    {session?.user?.role === 'user' ? (
-                        <Button className={`${btCss['basic-button-config']} relative bottom-6`}>Se inscrever</Button>
-                    ) : null}
+                <CardFooter className='absolute bottom-12'>
+                    {session?.user?.role === 'user' && (
+                        <SubscribeEvent id={event.id}>Se inscrever</SubscribeEvent>
+                    )}
                 </CardFooter>
             </Card>
         </section>
@@ -62,3 +83,4 @@ const EventCard = async ({ event }: Props) => {
 }
 
 export default EventCard
+

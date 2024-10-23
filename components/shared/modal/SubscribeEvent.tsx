@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 
-import { Button } from '@/components/ui/button'
 import {
     AlertDialogHeader,
     AlertDialogFooter,
@@ -13,23 +12,25 @@ import {
     AlertDialogCancel,
     AlertDialogAction
 } from '@/components/ui/alert-dialog'
-import drop from '@/lib/auth/drop'
-import logout from '@/lib/auth/logout'
+import { Button } from '@/components/ui/button'
 
 import btnCss from '@/styles/Button.module.css'
+import getIntoEvent from '@/lib/events/getIntoEvent'
 
 interface Props {
-    children: React.ReactNode
+    children: React.ReactNode,
+    id: string
 }
 
-const Drop = ({ children }: Props) => {
+const SubscribeEvent = ({ children, id }: Props) => {
 
-    const handleDeleteAccount = async () => {
+    const subscribe = async () => {
         try {
-            const response = await drop()
-
-            if (response.success) logout()
+            await getIntoEvent(id)
+            alert('Você se inscreveu no evento!')
         } catch (error) {
+            alert('Algo deu errado, tente novamente mais tarde')
+            console.error(error);
             throw error
         }
     }
@@ -37,26 +38,24 @@ const Drop = ({ children }: Props) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant='ghost'
-                    className='text-center hover:bg-hub-white hover:text-hub-blue'>{children}</Button>
+                <Button
+                    className={btnCss['basic-button-config']}>{children}</Button>
             </AlertDialogTrigger>
             <AlertDialogContent className='rounded bg-hub-white'>
                 <AlertDialogHeader>
-                    <AlertDialogTitle className='text-hub-blue'>
-                        Você tem certeza?
-                    </AlertDialogTitle>
+                    <AlertDialogTitle className='text-hub-blue'>Se inscrever no evento?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Você está prestes deletar sua conta, seus dados serão perdidos é isso mesmo que você deseja?
+                        Ao se inscrever num evento, ele será adicionado a sua agenda de sua conta Google.
+                        Você poderá removê-lo no momento que desejar.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel
                         className={`${btnCss['basic-button-config']}`}>
-                        Não
+                        Voltar
                     </AlertDialogCancel>
-                    <AlertDialogAction
-                    className={`${btnCss['reverse-basic-button-config']}`}>
-                        <button onClick={async () => await handleDeleteAccount()}>Deletar conta</button>
+                    <AlertDialogAction className={`${btnCss['reverse-basic-button-config']}`}>
+                        <button onClick={async () => await subscribe()}>Se inscrever</button>
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
@@ -64,4 +63,4 @@ const Drop = ({ children }: Props) => {
     )
 }
 
-export default Drop
+export default SubscribeEvent

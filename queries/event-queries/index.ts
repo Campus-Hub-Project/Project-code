@@ -3,7 +3,11 @@
 import { prisma } from "@/lib/db"
 
 export const getAllEventsFromPlataform = async () => {
-    const events = await prisma.event.findMany()
+    const events = await prisma.event.findMany({
+        include: {
+            participants: true
+        }
+    })
     return events
 }
 
