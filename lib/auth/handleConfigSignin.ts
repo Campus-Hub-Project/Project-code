@@ -31,16 +31,3 @@ const handleConfigSignin = async (user: User, account: Account) => {
 }
 
 export default handleConfigSignin
-
-// if (account?.provider !== 'google') {
-//     const existingUser = await findUniqueUserByEmail(user.email!)
-//     if (!existingUser) await createNewInstituitionUser(user.email!)
-// }
-    
-// const existingUser = await findUniqueUserByEmail(user.email!)
-// if (!existingUser) return true
-    
-// const existingAccount = await findAccountByUserId(existingUser.id)
-// if (!existingAccount) return true
-
-// return true

@@ -1,3 +1,4 @@
+'use server'
 import {
     Card,
     CardContent,
@@ -8,7 +9,6 @@ import {
 } from '@/components/ui/card'
 import React from 'react'
 
-import { User } from 'next-auth'
 import {
     formatDateTime,
     formatFormat,
@@ -19,26 +19,13 @@ import {
 } from './format-event-data'
 
 import { auth } from '@/lib/auth/auth'
-import SubscribeEvent from '../modal/SubscribeEvent'
+import SubscribeEventButton from '../button/SubscribeEventButton'
 
-interface Props {
-    event: {
-        id: string
-        name: string,
-        description: string,
-        type: string,
-        format: string,
-        starts: Date,
-        ends: Date,
-        subs_starts: Date,
-        subs_ends: Date,
-        price: number,
-        participants_limit: number,
-        participants: User[]
-    },
-}
+import { EventWithParticipantsAsProps } from './event'
 
-const EventCard = async ({ event }: Props) => {
+import crdCss from '@/styles/Card.module.css'
+
+const EventCard = async ({ event }: EventWithParticipantsAsProps) => {
 
     const session = await auth()
 
@@ -46,7 +33,7 @@ const EventCard = async ({ event }: Props) => {
         <section className='min-h-screen w-full bg-hub-white flex justify-center'>
             <Card className='bg-hub-white border shadow-md rounded w-3/5 my-12 text-hub-middlegray'>
                 <CardHeader>
-                    <CardTitle className='text-3xl font-semibold text-hub-blue uppercase'>{event.name}</CardTitle>
+                    <CardTitle className={`${crdCss['card-title']} uppercase`}>{event.name}</CardTitle>
                     <CardDescription className='font-medium text-base'>{event.description}</CardDescription>
                 </CardHeader>
                 <CardContent className='flex flex-col'>
@@ -74,7 +61,7 @@ const EventCard = async ({ event }: Props) => {
                 </CardContent>
                 <CardFooter className='absolute bottom-12'>
                     {session?.user?.role === 'user' && (
-                        <SubscribeEvent id={event.id}>Se inscrever</SubscribeEvent>
+                        <SubscribeEventButton id={event.id}>Se inscrever</SubscribeEventButton>
                     )}
                 </CardFooter>
             </Card>

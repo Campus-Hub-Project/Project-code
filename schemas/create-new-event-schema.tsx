@@ -1,5 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, UseFormReturn } from 'react-hook-form'
 import { z } from 'zod'
 
 // valores constantes e específicos, não apenas um array de strings

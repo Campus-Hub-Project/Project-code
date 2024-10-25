@@ -2,6 +2,7 @@
 
 import { auth } from "./auth"
 import { deleteUser } from "@/queries/user-queries"
+import logout from "./logout"
 
 const drop = async () => {
     try {
@@ -13,6 +14,7 @@ const drop = async () => {
         const userId = session.user.id
 
         await deleteUser(userId!)
+        await logout()
         return { success: true, message: 'Usuário deletado com sucesso' }
     } catch (error) {
         throw error

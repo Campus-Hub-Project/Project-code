@@ -3,6 +3,6 @@
     border shadow-md bg-hub-white
 }
 
-.aside-link-config {
+.aside-complete-icon-config {
     @apply flex flex-col items-center text-center gap-2 cursor-pointer
 }

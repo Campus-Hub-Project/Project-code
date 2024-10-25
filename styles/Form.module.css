@@ -1,0 +1,34 @@
+.label {
+    @apply text-hub-blue font-semibold
+}
+
+.text-input {
+    @apply border-2 rounded border-hub-lightgray text-hub-lightgray focus:border-hub-blue focus:text-hub-blue
+}
+
+.select-trigger {
+    @apply rounded border-2 border-hub-lightgray text-hub-lightgray outline-none
+}
+
+.select-content {
+    @apply cursor-pointer bg-hub-white rounded 
+    border-2 border-hub-lightgray text-hub-lightgray
+}
+
+.select-input {
+    @apply cursor-pointer focus:text-hub-blue
+}
+
+.popover-trigger {
+    @apply rounded border-2 border-hub-lightgray text-hub-lightgray 
+    outline-none hover:text-hub-blue hover:border-hub-blue
+}
+
+.time-input {
+    @apply border-2 rounded border-hub-lightgray text-hub-lightgray 
+    outline-none focus:border-hub-blue focus:text-hub-blue cursor-pointer
+}
+
+.basic-input-config {
+    @apply rounded border-2 border-hub-lightgray text-hub-lightgray outline-none
+}

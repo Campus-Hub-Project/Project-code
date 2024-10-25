@@ -1,3 +1,19 @@
+.basic {
+    @apply border-2 rounded border-hub-blue bg-hub-white text-hub-blue 
+    hover:bg-hub-blue hover:text-hub-white hover:border-hub-blue
+    
+}
+
+.rever-basic {
+    @apply border-2 rounded text-hub-white bg-hub-blue border-hub-blue
+    hover:text-hub-blue hover:bg-hub-white
+}
+
+.link {
+    @apply basic flex items-center justify-center px-4
+}
+
+
 .basic-button-config {
     @apply border-2 border-hub-blue rounded text-sm text-hub-blue bg-hub-white
     hover:bg-hub-blue hover:text-hub-white

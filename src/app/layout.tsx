@@ -19,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-       <body className={`${nunito.className}`}>{children}</body>
+    <html lang="pt-br">
+       <body className={`${nunito.className} `}>{children}</body>
     </html>
   );
 }

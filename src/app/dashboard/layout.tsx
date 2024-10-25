@@ -18,6 +18,7 @@ const DashboardLayout = async ({ children }: Props) => {
 
     const session = await auth()
 
+    if (!session) console.log('SEM SESSSSSSSSSSSSSSSSSSSSSAAAAAAAAAAAOOOOOOOOOO');
     if (!session) redirect('/')
 
     let icons

@@ -15,16 +15,18 @@ import { format } from "date-fns"
 
 import {
   CreateNewEventSchemaType,
-  
+
 } from '@/schemas/create-new-event-schema'
 
-import { createNewEvent } from '@/lib/events/newEvent'
 
 import inputCss from '@/styles/Input.module.css'
-import btnCss from '@/styles/Button.module.css'
-import { createNewEventUseForm } from './useforms/new-event-useform'
+import formCss from '@/styles/Form.module.css'
 
-const CreateNewEventForm =  () => {
+import { createNewEventUseForm } from './useforms/new-event-useform'
+import SubmitButton from '../button/SubmitButton'
+import createNewEvent from '@/lib/events/createNewEvent'
+
+const CreateNewEventForm = () => {
 
   const [isPending, startTransition] = useTransition()
 
@@ -32,17 +34,17 @@ const CreateNewEventForm =  () => {
 
   const submitForm = (data: CreateNewEventSchemaType) => {
     try {
-        startTransition(
-            async () => {
-                await createNewEvent(data)
-                alert("Evento criado com sucesso")
-                form.reset()
-            })
+      startTransition(
+        async () => {
+          await createNewEvent(data)
+          alert("Evento criado com sucesso")
+          form.reset()
+        })
     } catch (error) {
-        alert('Algo deu errado, evento não foi criado. Tente Novamente mais tarde')
-        throw error
+      alert('Algo deu errado, evento não foi criado. Tente Novamente mais tarde')
+      throw error
     }
-}
+  }
 
   return (
     <Form {...form}>
@@ -52,12 +54,11 @@ const CreateNewEventForm =  () => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-hub-blue'>Nome do evento:</FormLabel>
+              <FormLabel className={formCss['label']}>Nome do evento:</FormLabel>
               <FormControl>
                 <Input
                   disabled={isPending}
-                  placeholder="Nome do evento aqui..." {...field}
-                  className={`${inputCss['basic-input-config']} focus:border-hub-blue focus:text-hub-blue`}
+                  placeholder="Nome do evento aqui..." {...field} className={`${formCss['text-input']}`}
                 />
               </FormControl>
               <FormMessage />
@@ -69,12 +70,11 @@ const CreateNewEventForm =  () => {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-hub-blue'>Descrição do evento:</FormLabel>
+              <FormLabel className={formCss['label']}>Descrição do evento:</FormLabel>
               <FormControl>
                 <Textarea
                   disabled={isPending}
-                  placeholder='Pontos mais importantes do evento aqui...' {...field}
-                  className={`${inputCss['basic-input-config']} h-28 focus:border-hub-blue focus:text-hub-blue`}
+                  placeholder='Pontos mais importantes do evento aqui...' {...field} className={`${formCss['text-input']} h-28`}
                 />
               </FormControl>
               <FormMessage />
@@ -86,22 +86,20 @@ const CreateNewEventForm =  () => {
           name="type"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-hub-blue'>Tipo do evento:</FormLabel>
+              <FormLabel className={formCss['label']}>Tipo do evento:</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger
-                    className='rounded border-2 border-hub-lightgray text-hub-lightgray outline-none'>
+                  <SelectTrigger className={formCss['select-trigger']}>
                     <SelectValue placeholder="Seu evento é um(a)..." />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent
-                  className='cursor-pointer bg-hub-white rounded border-2 border-hub-lightgray text-hub-lightgray'>
-                  <SelectItem disabled={isPending} value="lectures" className={inputCss['basic-select-config']}>Palestra</SelectItem>
-                  <SelectItem disabled={isPending} value="workshop" className={inputCss['basic-select-config']}>Workshop</SelectItem>
-                  <SelectItem disabled={isPending} value="bootcamp" className={inputCss['basic-select-config']}>Bootcamp</SelectItem>
-                  <SelectItem disabled={isPending} value="conference" className={inputCss['basic-select-config']}>Conferência</SelectItem>
-                  <SelectItem disabled={isPending} value="congress" className={inputCss['basic-select-config']}>Congresso</SelectItem>
-                  <SelectItem disabled={isPending} value="other" className={inputCss['basic-select-config']}>Outro</SelectItem>
+                <SelectContent className={formCss['select-content']}>
+                  <SelectItem disabled={isPending} value="lectures" className={formCss['select-input']}>Palestra</SelectItem>
+                  <SelectItem disabled={isPending} value="workshop" className={formCss['select-input']}>Workshop</SelectItem>
+                  <SelectItem disabled={isPending} value="bootcamp" className={formCss['select-input']}>Bootcamp</SelectItem>
+                  <SelectItem disabled={isPending} value="conference" className={formCss['select-input']}>Conferência</SelectItem>
+                  <SelectItem disabled={isPending} value="congress" className={formCss['select-input']}>Congresso</SelectItem>
+                  <SelectItem disabled={isPending} value="other" className={formCss['select-input']}>Outro</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -113,18 +111,17 @@ const CreateNewEventForm =  () => {
           name="format"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-hub-blue'>Formato:</FormLabel>
+              <FormLabel className={formCss['label']}>Formato:</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger
-                    className='rounded border-2 border-hub-lightgray text-hub-lightgray outline-none'>
+                  <SelectTrigger className={formCss['select-trigger']}>
                     <SelectValue placeholder="Seu evento é..." />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className='cursor-pointer bg-hub-white rounded border-2 border-hub-lightgray text-hub-lightgray'>
-                  <SelectItem disabled={isPending} value="inperson" className={inputCss['basic-select-config']}>Presencial</SelectItem>
-                  <SelectItem disabled={isPending} value="online" className={inputCss['basic-select-config']}>Online</SelectItem>
-                  <SelectItem disabled={isPending} value="hybrid" className={inputCss['basic-select-config']}>Híbrido</SelectItem>
+                <SelectContent className={formCss['select-content']}>
+                  <SelectItem disabled={isPending} value="inperson" className={formCss['select-input']}>Presencial</SelectItem>
+                  <SelectItem disabled={isPending} value="online" className={formCss['select-input']}>Online</SelectItem>
+                  <SelectItem disabled={isPending} value="hybrid" className={formCss['select-input']}>Híbrido</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -138,17 +135,9 @@ const CreateNewEventForm =  () => {
             <FormItem className="flex flex-col">
               <FormLabel className='text-hub-blue'>Data do evento:</FormLabel>
               <Popover>
-                <PopoverTrigger asChild
-                  className={`${inputCss['basic-input-config']} hover:text-hub-blue hover:border-hub-blue`}>
+                <PopoverTrigger asChild className={formCss['popover-trigger']}>
                   <FormControl>
                     <Button variant='outline' disabled={isPending}>
-                      {/*
-                      Tem algum valor no campo from ? 
-                        Tem algum valor no campo to ?
-                          -- Mostre formatado assim --
-                        -- Mostre formatado assim --
-                      -- Mostre a frase --
-                      */}
                       {field.value?.from ? (
                         field.value.to ? (
                           <>
@@ -185,16 +174,11 @@ const CreateNewEventForm =  () => {
           name="eventTimeStarts"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-hub-blue'>Horário de início do evento (Horas: minutos):</FormLabel>
+              <FormLabel className={formCss['label']}>Horário de início do evento (Horas: minutos):</FormLabel>
               <FormControl>
                 <Input
-                  disabled={isPending}
-                  placeholder="Horário do início do evento aqui..." {...field}
-                  className='
-                    rounded border-2 border-hub-lightgray text-hub-lightgray
-                    outline-none focus:border-hub-blue focus:text-hub-blue cursor-pointer'
-                  type='time'
-                />
+                  disabled={isPending} placeholder="Horário do início do evento aqui..."
+                  {...field} className={formCss['time-input']} type='time' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -205,16 +189,11 @@ const CreateNewEventForm =  () => {
           name="eventTimeEnds"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-hub-blue'>Horário de encerramento do evento (Horas: minutos):</FormLabel>
+              <FormLabel className={formCss['label']}>Horário de encerramento do evento (Horas: minutos):</FormLabel>
               <FormControl>
                 <Input
-                  disabled={isPending}
-                  placeholder="Horário do encerramento do evento aqui..." {...field}
-                  className='
-                    rounded border-2 border-hub-lightgray text-hub-lightgray
-                    outline-none focus:border-hub-blue focus:text-hub-blue cursor-pointer'
-                  type='time'
-                />
+                  disabled={isPending} placeholder="Horário do encerramento do evento aqui..."
+                  {...field} className={formCss['time-input']} type='time' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -225,10 +204,9 @@ const CreateNewEventForm =  () => {
           name="subscribePeriod"
           render={({ field }) => (
             <FormItem className='flex flex-col'>
-              <FormLabel className='text-hub-blue'>Data de abertura e encerramento das inscrições:</FormLabel>
+              <FormLabel className={formCss['label']}>Data de abertura e encerramento das inscrições:</FormLabel>
               <Popover>
-                <PopoverTrigger asChild
-                  className={`${inputCss['basic-input-config']} hover:text-hub-blue hover:border-hub-blue`}>
+                <PopoverTrigger asChild className={formCss['popover-trigger']}>
                   <FormControl>
                     <Button variant='outline' disabled={isPending}>
                       {field.value.from ? (
@@ -266,7 +244,7 @@ const CreateNewEventForm =  () => {
           name="price"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-hub-blue'>Valor da inscrição: (mantenha zero caso seja gratuito)</FormLabel>
+              <FormLabel className={formCss['label']}>Valor da inscrição: (mantenha zero caso seja gratuito)</FormLabel>
               <FormControl>
                 <Input
                   disabled={isPending}
@@ -283,7 +261,7 @@ const CreateNewEventForm =  () => {
           name="participants_limit"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-hub-blue'>Limite de participantes: (mantenha zero caso não haja)</FormLabel>
+              <FormLabel className={formCss['label']}>Limite de participantes: (mantenha zero caso não haja)</FormLabel>
               <FormControl>
                 <Input
                   disabled={isPending}
@@ -296,9 +274,7 @@ const CreateNewEventForm =  () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className={btnCss['basic-button-config']}>
-          Criar evento
-        </Button>
+        <SubmitButton css='mt-4'>Criar evento</SubmitButton>
       </form>
     </Form>
   )

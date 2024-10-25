@@ -1,12 +1,15 @@
 'use client'
 
-import Link from 'next/link'
 import React from 'react'
-import Logout from '../logout'
-import Drop from '../drop'
+
 import Image from 'next/image'
 
 import asideCss from '@/styles/Aside.module.css'
+
+import SignoutModal from '../modal/SignoutModal'
+import DeleteAccountModal from '../modal/DeleteAccountModal'
+
+import AsideLinkIcon from './AsideLinkIcon'
 
 interface Props {
     icons: {
@@ -20,34 +23,29 @@ interface Props {
 const Aside = ({ icons }: Props) => {
 
     return (
-        <aside
-            className={asideCss['aside-container-config']}>
+        <aside className={asideCss['aside-container-config']}>
             <div className='mb-6'>
-                <Image src='/images/campus-hub-logo.jpg' alt='Logo do campus_hub' width={100} height={100}/>
+                <Image src='/images/campus-hub-logo.jpg' alt='Logo do campus_hub' width={100} height={100} />
             </div>
 
             {icons.map((icon) => (
                 <div className='text-hub-middlegray hover:text-hub-blue' key={icon.id}>
                     {icon.to ? (
-                        <Link href={icon.to} className={asideCss['aside-link-config']}>
-                            {icon.svg}
-                            <span className='text-xs'>{icon.span}</span>
-                        </Link>
+                        <AsideLinkIcon svg={icon.svg} to={icon.to} text={icon.span} />
                     ) : icon.span === 'Sair' ? (
-                        <Logout>
+                        <SignoutModal>
                             <div className='flex flex-col items-center gap-2 mt-2'>
                                 {icon.svg}
                                 <span className='text-xs'>{icon.span}</span>
                             </div>
-
-                        </Logout>
+                        </SignoutModal>
                     ) : (
-                        <Drop>
+                        <DeleteAccountModal>
                             <div className='flex flex-col items-center gap-2 mt-6'>
                                 {icon.svg}
                                 <span className='text-xs'>{icon.span}</span>
                             </div>
-                        </Drop>
+                        </DeleteAccountModal>
                     )}
                 </div>
             ))}

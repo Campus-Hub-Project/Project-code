@@ -1,4 +1,5 @@
-'use client'
+'use server'
+
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -13,36 +14,25 @@ import {
     AlertDialogCancel,
     AlertDialogAction
 } from '@/components/ui/alert-dialog'
-import drop from '@/lib/auth/drop'
-import logout from '@/lib/auth/logout'
 
 import btnCss from '@/styles/Button.module.css'
+import mdCss from '@/styles/Modal.module.css'
+import DeleteAccountButton from '../button/DeleteAccountButton'
 
 interface Props {
     children: React.ReactNode
 }
 
-const Drop = ({ children }: Props) => {
-
-    const handleDeleteAccount = async () => {
-        try {
-            const response = await drop()
-
-            if (response.success) logout()
-        } catch (error) {
-            throw error
-        }
-    }
-
+const DeleteAccountModal = async ({ children }: Props) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button variant='ghost'
                     className='text-center hover:bg-hub-white hover:text-hub-blue'>{children}</Button>
             </AlertDialogTrigger>
-            <AlertDialogContent className='rounded bg-hub-white'>
+            <AlertDialogContent className={mdCss['modal-container']}>
                 <AlertDialogHeader>
-                    <AlertDialogTitle className='text-hub-blue'>
+                    <AlertDialogTitle className={mdCss['modal-title']}>
                         Você tem certeza?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
@@ -50,13 +40,11 @@ const Drop = ({ children }: Props) => {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel
-                        className={`${btnCss['basic-button-config']}`}>
+                    <AlertDialogCancel className={`${btnCss['basic']}`}>
                         Não
                     </AlertDialogCancel>
-                    <AlertDialogAction
-                    className={`${btnCss['reverse-basic-button-config']}`}>
-                        <button onClick={async () => await handleDeleteAccount()}>Deletar conta</button>
+                    <AlertDialogAction>
+                        <DeleteAccountButton>Deletar conta</DeleteAccountButton>
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
@@ -64,4 +52,4 @@ const Drop = ({ children }: Props) => {
     )
 }
 
-export default Drop
+export default DeleteAccountModal

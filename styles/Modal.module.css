@@ -1,0 +1,7 @@
+.modal-container {
+    @apply rounded bg-hub-white
+}
+
+.modal-title {
+    @apply text-hub-blue
+}

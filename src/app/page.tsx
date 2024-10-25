@@ -1,6 +1,5 @@
-'use client'
+'use server'
 
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardHeader,
@@ -9,18 +8,16 @@ import {
   CardContent
 } from '@/components/ui/card';
 
-import signInWithGoogle from '@/lib/auth/signinWithGoogle'
-
-import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
 
-import btCss from '@/styles/Button.module.css'
 import mainCss from '@/styles/Main.module.css'
+import scnCss from '@/styles/Card.module.css'
 
-import { FcGoogle } from "react-icons/fc";
+import GoogleButton from '@/components/shared/button/GoogleButton';
+import LinkButton from '@/components/shared/button/LinkButton';
 
-const HomePage = () => {
+const HomePage = async () => {
   return (
     <main className={mainCss['main-tag-config']}>
       <section className='border-hub-middlegray shadow-lg flex-grow border-none rounded px-0 flex h-full'>
@@ -36,20 +33,13 @@ const HomePage = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className='mt-3 flex gap-3'>
-              <Button
-                onClick={() => signInWithGoogle()}
-                className={`${btCss['basic-button-config']} gap-1`}>
-                <FcGoogle size={20} />
-                Entrar com Google</Button>
-              <Link
-                href="/signin"
-                className={`${btCss['basic-button-config']} flex items-center justify-center px-4`}>
-                Para instituições</Link>
+              <GoogleButton />
+              <LinkButton to='/signin'>Para instituições</LinkButton>
             </CardContent>
           </Card>
         </div>
         <div className='w-1/2 rounded text-right'>
-          <Image src='/images/home-page-image.jpg' alt={''} width={2000} height={2000} />
+          <Image src='/images/home-page-image.jpg' alt={'Grupo de pessoas'} width={2000} height={2000} />
           <p className='-mt-6 pr-3 text-xs text-hub-lightgray'>Designed by
             <a href='http://br.freepik.com/' target='_blank' className='text-hub-blue'> freepik</a>
           </p>

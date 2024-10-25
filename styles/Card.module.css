@@ -1,0 +1,11 @@
+.home-section-card {
+    @apply border-hub-middlegray shadow-lg flex-grow border-none rounded px-0 flex h-full
+}
+
+.home-card-content {
+    @apply w-1/2 flex flex-col justify-center
+}
+
+.card-title {
+    @apply text-3xl font-semibold text-hub-blue uppercase
+}
