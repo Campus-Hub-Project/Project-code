@@ -12,6 +12,7 @@ const GoogleButton = () => {
 
     const handleSignInWithGoogle = async () => {
         try {
+            alert('Clicou')
             await signInWithGoogle()
         } catch (error) {
             console.error(error)
@@ -21,7 +22,7 @@ const GoogleButton = () => {
 
     return (
         <Button
-            onClick={handleSignInWithGoogle}
+            onClick={async () => await handleSignInWithGoogle()}
             className={`${btnCss['basic']} gap-1`}>
             <FcGoogle size={20} />
             Entrar com Google

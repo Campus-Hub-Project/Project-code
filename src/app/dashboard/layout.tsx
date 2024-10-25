@@ -1,3 +1,4 @@
+'use server'
 import React from 'react'
 
 import Aside from '../../../components/shared/aside'
@@ -18,20 +19,24 @@ const DashboardLayout = async ({ children }: Props) => {
 
     const session = await auth()
 
-    if (!session) console.log('SEM SESSSSSSSSSSSSSSSSSSSSSAAAAAAAAAAAOOOOOOOOOO');
-    if (!session) redirect('/')
-
-    let icons
-    if (session.user?.role === 'instituition') icons = instituitionIcons
-    if (session.user?.role === 'user') icons = userIcons
-    else redirect('/')
-    
-    return (
-        <>
-            <Aside icons={icons} />
-            {children}
-        </>
-    )
+    if (session?.user?.role === "instituition") {
+        
+        return (
+            <>
+                <Aside icons={instituitionIcons} />
+                {children}
+            </>
+        )
+    } else if (session?.user?.role === 'user') {
+        return (
+            <>
+                <Aside icons={userIcons}/>
+                {children}
+            </>
+        )
+    } else {
+        redirect('/')
+    }
 }
 
 export default DashboardLayout

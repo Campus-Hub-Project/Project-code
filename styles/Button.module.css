@@ -4,13 +4,13 @@
     
 }
 
-.rever-basic {
+.reverse-basic {
     @apply border-2 rounded text-hub-white bg-hub-blue border-hub-blue
     hover:text-hub-blue hover:bg-hub-white
 }
 
 .link {
-    @apply basic flex items-center justify-center px-4
+    @apply basic flex items-center justify-center px-4 text-sm
 }
 
 

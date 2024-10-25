@@ -20,7 +20,7 @@ const SignoutButton = ({ children }: Props) => {
         }
     }
 
-    return <button onClick={handleSignout} className={btnCss['rever-basic']}>{children}</button>
+    return <button onClick={handleSignout} className={btnCss['reverse-basic']}>{children}</button>
 }
 
 export default SignoutButton
