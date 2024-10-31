@@ -1,7 +1,6 @@
 'use client'
 import React, { useTransition } from 'react'
 
-import signInWithEmail from '@/lib/auth/signinWithEmail'
 import {
     Form,
     FormField,
@@ -22,6 +21,7 @@ import {
 import SubmitButton from '../button/SubmitButton'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import signInWithEmailAction from '@/src/actions/user-actions/signInWithEmailAction'
 
 const LoginInstituitionForm = () => {
 
@@ -38,7 +38,7 @@ const LoginInstituitionForm = () => {
         try {
             startTransition(
                 async () => {
-                    await signInWithEmail(data)
+                    await signInWithEmailAction(data)
                     form.reset()
                 })
         } catch (error) {
@@ -49,7 +49,7 @@ const LoginInstituitionForm = () => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitForm)} className='w-full mx-10'>
+            <form onSubmit={form.handleSubmit(submitForm)} className='w-full'>
                 <FormField
                     control={form.control}
                     name='email'

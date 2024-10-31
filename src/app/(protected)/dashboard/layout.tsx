@@ -11,33 +11,33 @@ import {
     userIcons
 } from '@/components/shared/aside/icons'
 
-interface Props {
-    children: React.ReactNode
-}
+// interface Props {
+//     children: React.ReactNode
+// }
 
-const DashboardLayout = async ({ children }: Props) => {
+// const DashboardLayout = async ({ children }: Props) => {
 
-    const session = await auth()
+//     const session = await auth()
 
-    if (session?.user?.role === "instituition") {
+    // if (session?.user?.role === "INSTITUITION") {
         
-        return (
-            <>
-                <Aside icons={instituitionIcons} />
-                {children}
-            </>
-        )
-    } else if (session?.user?.role === 'user') {
-        return (
-            <>
-                <Aside icons={userIcons}/>
-                {children}
-            </>
-        )
-    } else {
-        redirect('/')
-    }
-}
+    //     return (
+    //         <>
+    //             <Aside icons={instituitionIcons} />
+    //             {children}
+    //         </>
+    //     )
+    // } else if (session?.user?.role === 'user') {
+    //     return (
+    //         <>
+    //             <Aside icons={userIcons}/>
+    //             {children}
+    //         </>
+    //     )
+    // } else {
+    //     redirect('/')
+    // }
+// }
 
-export default DashboardLayout
+// export default DashboardLayout
 

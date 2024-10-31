@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/card';
 
 import React from 'react'
-import Image from 'next/image'
 
 import GoogleButton from '@/components/shared/button/GoogleButton';
 import LinkButton from '@/components/shared/button/LinkButton';
@@ -34,7 +33,7 @@ const HomePage = async () => {
         </CardHeader>
         <CardContent className='mt-3 flex gap-3'>
           <GoogleButton />
-          <LinkButton to='/signin'>Para instituições</LinkButton>
+          <LinkButton to='/auth/signin'>Para instituições</LinkButton>
         </CardContent>
       </Card>
       <ImageCard src='/images/home-page-image.jpg' alt='Imagem vetorial de um grupo de pessoas' />

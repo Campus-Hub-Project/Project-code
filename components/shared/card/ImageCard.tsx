@@ -5,15 +5,15 @@ import React from 'react'
 
 const ImageCard = async ({ src, alt }: { src: string, alt: string }) => {
 
-    const css = 'rounded border-none bg-hub-white relative overflow-hidden h-full w-1/2 flex flex-col justify-center items-center'
-
     return (
-        <Card className={css}>
+        <Card
+            className='rounded border-none bg-hub-white relative overflow-hidden h-full w-1/2 flex flex-col justify-center items-center'
+        >
             <Image
                 src={src}
                 alt={alt}
-                width={700}
-                height={700}
+                width={500}
+                height={500}
                 className='w-full'
             />
             <p className='text-bt-lightgray mt-1 text-sm'>Designed by

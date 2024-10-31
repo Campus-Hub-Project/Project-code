@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 
-import '@/styles/globals/globals.css'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: "campus_hub",

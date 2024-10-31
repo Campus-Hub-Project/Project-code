@@ -47,13 +47,15 @@ model Account {
   @@map("accounts")
 }
 
-model VerificationToken {
-  identifier String
+model VerificateEmailToken {
+  id         String   @id @default(uuid())
+  identifier String?
+  email      String?
   token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
-  @@map("verification_tokens")
+  @@map("verificate_email_tokens")
 }
 
 model Event {

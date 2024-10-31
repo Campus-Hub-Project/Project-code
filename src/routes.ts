@@ -1,11 +1,10 @@
 export const publicRoutes = [
     '/',
-    '/signin/email-send'
 ]
 
 export const authRoutes = [
-    '/signin',
-    '/signin/email-send'
+    '/auth/signin',
+    '/auth/email-send'
 ]
 
 export const apiAuthPrefix = '/api/auth'
