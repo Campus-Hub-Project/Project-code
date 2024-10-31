@@ -1,20 +1,13 @@
-import React from 'react'
 import { Button } from '@/components/ui/button'
+import React from 'react'
 
-import btnCss from '@/styles/Button.module.css'
+const SubmitButton = ({ children, reverse = false, extraCss }: {children: React.ReactNode, reverse?: boolean, extraCss?: string}) => {
 
-interface Props {
-    children: React.ReactNode,
-    css?: string
-}
+    let css = 'border-2 rounded'
+    if (!reverse) css = `${css}  border-hub-blue bg-hub-white text-hub-blue hover:bg-hub-blue hover:text-hub-white hover:border-hub-blue`
+    if (reverse) css = `${css} text-hub-white bg-hub-blue border-hub-blue hover:text-hub-blue hover:bg-hub-white`
 
-const SubmitButton = ({ children, css }: Props) => {
-    return (
-        <Button type='submit'
-            className={`${btnCss['basic']} ${css}`}>
-            {children}
-        </Button>
-    )
+    return <Button type='submit' className={`${css} ${extraCss}`}>{children}</Button>
 }
 
 export default SubmitButton

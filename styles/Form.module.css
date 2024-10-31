@@ -2,6 +2,10 @@
     @apply text-hub-blue font-semibold
 }
 
+.form-item-layout {
+    @apply mt-2
+}
+
 .text-input {
     @apply border-2 rounded border-hub-lightgray text-hub-lightgray focus:border-hub-blue focus:text-hub-blue
 }

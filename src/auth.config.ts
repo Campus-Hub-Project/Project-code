@@ -1,5 +1,5 @@
 import Google from 'next-auth/providers/google'
-import Email from 'next-auth/providers/nodemailer'
+import Credentials from 'next-auth/providers/credentials'
 
 import type { NextAuthConfig } from "next-auth"
 
@@ -15,19 +15,23 @@ export default {
         }
       },
     }),
-    // Email({
-    //   id: 'email',
-    //   name: 'email',
-    //   server: {
-    //     host: process.env.EMAIL_SERVER_HOST,
-    //     port: parseInt(process.env.EMAIL_SERVER_PORT as string, 10),
-    //     auth: {
-    //       user: process.env.EMAIL_SERVER_USER,
-    //       pass: process.env.EMAIL_SERVER_PASSWORD,
-    //     }
-    //   },
-    //   from: process.env.EMAIL_FROM,
-    // })
+    Credentials({
+      async authorize(credentials) {
+        const isDataAsSchema = signinSchema.safeParse(credentials)
+
+        if (!isDataAsSchema.success) return null
+
+        const isUserUnique = await findUniqueUserByEmail(isDataAsSchema.data.email)
+
+        if (!isUserUnique) return null
+
+        const isPasswordCorrect = await compare(isDataAsSchema.data.password, isUserUnique.password!)
+
+        if (isPasswordCorrect) return isUserUnique
+
+        return null
+      }
+    })
   ],
   pages: {
     signIn: '/signin',

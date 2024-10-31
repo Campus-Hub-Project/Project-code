@@ -32,8 +32,8 @@ const HomePage = async () => {
           </CardDescription>
         </CardHeader>
         <CardContent className='mt-3 flex gap-3'>
-          <GoogleButton />
-          <LinkButton to='/auth/signin'>Para instituições</LinkButton>
+          <LinkButton to='/auth/signup'>Cadastrar</LinkButton>
+          <LinkButton to='/auth/signin' reverse>Logar</LinkButton>
         </CardContent>
       </Card>
       <ImageCard src='/images/home-page-image.jpg' alt='Imagem vetorial de um grupo de pessoas' />
