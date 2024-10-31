@@ -18,7 +18,7 @@ import {
     formatType
 } from './format-event-data'
 
-import { auth } from '@/lib/auth/auth'
+import { auth } from '@/src/auth'
 import SubscribeEventButton from '../button/SubscribeEventButton'
 
 import { EventWithParticipantsAsProps } from './event'

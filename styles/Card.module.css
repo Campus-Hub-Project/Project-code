@@ -7,5 +7,5 @@
 }
 
 .card-title {
-    @apply text-3xl font-semibold text-hub-blue uppercase
+    @apply text-3xl font-semibold text-hub-blue
 }

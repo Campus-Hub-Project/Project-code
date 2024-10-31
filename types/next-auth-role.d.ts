@@ -1,7 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 
-declare module "next-auth" {
-    interface User {
-        role: string | null;
+export type ExtendedUser = DefaultSession['user'] & {
+    role: 'ADMIN' | 'USER' | 'INSTITUITION'
+}
+
+declare module 'next-auth' {
+    interface Session {
+        user: ExtendedUser
     }
 }

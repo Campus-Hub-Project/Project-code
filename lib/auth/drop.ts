@@ -1,7 +1,7 @@
 'use server'
 
-import { auth } from "./auth"
-import { deleteUser } from "@/queries/user-queries"
+import { auth } from "../../src/auth"
+import { deleteUser } from "@/lib/queries/user-queries"
 import logout from "./logout"
 
 const drop = async () => {

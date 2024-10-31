@@ -1,10 +1,10 @@
 'use server'
 import React from 'react'
 
-import Aside from '../../../components/shared/aside'
+import Aside from '../../../../components/shared/aside'
 
 import { redirect } from 'next/navigation'
-import { auth } from '@/lib/auth/auth'
+import { auth } from '@/src/auth'
 
 import {
     instituitionIcons,

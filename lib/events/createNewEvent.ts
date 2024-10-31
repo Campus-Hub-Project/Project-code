@@ -1,8 +1,8 @@
 'use server'
 
 import { createNewEventSchema, CreateNewEventSchemaType } from "@/schemas/create-new-event-schema"
-import { auth } from "../auth/auth"
-import { insertEventInDatabase } from "@/queries/event-queries"
+import { auth } from "../../src/auth"
+import { insertEventInDatabase } from "@/lib/queries/event-queries"
 import { eventDatesFormatter } from "./eventDateTimeFormatter"
 
 const createNewEvent = async (data: CreateNewEventSchemaType) => {

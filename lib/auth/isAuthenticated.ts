@@ -1,6 +1,6 @@
 'use server'
 
-import { auth } from "./auth"
+import { auth } from "../../src/auth"
 
 const isAuthenticated = async () => {
     const session = await auth()

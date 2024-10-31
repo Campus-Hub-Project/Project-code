@@ -1,12 +1,11 @@
 'use server'
 
-import { auth } from "../auth/auth"
+import { auth } from "../../src/auth"
 
-import { getAllEventsFromInstituition } from "@/queries/event-queries"
+import { getAllEventsFromInstituition } from "@/lib/queries/event-queries"
 
 // função que busca os eventos criados pela instituição de ensino
-// a busca usa como base o id do usuário-instituição logado
-const getEventsCreatedByInstituition = async () => {
+const getEventsWhereInstituitionCreated = async () => {
 
     // busca a sessão do usuário
     const session = await auth()
@@ -20,4 +19,4 @@ const getEventsCreatedByInstituition = async () => {
     return events
 }
 
-export default getEventsCreatedByInstituition
+export default getEventsWhereInstituitionCreated

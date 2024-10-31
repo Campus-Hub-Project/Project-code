@@ -1,6 +1,6 @@
 'use server'
 
-import { auth } from "../auth/auth"
+import { auth } from "../../src/auth"
 import { prisma } from "../db"
 import addInGoogleCalendar from "./addInGoogleCalendar"
 

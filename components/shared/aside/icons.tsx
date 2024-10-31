@@ -29,7 +29,7 @@ export const instituitionIcons = [
     { id: 1, svg: <HomeIcon className="size-6" />, span: "Início", to: '/dashboard' },
 
     // levar ao formulário para criar um novo evento
-    { id: 2, svg: <AcademicCapIcon className="size-6" />, span: "Novo evento", to: '/dashboard/events/new-event' },
+    { id: 2, svg: <AcademicCapIcon className="size-6" />, span: "Novo evento", to: '/dashboard/new-event' },
 
     // { id: 3, svg: <CalendarIcon className="size-6" />, span: "Meus eventos", to: '/dashboard/events/my-events' },
 

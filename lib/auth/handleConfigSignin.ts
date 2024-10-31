@@ -4,7 +4,7 @@ import {
     createNewInstituitionUser,
     findAccountByUserId,
     findUniqueUserByEmail
-} from "@/queries/user-queries"
+} from "@/lib/queries/user-queries"
 
 import { Account, User } from "next-auth"
 

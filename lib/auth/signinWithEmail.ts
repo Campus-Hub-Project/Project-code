@@ -1,7 +1,7 @@
 'use server'
 
 import { loginInstituitionSchemaType } from "@/schemas/login-instituition-schema"
-import { signIn } from "./auth"
+import { signIn } from "../../src/auth"
 
 const signInWithEmail = async (data: loginInstituitionSchemaType) => {
     try {

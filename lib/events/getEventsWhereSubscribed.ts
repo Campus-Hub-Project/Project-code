@@ -1,25 +1,14 @@
 'use server'
 
-import { auth } from "../auth/auth"
-import { prisma } from "../db"
+import { findEventsUserSubscribed } from "@/lib/queries/user-queries"
+import { auth } from "../../src/auth"
 
 export const getEventsWhereSubscribed = async () => {
     const session = await auth()
 
     if (!session || !session.user) return null
 
-    const events = await prisma.event.findMany({
-        where: {
-            participants: {
-                some: {
-                    id: session.user.id,
-                }
-            }
-        },
-        include: {
-            participants: true
-        }
-    })
+    const events = await findEventsUserSubscribed(session.user.id!)
 
     return events
 }

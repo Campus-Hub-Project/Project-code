@@ -1,7 +1,7 @@
 'use server'
 
-import { getAllEventsFromPlataform } from "@/queries/event-queries"
-import { auth } from "../auth/auth"
+import { getAllEventsFromPlataform } from "@/lib/queries/event-queries"
+import { auth } from "../../src/auth"
 
 export const allEventsCreated = async () => {
     const session = await auth()
