@@ -2,6 +2,10 @@ import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 
 import type { NextAuthConfig } from "next-auth"
+import { signinSchema } from '@/src/hooks/use-form/signin-useform'
+
+import { compare } from 'bcryptjs'
+import { findUniqueUserByEmail } from './lib/queries/user'
 
 export default {
   providers: [

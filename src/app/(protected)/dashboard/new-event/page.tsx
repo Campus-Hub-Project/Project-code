@@ -1,7 +1,7 @@
 'use server'
 import React from 'react'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import CreateNewEventForm from '@/components/shared/forms/create-new-event-form'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/src/components/ui/card'
+import CreateNewEventForm from '@/src/components/shared/forms/create-new-event-form'
 
 import crdCss from '@/styles/Card.module.css'
 

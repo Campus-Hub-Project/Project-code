@@ -14,16 +14,21 @@ enum UserRole {
 }
 
 model User {
-  id             String    @id @default(uuid())
-  name           String?
-  email          String    @unique
-  email_verified DateTime?
-  image          String?
-  role           UserRole  @default(USER)
+  id            String    @id @default(cuid())
+  name          String?
+  username      String?   @unique
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  password      String?
+  role          UserRole  @default(USER)
 
   accounts       Account[]
   events         Event[]
   participations Event[]   @relation("participants")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
 
   @@map("users")
 }

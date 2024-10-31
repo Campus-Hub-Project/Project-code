@@ -1,7 +1,7 @@
 'use server'
 import React from 'react'
 
-import Aside from '../../../../components/shared/aside'
+import Aside from '../../../components/shared/aside'
 
 import { redirect } from 'next/navigation'
 import { auth } from '@/src/auth'
@@ -9,7 +9,7 @@ import { auth } from '@/src/auth'
 import {
     instituitionIcons,
     userIcons
-} from '@/components/shared/aside/icons'
+} from '@/src/components/shared/aside/icons'
 
 // interface Props {
 //     children: React.ReactNode

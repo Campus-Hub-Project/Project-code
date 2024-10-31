@@ -1,7 +1,7 @@
 'use server'
 
-import ImageCard from '@/components/shared/card/ImageCard'
-import { Card } from '@/components/ui/card'
+import ImageCard from '@/src/components/shared/card/ImageCard'
+import { Card } from '@/src/components/ui/card'
 import React from 'react'
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {

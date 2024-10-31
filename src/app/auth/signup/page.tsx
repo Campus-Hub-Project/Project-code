@@ -1,7 +1,8 @@
 'use server'
 
-import SignupForm from '@/components/shared/forms/SignupForm'
-import { CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import LinkButton from '@/src/components/shared/button/LinkButton'
+import SignupForm from '@/src/components/shared/forms/SignupForm'
+import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components/ui/card'
 import React from 'react'
 
 const SignupPage = async () => {
@@ -20,7 +21,9 @@ const SignupPage = async () => {
             <CardContent className='mx-36'>
                 <SignupForm />
             </CardContent>
-           
+            <CardFooter className='mx-36 flex justify-center'>
+                <LinkButton to='/auth/signin' asLink>Já tenho uma conta</LinkButton>
+            </CardFooter>
         </>
     )
 }

@@ -6,13 +6,13 @@ import {
   CardTitle,
   CardDescription,
   CardContent
-} from '@/components/ui/card';
+} from '@/src/components/ui/card';
 
 import React from 'react'
 
-import GoogleButton from '@/components/shared/button/GoogleButton';
-import LinkButton from '@/components/shared/button/LinkButton';
-import ImageCard from '@/components/shared/card/ImageCard';
+import GoogleButton from '@/src/components/shared/button/GoogleButton';
+import LinkButton from '@/src/components/shared/button/LinkButton';
+import ImageCard from '@/src/components/shared/card/ImageCard';
 
 const HomePage = async () => {
   return (
@@ -32,8 +32,8 @@ const HomePage = async () => {
           </CardDescription>
         </CardHeader>
         <CardContent className='mt-3 flex gap-3'>
-          <LinkButton to='/auth/signup'>Cadastrar</LinkButton>
-          <LinkButton to='/auth/signin' reverse>Logar</LinkButton>
+          <GoogleButton>Para alunos</GoogleButton>
+          <LinkButton to='/auth/signin' reverse>Para instituições</LinkButton>
         </CardContent>
       </Card>
       <ImageCard src='/images/home-page-image.jpg' alt='Imagem vetorial de um grupo de pessoas' />
