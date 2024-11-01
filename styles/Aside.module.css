@@ -1,8 +1,0 @@
-.aside-container-config {
-    @apply fixed top-12 bottom-12 left-12 max-h-screen overflow-y-auto p-6 rounded flex flex-col items-center gap-6 
-    border shadow-md bg-hub-white
-}
-
-.aside-complete-icon-config {
-    @apply flex flex-col items-center text-center gap-2 cursor-pointer
-}

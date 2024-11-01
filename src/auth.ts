@@ -3,9 +3,14 @@ import authConfig from "./auth.config"
 
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
-import { findUniqueUserById, findUniqueUserByEmail } from "./lib/queries/user"
+import {
+  findUniqueUserById,
+  findUniqueUserByEmail,
+  insertUserJustSignUp
+} from "./lib/queries/user"
+
 import { prisma } from "./lib/db"
-   
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
@@ -38,7 +43,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (!doesUserExists) {
         const role = account?.provider === 'google' ? 'USER' : 'INSTITUITION'
 
-        // await insertUserJustSignUp(user.name, user.email!, user.image) 
+        await insertUserJustSignUp(user.name, user.email!, role)
       }
       return true
     },

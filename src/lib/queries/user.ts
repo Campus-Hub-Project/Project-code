@@ -10,9 +10,11 @@ export const findUniqueUserByEmail = async (email: string) => {
     return user
 }
 
-export const insertUserJustSignUp = async (name: string, email: string, password: string) => {
+export const insertUserJustSignUp = async (
+    name: string | null | undefined, email: string, role: 'ADMIN' | 'USER' | 'INSTITUITION', password?: string
+) => {
     const user = await prisma.user.create({
-        data: { name, email, password }
+        data: { name, email, password, role }
     })
 
     return user

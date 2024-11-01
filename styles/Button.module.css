@@ -1,7 +1,6 @@
 .basic {
     @apply border-2 rounded border-hub-blue bg-hub-white text-hub-blue 
     hover:bg-hub-blue hover:text-hub-white hover:border-hub-blue
-    
 }
 
 .reverse-basic {

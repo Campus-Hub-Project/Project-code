@@ -1,43 +1,31 @@
 'use server'
+import { auth } from '@/src/auth'
+import Aside from '@/src/components/shared/aside/Aside'
+import { iconsRelatedToInstituition } from '@/src/components/shared/aside/icons'
 import React from 'react'
 
-import Aside from '../../../components/shared/aside'
+const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
-import { redirect } from 'next/navigation'
-import { auth } from '@/src/auth'
+    const session = await auth()
 
-import {
-    instituitionIcons,
-    userIcons
-} from '@/src/components/shared/aside/icons'
+    if (session?.user.role === 'INSTITUITION') {
+        return (
+            <>
+                <Aside icons={iconsRelatedToInstituition} />
+                {children}
+            </>
+        )
+    }
 
-// interface Props {
-//     children: React.ReactNode
-// }
+    if (session?.user.role === 'USER') {
+        return (
+            <>
+                <Aside icons={iconsRelatedToInstituition} />
+                {children}
+            </>
+        )
+    }
 
-// const DashboardLayout = async ({ children }: Props) => {
+}
 
-//     const session = await auth()
-
-    // if (session?.user?.role === "INSTITUITION") {
-        
-    //     return (
-    //         <>
-    //             <Aside icons={instituitionIcons} />
-    //             {children}
-    //         </>
-    //     )
-    // } else if (session?.user?.role === 'user') {
-    //     return (
-    //         <>
-    //             <Aside icons={userIcons}/>
-    //             {children}
-    //         </>
-    //     )
-    // } else {
-    //     redirect('/')
-    // }
-// }
-
-// export default DashboardLayout
-
+export default DashboardLayout

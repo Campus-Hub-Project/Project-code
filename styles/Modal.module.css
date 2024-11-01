@@ -1,7 +1,3 @@
-.modal-container {
-    @apply rounded bg-hub-white
-}
-
-.modal-title {
-    @apply text-hub-blue
+.modal-icon {
+    @apply text-center text-xs hover:bg-hub-white hover:text-hub-blue cursor-pointer flex flex-col justify-center items-center
 }

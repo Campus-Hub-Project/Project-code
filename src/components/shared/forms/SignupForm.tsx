@@ -9,6 +9,7 @@ import { signupSchema, TypesignupSchema } from '@/src/hooks/use-form/signup-usef
 
 import formCss from '@/styles/Form.module.css'
 import SubmitButton from '../button/SubmitButton'
+import { signupWithCredentialsAction } from '@/src/actions/user-actions/signupWithCredentialsAction'
 
 
 const SignupForm = () => {
@@ -26,7 +27,7 @@ const SignupForm = () => {
     const submitForm = async (data: TypesignupSchema) => {
         try {
             startTransition(async () => {
-                //await signUpAction(data)
+                await signupWithCredentialsAction(data)
                 form.reset()
             })
         } catch (error) {

@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form'
 
 import formCss from '@/styles/Form.module.css'
 import { TypeSigninSchema, signinSchema } from '@/src/hooks/use-form/signin-useform'
+import signInWithCredentialsAction from '@/src/actions/user-actions/signInWithCredentialsAction'
 
 const SignInForm = () => {
     const [isPending, startTransition] = useTransition()
@@ -32,7 +33,7 @@ const SignInForm = () => {
 
     const submitForm = async (data: TypeSigninSchema) => {
         startTransition(async () => {
-            //await signInAction(data)
+            await signInWithCredentialsAction(data)
             form.reset()
         })
     }

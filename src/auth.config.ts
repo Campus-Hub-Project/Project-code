@@ -4,8 +4,9 @@ import Credentials from 'next-auth/providers/credentials'
 import type { NextAuthConfig } from "next-auth"
 import { signinSchema } from '@/src/hooks/use-form/signin-useform'
 
-import { compare } from 'bcryptjs'
 import { findUniqueUserByEmail } from './lib/queries/user'
+
+import { compare } from 'bcryptjs'
 
 export default {
   providers: [
@@ -27,9 +28,9 @@ export default {
 
         const isUserUnique = await findUniqueUserByEmail(isDataAsSchema.data.email)
 
-        if (!isUserUnique) return null
+        if (!isUserUnique || typeof isUserUnique.password !== 'string') return null
 
-        const isPasswordCorrect = await compare(isDataAsSchema.data.password, isUserUnique.password!)
+        const isPasswordCorrect = await compare(isDataAsSchema.data.password, isUserUnique.password)
 
         if (isPasswordCorrect) return isUserUnique
 
