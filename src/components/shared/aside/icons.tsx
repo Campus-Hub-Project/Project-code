@@ -25,7 +25,7 @@ export const iconsRelatedToInstituition = [
     { svg: <HomeIcon className="size-6" />, text: "Início", to: '/dashboard' },
 
     // levar ao formulário para criar um novo evento
-    { svg: <AcademicCapIcon className="size-6" />, text: "Novo evento", to: '/dashboard' },
+    { svg: <AcademicCapIcon className="size-6" />, text: "Novo evento", to: '/dashboard/new-event' },
 
     // { id: 3, svg: <CalendarIcon className="size-6" />, span: "Meus eventos", to: '/dashboard/events/my-events' },    
 ]

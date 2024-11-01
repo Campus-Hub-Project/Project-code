@@ -1,26 +1,28 @@
 'use client'
-import logout from '@/src/lib/auth/logout'
+import { signOut } from '@/src/auth'
 import React from 'react'
 
-import btnCss from '@/styles/Button.module.css'
-
-interface Props {
-    children: React.ReactNode
-}
-
-const SignoutButton = ({ children }: Props) => {
+const SignoutButton = ({ children, forever = false, id }: { children: React.ReactNode, forever?: boolean, id?: string }) => {
 
     const handleSignout = async () => {
+        await signOut({
+            redirectTo: '/'
+        })
+    }
+
+    const handleSignoutForever = async () => {
         try {
-            await logout()
+            // await deleteUser(id)
+            await signOut({
+                redirectTo: '/'
+            })
         } catch (error) {
-            alert('Não foi possível sair de sua conta, tente novamente mais tarde')
-            console.error(error);
-            throw error
+
         }
     }
 
-    return <button onClick={handleSignout} className={btnCss['reverse-basic']}>{children}</button>
+    if (!forever) return <button onClick={handleSignout}>{children}</button>
+    if (forever) return <button onClick={handleSignoutForever}>{children}</button>
 }
 
 export default SignoutButton

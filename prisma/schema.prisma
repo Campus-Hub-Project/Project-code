@@ -71,14 +71,13 @@ model Event {
   type               String
   format             String
   starts             DateTime
-  ends               DateTime
+  ends               DateTime?
   subs_starts        DateTime
-  subs_ends          DateTime
-  price              Float    @default(0.0)
+  subs_ends          DateTime?
   participants_limit Int      @default(0)
   participants       User[]   @relation("participants")
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("events")
 }

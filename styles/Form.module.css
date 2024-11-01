@@ -1,38 +1,30 @@
-.label {
-    @apply text-hub-blue font-semibold
+.form-label {
+    @apply font-semibold text-hub-blue
 }
 
-.form-item-layout {
-    @apply mt-2
+.form-text-input {
+    @apply border-2 border-hub-middlegray rounded text-hub-middlegray focus:border-hub-blue focus:text-hub-blue
 }
 
-.text-input {
-    @apply border-2 rounded border-hub-lightgray text-hub-lightgray focus:border-hub-blue focus:text-hub-blue
+.form-select-trigger {
+    @apply border-2 border-hub-middlegray rounded text-hub-middlegray
 }
 
-.select-trigger {
-    @apply rounded border-2 border-hub-lightgray text-hub-lightgray outline-none
-}
-
-.select-content {
+.form-select-content {
     @apply cursor-pointer bg-hub-white rounded 
-    border-2 border-hub-lightgray text-hub-lightgray
+    border-2 border-hub-lightgray text-hub-middlegray
 }
 
-.select-input {
+.form-select-item {
     @apply cursor-pointer focus:text-hub-blue
 }
 
-.popover-trigger {
-    @apply rounded border-2 border-hub-lightgray text-hub-lightgray 
-    outline-none hover:text-hub-blue hover:border-hub-blue
+.form-popover-trigger {
+    @apply border-2 border-hub-middlegray rounded text-hub-middlegray
+    hover:border-hub-blue hover:text-hub-blue
 }
 
-.time-input {
-    @apply border-2 rounded border-hub-lightgray text-hub-lightgray 
-    outline-none focus:border-hub-blue focus:text-hub-blue cursor-pointer
-}
-
-.basic-input-config {
-    @apply rounded border-2 border-hub-lightgray text-hub-lightgray outline-none
+.form-time-input {
+    @apply border-2 border-hub-middlegray rounded text-hub-middlegray focus:border-hub-blue focus:text-hub-blue
+    cursor-pointer
 }

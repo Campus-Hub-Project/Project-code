@@ -23,6 +23,7 @@ const SignupPage = async () => {
             </CardContent>
             <CardFooter className='mx-36 flex justify-center'>
                 <LinkButton to='/auth/signin' asLink>Já tenho uma conta</LinkButton>
+                <LinkButton to='/' asLink>Voltar à pagina inicial</LinkButton>
             </CardFooter>
         </>
     )

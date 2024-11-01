@@ -17,8 +17,11 @@ import {
 import modalCss from '@/styles/Modal.module.css'
 
 import buttonCss from '@/styles/Button.module.css'
+import SignoutButton from '../button/SignoutButton'
+import { auth } from '@/src/auth'
 
 const DeactivateModal = async ({ children }: { children: React.ReactNode }) => {
+    const session = await auth()
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -38,7 +41,9 @@ const DeactivateModal = async ({ children }: { children: React.ReactNode }) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel className={buttonCss['basic']}>Não</AlertDialogCancel>
-                    <AlertDialogAction className={buttonCss['reverse-basic']}>Deletar conta</AlertDialogAction>
+                    <AlertDialogAction className={buttonCss['reverse-basic']}>
+                        <SignoutButton forever id={session?.user.id}>Deletar conta</SignoutButton>
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

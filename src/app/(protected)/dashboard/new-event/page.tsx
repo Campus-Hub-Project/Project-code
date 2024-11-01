@@ -1,27 +1,25 @@
 'use server'
 import React from 'react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/src/components/ui/card'
-import CreateNewEventForm from '@/src/components/shared/forms/create-new-event-form'
-
-import crdCss from '@/styles/Card.module.css'
+import NewEventForm from '@/src/components/shared/forms/NewEventForm'
 
 const NewEventPage = async () => {
   return (
-    <section className='min-h-screen w-full bg-hub-white flex justify-center'>
-      <Card className='bg-hub-white border shadow-md rounded w-3/5 my-12'>
+    <div className='w-4/5 min-h-screen py-12 ml-36 flex justify-center'>
+      <Card className='rounded border-none shadow-lg bg-hub-white w-4/5 '>
         <CardHeader className='text-center'>
-          <CardTitle className={crdCss['card-title']}>
+          <CardTitle className='text-3xl text-hub-blue'>
             Novo evento
           </CardTitle>
-          <CardDescription className='mx-4 font-medium text-base text-hub-middlegray'>
+          <CardDescription className='font-medium text-base text-hub-middlegray'>
             Insira as informações necesárias e crie um novo evento
           </CardDescription>
         </CardHeader>
         <CardContent className='flex justify-center'>
-          <CreateNewEventForm />
+          <NewEventForm />
         </CardContent>
       </Card>
-    </section>
+    </div>
   )
 }
 

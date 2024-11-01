@@ -16,6 +16,7 @@ import {
 import modalCss from '@/styles/Modal.module.css'
 
 import buttonCss from '@/styles/Button.module.css'
+import SignoutButton from '../button/SignoutButton'
 
 const SignoutModal = async ({ children }: { children: React.ReactNode }) => {
     return (
@@ -36,7 +37,9 @@ const SignoutModal = async ({ children }: { children: React.ReactNode }) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel className={buttonCss['basic']}>Voltar</AlertDialogCancel>
-                    <AlertDialogAction className={buttonCss['reverse-basic']}>Sair</AlertDialogAction>
+                    <AlertDialogAction className={buttonCss['reverse-basic']}>
+                        <SignoutButton>Sair</SignoutButton>
+                    </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
