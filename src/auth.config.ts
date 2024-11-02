@@ -15,8 +15,7 @@ export default {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
-          // Definindo o scope para acessar o Google Calendar
-          scope: 'openid profile email https://www.googleapis.com/auth/calendar.events'
+          scope: 'openid profile email https://www.googleapis.com/auth/calendar'
         }
       },
     }),

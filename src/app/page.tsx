@@ -10,10 +10,10 @@ import {
 
 import React from 'react'
 
-import GoogleButton from '@/src/components/shared/button/GoogleButton';
 import LinkButton from '@/src/components/shared/button/LinkButton';
 import ImageCard from '@/src/components/shared/card/ImageCard';
 import HalfContentHalfImageLayout from '../components/shared/layouts/HalfContentHalfImageLayout';
+import GoogleButton from '../components/shared/button/GoogleButton';
 
 const HomePage = async () => {
   return (

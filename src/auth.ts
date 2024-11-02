@@ -37,17 +37,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       return session
     },
-    async signIn({ user, account }) {
-      const doesUserExists = await findUniqueUserByEmail(user.email!)
-
-      if (!doesUserExists) {
-        const role = account?.provider === 'google' ? 'USER' : 'INSTITUITION'
-
-        await insertUserJustSignUp(user.name, user.email!, role)
-      }
-      return true
-    },
-
   },
   ...authConfig,
 })
