@@ -1,14 +1,11 @@
 'use client'
+import { signoutAction } from '@/src/actions/user-actions/signoutAction'
 import { signOut } from '@/src/auth'
 import React from 'react'
 
 const SignoutButton = ({ children, forever = false, id }: { children: React.ReactNode, forever?: boolean, id?: string }) => {
 
-    const handleSignout = async () => {
-        await signOut({
-            redirectTo: '/'
-        })
-    }
+    const handleSignout = async () => await signoutAction()
 
     const handleSignoutForever = async () => {
         try {
@@ -21,7 +18,7 @@ const SignoutButton = ({ children, forever = false, id }: { children: React.Reac
         }
     }
 
-    if (!forever) return <button onClick={handleSignout}>{children}</button>
+    if (!forever) return <button onClick={() => handleSignout}>{children}</button>
     if (forever) return <button onClick={handleSignoutForever}>{children}</button>
 }
 

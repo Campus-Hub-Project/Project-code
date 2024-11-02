@@ -16,6 +16,6 @@ export const getEventsCreatedByUser = async () => {
     if (doesUserExists.role === 'USER') return null
 
     const events = await findEventsCreatedByInstituitionId(session.user.id)
-
+        
     return events
 }

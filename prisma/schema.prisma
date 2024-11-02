@@ -71,9 +71,9 @@ model Event {
   type               String
   format             String
   starts             DateTime
-  ends               DateTime?
+  ends               DateTime
   subs_starts        DateTime
-  subs_ends          DateTime?
+  subs_ends          DateTime
   participants_limit Int      @default(0)
   participants       User[]   @relation("participants")
 

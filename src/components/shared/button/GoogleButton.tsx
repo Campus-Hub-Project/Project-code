@@ -3,17 +3,18 @@ import React from 'react'
 
 import { Button } from '@/src/components/ui/button'
 
-import signInWithGoogle from '@/src/lib/auth/signinWithGoogle'
 import { FcGoogle } from 'react-icons/fc'
 
-import btnCss from '@/styles/Button.module.css'
+import { signIn } from '@/src/auth'
+import { DEFAULT_REDIRECT_PATH } from '@/src/routes'
 
 const GoogleButton = ({ children }: { children: React.ReactNode }) => {
 
     const handleSignInWithGoogle = async () => {
         try {
-            alert('Clicou')
-            await signInWithGoogle()
+            await signIn('google', {
+                redirectTo: DEFAULT_REDIRECT_PATH
+            })
         } catch (error) {
             console.error(error)
             throw error

@@ -42,6 +42,7 @@ const NewEventForm = () => {
             startTransition(async () => {
                 await createNewEvent(data)
                 form.reset()
+                alert('Evento criado')
             })
         } catch (error) {
 

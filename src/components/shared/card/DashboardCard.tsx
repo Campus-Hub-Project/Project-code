@@ -12,24 +12,29 @@ import {
 
 import buttonCss from '@/styles/Button.module.css'
 import { Button } from '../../ui/button'
+import { formatDateTime, formatFormat, formatTotalParticipants, formatType } from '@/src/actions/event-actions/format-event-data'
+import { EventCardProps } from '@/src/interfaces/event'
+import { auth } from '@/src/auth'
 
-interface Props {
-  event: {
-    name: string,
-    description: string,
-    type: string,
-    format: string,
-    starts: Date,
-    ends: Date,
-    subs_starts: Date,
-    subs_ends: Date,
-    participants_limit: number
-  }
-}
+const DashboardCard = async ({ event }: EventCardProps) => {
+  const session = await auth()
 
-const DashboardCard = async ({ event }: Props) => {
+  const formattedType = await formatType(event.type)
+
+  const formattedFormat = await formatFormat(event.format)
+
+  const formattedStarts = await formatDateTime(event.starts)
+
+  const formattedEnds = await formatDateTime(event.ends)
+
+  const formattedSubsStarts = await formatDateTime(event.subs_starts)
+
+  const formattedSubsEnds = await formatDateTime(event.subs_ends)
+
+  // const formattedParticipantsLimit = await formatTotalParticipants(event.participants_limit)
+
   return (
-    <Card className='w-2/5 rounded border-none bg-hub-white shadow-lg'>
+    <Card className='w-full rounded border-none bg-hub-white shadow-lg h-[635px]'>
       <CardHeader>
         <CardTitle className='text-hub-blue uppercase text-xl'>
           {event.name}
@@ -39,16 +44,18 @@ const DashboardCard = async ({ event }: Props) => {
         </CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col text-hub-middlegray'>
-        <span>Tipo do evento: {event.type}</span>
-        <span>Formato do evento: {event.format}</span>
-        <span>Data de início: {event.starts as unknown as string}</span>
-        <span>Data de encerramento: {event.ends as unknown as string}</span>
-        <span>Período de inscrição: {event.subs_starts as unknown as string} até {event.subs_ends as unknown as string}</span>
-        <span>Total de participantes inscritos: {event.participants_limit} de 100</span>
+        <span>Tipo do evento: {formattedType}</span>
+        <span>Formato do evento: {formattedFormat}</span>
+        <span>Data de início: {formattedStarts}</span>
+        <span>Data de encerramento: {formattedEnds}</span>
+        <span>Período de inscrição: {formattedSubsStarts} até {formattedSubsEnds}</span>
+        <span className='text-hub-blue font-semibold'>Total de participantes inscritos: {event.participants_limit} de 100</span>
       </CardContent>
-      {/* <CardFooter>
-        <Button className={buttonCss['basic']}>Ver mais detalhes</Button>
-      </CardFooter> */}
+      {session?.user.role === 'USER' && (
+        <CardFooter>
+          <Button className={buttonCss['basic']}>Ver mais detalhes</Button>
+        </CardFooter>
+      )}
     </Card>
   )
 }

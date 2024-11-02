@@ -42,11 +42,11 @@ const SignupForm = () => {
                     control={form.control}
                     name='name'
                     render={({ field }) => (
-                        <FormItem>
-                            <FormLabel className={formCss['label']}>Nome:</FormLabel>
+                        <FormItem className='mt-2'>
+                            <FormLabel className={formCss['form-label']}>Nome:</FormLabel>
                             <FormControl>
                                 <Input {...field}
-                                    className={formCss['text-input']}
+                                    className={formCss['form-text-input']}
                                     disabled={isPending}
                                     type='text'
                                     placeholder='Nome da instituição aqui...' />
@@ -59,11 +59,11 @@ const SignupForm = () => {
                     control={form.control}
                     name='email'
                     render={({ field }) => (
-                        <FormItem className={formCss['form-item-layout']}>
-                            <FormLabel className={formCss['label']}>E-mail:</FormLabel>
+                        <FormItem className='mt-2'>
+                            <FormLabel className={formCss['form-label']}>E-mail:</FormLabel>
                             <FormControl>
                                 <Input {...field}
-                                    className={formCss['text-input']}
+                                    className={formCss['form-text-input']}
                                     disabled={isPending}
                                     type='text'
                                     placeholder='E-mail da instituição aqui...' />
@@ -76,11 +76,11 @@ const SignupForm = () => {
                     control={form.control}
                     name='password'
                     render={({ field }) => (
-                        <FormItem className={formCss['form-item-layout']}>
-                            <FormLabel className={formCss['label']}>Senha:</FormLabel>
+                        <FormItem className='mt-2'>
+                            <FormLabel className={formCss['form-label']}>Senha:</FormLabel>
                             <FormControl>
                                 <Input {...field}
-                                    className={formCss['text-input']}
+                                    className={formCss['form-text-input']}
                                     disabled={isPending}
                                     type='text'
                                     placeholder='Senha da conta da instituição aqui...' />

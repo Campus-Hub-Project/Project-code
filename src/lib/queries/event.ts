@@ -16,9 +16,9 @@ interface Event {
         type: string,
         format: string,
         starts: Date,
-        ends?: Date,
+        ends: Date,
         subs_starts: Date,
-        subs_ends?: Date,
+        subs_ends: Date,
         participantsLimit: number,
         userId: string
 }

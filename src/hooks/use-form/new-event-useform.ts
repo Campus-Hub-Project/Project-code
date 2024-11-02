@@ -19,7 +19,7 @@ export const newEventSchema = z.object({
     date: z
         .object({
             from: z.date({ message: "A data de início do evento é obrigatória" }),
-            to: z.date().optional(),
+            to: z.date({ message: "A data de encerramento do evento é obrigatória" }),
         })
         .refine(
             (data) => !data.to || data.to >= data.from,
@@ -31,8 +31,8 @@ export const newEventSchema = z.object({
         .string({ message: "O campo do horário do final do evento é obrigatório." }),
     subscribePeriod: z
         .object({
-            from: z.date({ message: "Escolha a data de início das inscrições." }),
-            to: z.date().optional(),
+            from: z.date({ message: "A data de início das inscrições é obrigatória." }),
+            to: z.date({ message: "A data de encerramento das inscrições é obrigatória" }),
         })
         .refine(
             (period) => !period.to || period.to >= period.from,
