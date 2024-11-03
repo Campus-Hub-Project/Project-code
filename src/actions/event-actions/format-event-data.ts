@@ -32,5 +32,3 @@ export const formatDateTime = async (date: Date) =>
         hour: '2-digit',
         minute: '2-digit',
     })
-
-export const formatTotalParticipants = async (participants: User[]) => participants.length

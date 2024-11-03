@@ -3,11 +3,7 @@ import authConfig from "./auth.config"
 
 import { PrismaAdapter } from "@auth/prisma-adapter"
 
-import {
-  findUniqueUserById,
-  findUniqueUserByEmail,
-  insertUserJustSignUp
-} from "./lib/queries/user"
+import { findUniqueUserById } from "./lib/queries/user"
 
 import { prisma } from "./lib/db"
 
