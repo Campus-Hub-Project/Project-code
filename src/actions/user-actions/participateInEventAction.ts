@@ -1,26 +1,18 @@
 'use server'
 
-import { auth } from "@/src/auth"
 import { addParticipantToEvent, findUniqueEventById } from "@/src/lib/queries/event"
-import { findUniqueUserById } from "@/src/lib/queries/user"
 import { addEventInGoogleCalendarAction } from "./addEventInGoogleCalendarAction"
+import { getUserSession } from "./getUserSession"
 
 export const participateInEventAction = async (eventId: string) => {
-    const session = await auth()
-
-    if (!session || !session.user || !session.user.id) return null
-
-    const doesUserExists = await findUniqueUserById(session.user.id)
-
-    if (!doesUserExists) return null
-
-    if (doesUserExists.role !== 'USER') return null
+    const session = await getUserSession('USER')
+    if (!session) return null
 
     const doesEventExists = await findUniqueEventById(eventId)
 
     if (!doesEventExists) return null
 
-    const event = await addParticipantToEvent(eventId, doesUserExists.id)
+    const event = await addParticipantToEvent(eventId, session.user.id as string)
 
     try {
         const response = await addEventInGoogleCalendarAction({ event })

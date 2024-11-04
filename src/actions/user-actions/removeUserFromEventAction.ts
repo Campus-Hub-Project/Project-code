@@ -19,5 +19,7 @@ export const removeUserFromEventAction = async (eventId: string) => {
 
     if (!doesEventExists) return null
     
-    await removeParticipantFromEvent(eventId, doesEventExists.id)
+    const event = await removeParticipantFromEvent(eventId, doesEventExists.id)
+    
+    return event
 }

@@ -102,7 +102,7 @@ export const removeParticipantFromEvent = async (eventId: string, userId: string
         where: { id: eventId },
         data: {
             participants: {
-                delete: { id: userId },
+                disconnect: { id: userId },
             }
         }
     })

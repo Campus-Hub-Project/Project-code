@@ -12,7 +12,7 @@ const FindEventsPage = async () => {
     if (events === null || events.length === 0) {
         return (
             <NoContentLayout
-                src='/images/no-event-image.jpg'
+                src='/images/no-content.jpg'
                 alt='Imagem alternativa caso não hajam eventos para mostrar'
                 span='Não há nenhum evento para ser mostrado ainda...'
             />

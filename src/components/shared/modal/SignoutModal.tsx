@@ -17,10 +17,15 @@ import modalCss from '@/styles/Modal.module.css'
 
 import buttonCss from '@/styles/Button.module.css'
 import { signoutAction } from '@/src/actions/user-actions/signoutAction'
+import { useRouter } from 'next/navigation'
 
 const SignoutModal = ({ children }: { children: React.ReactNode }) => {
+    const router = useRouter()
 
-    const handleSignout = async () => await signoutAction()
+    const handleSignout = async () => {
+        await signoutAction()
+        router.push('/')
+    }
 
     return (
         <AlertDialog>

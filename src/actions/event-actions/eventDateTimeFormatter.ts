@@ -1,21 +1,21 @@
 'use server'
 
-import { toZonedTime, formatInTimeZone } from 'date-fns-tz';
-
 export const eventDatesFormatter = async ({ date, isSubsPeriod = false, time }: { date: Date, isSubsPeriod?: boolean, time?: string }) => {
-    const timeZone = 'America/Sao_Paulo'
+    // 2024-11-22T03:00:00.000Z
 
-    const zonedDate = toZonedTime(date, timeZone)
+    //2024-11-22
+    const datePart = date.toISOString().slice(0, 10)
 
-    const datePart = formatInTimeZone(zonedDate, timeZone, 'yyyy-MM-dd')
+    let formattedDate
+    if (isSubsPeriod) formattedDate = new Date(`${datePart}T03:00:00.000Z`)
+    else formattedDate = new Date(`${datePart}T${time}:00.000Z`)
+    //2024-11-22T12:00:00.000Z
+    //2024-11-23T17:00:00.000Z
 
-    let correctDateTimeFormat: string
+    // SOMA TRES HORAS A DATA FORMATADA PARA FICAR NO HORÁRIO DE BRASÍLIA, QUE É +3 HORAS DO HORÁRIO DE LONDRES
+    formattedDate.setHours(formattedDate.getHours() + 3)
 
-    if (isSubsPeriod) correctDateTimeFormat = `${datePart}T00:00:00.000`
-    else if (time) correctDateTimeFormat = `${datePart}T${time}:00.000`
-    else throw new Error("Hora (`time`) é necessária para eventos que não são `isSubsPeriod`")
+    const correctFinalDate = formattedDate.toISOString()
 
-    const finalDate = new Date(formatInTimeZone(new Date(correctDateTimeFormat), 'UTC', "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"))
-
-    return finalDate
-};
+    return correctFinalDate
+}

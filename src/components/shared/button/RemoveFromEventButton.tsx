@@ -8,7 +8,10 @@ import { removeUserFromEventAction } from '@/src/actions/user-actions/removeUser
 
 const RemoveFromEventButton = ({ children, id }: { children: React.ReactNode, id: string }) => {
 
-    const handleRemoveFromEvent = async () => await removeUserFromEventAction(id)
+    const handleRemoveFromEvent = async () => {
+        const response = await removeUserFromEventAction(id)
+        if (response) alert('Você saiu do evento')
+    }
 
     return <Button
         onClick={handleRemoveFromEvent}

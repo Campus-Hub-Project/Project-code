@@ -11,10 +11,9 @@ const SubscribeEventButton = ({ children, id }: { children: React.ReactNode, id:
 
     const handleSubscribeEvent = async () => {
         try {
-            const event = await participateInEventAction(id)
-            if (event) redirect('/dashboard')
+            await participateInEventAction(id)
         } catch (error) {
-            alert('Algo deu errado, você não se inscreveu no evento')
+            alert('Algo deu errado, você não se inscreveu no evento: ' + error)
         }
     }
 
