@@ -1,7 +1,5 @@
 'use server'
 
-import { User } from "next-auth"
-
 export const formatType = async (type: string) => {
     switch (type) {
         case 'lectures': return 'Palestra'

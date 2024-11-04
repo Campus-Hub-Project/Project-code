@@ -1,8 +1,8 @@
 'use server'
 import { getAllPlataformEventsAction } from '@/src/actions/event-actions/getAllPlataformEventsAction'
-import DashboardCard from '@/src/components/shared/card/DashboardCard'
+import EventCard from '@/src/components/shared/card/EventCard'
 import DashboardEventsLayout from '@/src/components/shared/layouts/DashboardEventsLayout'
-import NoEventsLayout from '@/src/components/shared/layouts/NoEventsLayout'
+import NoContentLayout from '@/src/components/shared/layouts/NoContentLayout'
 import React from 'react'
 
 const FindEventsPage = async () => {
@@ -11,7 +11,7 @@ const FindEventsPage = async () => {
 
     if (events === null || events.length === 0) {
         return (
-            <NoEventsLayout
+            <NoContentLayout
                 src='/images/no-event-image.jpg'
                 alt='Imagem alternativa caso não hajam eventos para mostrar'
                 span='Não há nenhum evento para ser mostrado ainda...'
@@ -22,7 +22,7 @@ const FindEventsPage = async () => {
     return (
         <DashboardEventsLayout>
             {events.map((event) => (
-                <DashboardCard event={event} />
+                <EventCard event={event} />
             ))}
         </DashboardEventsLayout>
     )

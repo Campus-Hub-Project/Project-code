@@ -14,9 +14,11 @@ import { formatDateTime, formatFormat, formatType } from '@/src/actions/event-ac
 import { EventCardProps } from '@/src/interfaces/event'
 import { auth } from '@/src/auth'
 import SubscribeEventButton from '../button/SubscribeEventButton'
+import RemoveFromEventButton from '../button/RemoveFromEventButton'
 
-const DashboardCard = async ({ event }: EventCardProps) => {
+const EventCard = async ({ event, isDashboard = false }: EventCardProps) => {
   const session = await auth()
+  const { role } = session!.user
 
   const formattedType = await formatType(event.type)
   const formattedFormat = await formatFormat(event.format)
@@ -43,7 +45,12 @@ const DashboardCard = async ({ event }: EventCardProps) => {
           Total de participantes inscritos: {formattedParticipantsCount} de {formattedParticipantsLimit}
         </span>
       </CardContent>
-      {session?.user.role === 'USER' && (
+      {role === 'USER' && isDashboard && (
+        <CardFooter>
+          <RemoveFromEventButton id={event.id}>Sair do evento</RemoveFromEventButton>
+        </CardFooter>
+      )}
+      {role === 'USER' && !isDashboard && (
         <CardFooter>
           <SubscribeEventButton id={event.id}>Participar</SubscribeEventButton>
         </CardFooter>
@@ -52,4 +59,4 @@ const DashboardCard = async ({ event }: EventCardProps) => {
   )
 }
 
-export default DashboardCard
+export default EventCard

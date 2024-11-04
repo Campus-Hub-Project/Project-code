@@ -22,20 +22,15 @@ export const createNewEvent = async (data: TypeNewEventSchema) => {
     if (!isDataAsSchema.success) return null
 
     const formattedEventDateTimeStarts = await eventDatesFormatter(
-        isDataAsSchema.data.date.from, 
-        false, 
-        isDataAsSchema.data.startTime
-    )
+        { date: isDataAsSchema.data.date.from, time: isDataAsSchema.data.startTime })
 
-    const formattedEventDateTimeEnds = await eventDatesFormatter(isDataAsSchema.data.date.to, false, isDataAsSchema.data.endTime)
-    
+    const formattedEventDateTimeEnds = await eventDatesFormatter({ date: isDataAsSchema.data.date.to, time: isDataAsSchema.data.endTime })
+
     const formattedEventDateTimeSubsStarts = await eventDatesFormatter(
-        isDataAsSchema.data.subscribePeriod.from, 
-        true
-    )
+        { date: isDataAsSchema.data.subscribePeriod.from, isSubsPeriod: true })
 
-    const formattedEventDateTimeSubsEnds = await eventDatesFormatter(isDataAsSchema.data.subscribePeriod.to, true)
-    
+    const formattedEventDateTimeSubsEnds = await eventDatesFormatter({ date: isDataAsSchema.data.subscribePeriod.to, isSubsPeriod: true })
+
 
     const event = await insertNewInstituitionEvent({
         name: isDataAsSchema.data.name,

@@ -25,7 +25,7 @@ const Aside = ({ icons }: Props) => {
         <aside className='rounded border-hub-middlegray bg-hub-white shadow-lg fixed top-12 bottom-12 left-12 w-40 py-12 px-8'>
             <ul className='flex flex-col gap-6'>
                 <li>
-                    <Image src='/images/campus-hub-logo.jpg' alt='Logo do campus_hub' width={100} height={100} />
+                    <Image src='/images/logo.png' alt='Logo do campus_hub' className='bg-hub-white' width={100} height={100} />
                 </li>
                 {icons.map((icon, index) => (
                     <li key={index}>

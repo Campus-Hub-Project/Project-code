@@ -37,7 +37,7 @@ const HomePage = async () => {
           <LinkButton to='/auth/signin' reverse>Para instituições</LinkButton>
         </CardContent>
       </Card>
-      <ImageCard src='/images/home-page-image.jpg' alt='Imagem vetorial de um grupo de pessoas' />
+      <ImageCard src='/images/landing-page-image.jpg' alt='Imagem vetorial de um grupo de pessoas' />
     </HalfContentHalfImageLayout>
   )
 }

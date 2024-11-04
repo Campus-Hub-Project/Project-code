@@ -27,17 +27,17 @@ export const addEventInGoogleCalendarAction = async ({ event }: { event: EventGo
 
     // TENTO INSERIR O EVENTO NA AGENDA E RETORNÁ-LO:
     try {
-        const eventToInsert = await calendar.events.insert({
+        const eventToInsert = calendar.events.insert({
             calendarId: 'primary',
             requestBody: {
                 summary: event.name,
                 description: event.description,
                 start: {
-                    dateTime: event.starts.toISOString(),
+                    dateTime: event.starts,
                     timeZone: 'America/Sao_Paulo',
                 },
                 end: {
-                    dateTime: event.ends.toISOString(),
+                    dateTime: event.ends,
                     timeZone: 'America/Sao_Paulo',
                 },
                 attendees: [{ email: doesUserExists.email }],

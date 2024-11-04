@@ -11,7 +11,8 @@ export interface EventCardProps {
         subs_ends: Date;
         participants_limit: number;
         participants: { id: string }[];
-    }
+    },
+    isDashboard?: boolean,
 }
 
 export interface EventGoogleCalendarProps {

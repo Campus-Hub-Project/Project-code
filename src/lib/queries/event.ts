@@ -96,3 +96,15 @@ export const addParticipantToEvent = async (eventId: string, userId: string) => 
     })
     return event
 }
+
+export const removeParticipantFromEvent = async (eventId: string, userId: string) => {
+    const event = await prisma.event.update({
+        where: { id: eventId },
+        data: {
+            participants: {
+                delete: { id: userId },
+            }
+        }
+    })
+    return event
+}

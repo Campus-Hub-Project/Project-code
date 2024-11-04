@@ -13,6 +13,8 @@
     @apply basic flex items-center justify-center px-4 text-sm h-9
 }
 
-.not-fill-link {
-    @apply text-sm text-hub-lightgray hover:text-hub-blue hover:border-b-2 hover:border-hub-blue
+.basic-link {
+    @apply text-sm font-semibold
+    rounded-none bg-transparent shadow-none p-0 m-0 h-5 text-hub-middlegray 
+    hover:bg-transparent hover:text-hub-blue hover:border-b hover:border-hub-blue
 }

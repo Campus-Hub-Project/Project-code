@@ -3,9 +3,9 @@
 import { getEventsCreatedByUser } from '@/src/actions/event-actions/getEventsCreatedByUser'
 import { getEventsUserIsParticipatingAction } from '@/src/actions/event-actions/getEventsUserIsParticipatingAction'
 import { auth } from '@/src/auth'
-import DashboardCard from '@/src/components/shared/card/DashboardCard'
+import EventCard from '@/src/components/shared/card/EventCard'
 import DashboardEventsLayout from '@/src/components/shared/layouts/DashboardEventsLayout'
-import NoEventsLayout from '@/src/components/shared/layouts/NoEventsLayout'
+import NoContentLayout from '@/src/components/shared/layouts/NoContentLayout'
 import React from 'react'
 
 const DashboardPage = async () => {
@@ -31,15 +31,15 @@ const DashboardPage = async () => {
   const { events, noEventText } = await getEvents()
 
   if (events === null || events.length === 0)
-    return <NoEventsLayout
-      src='/images/no-event-image.jpg'
+    return <NoContentLayout
+      src='/images/no-content.jpg'
       alt='Imagem alternativa caso não hajam eventos para mostrar'
       span={noEventText}
     />
 
   return <DashboardEventsLayout>
     {events.map(event => (
-      <DashboardCard key={event.id} event={event} />
+      <EventCard key={event.id} event={event} isDashboard/>
     ))}
   </DashboardEventsLayout>
 }

@@ -1,4 +1,4 @@
-'use server'
+'use client'
 import React from 'react'
 
 import {
@@ -16,9 +16,12 @@ import {
 import modalCss from '@/styles/Modal.module.css'
 
 import buttonCss from '@/styles/Button.module.css'
-import SignoutButton from '../button/SignoutButton'
+import { signoutAction } from '@/src/actions/user-actions/signoutAction'
 
-const SignoutModal = async ({ children }: { children: React.ReactNode }) => {
+const SignoutModal = ({ children }: { children: React.ReactNode }) => {
+
+    const handleSignout = async () => await signoutAction()
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -37,9 +40,7 @@ const SignoutModal = async ({ children }: { children: React.ReactNode }) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel className={buttonCss['basic']}>Voltar</AlertDialogCancel>
-                    <AlertDialogAction className={buttonCss['reverse-basic']}>
-                        <SignoutButton>Sair</SignoutButton>
-                    </AlertDialogAction>
+                    <AlertDialogAction onClick={handleSignout} className={buttonCss['reverse-basic']}>Sair</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

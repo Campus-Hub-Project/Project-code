@@ -21,7 +21,7 @@ const SigninPage = async () => {
             <CardContent className='mx-36'>
                 <SignInForm />
             </CardContent>
-            <CardFooter className='mx-36 flex flex-col items-center justify-center gap-2'>
+            <CardFooter className='mx-36 flex items-center justify-between gap-2'>
                 <LinkButton to='/auth/signup' asLink>Ainda não tenho uma conta</LinkButton>
                 <LinkButton to='/' asLink>Voltar à pagina inicial</LinkButton>
             </CardFooter>

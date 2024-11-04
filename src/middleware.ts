@@ -15,9 +15,9 @@ export default auth((req) => {
 
     if (isApiAuthPrefix) return undefined
 
-    if (isAuthRoute && isLoggedIn) return Response.redirect(new URL(DEFAULT_REDIRECT_PATH, nextUrl))
+    if (isLoggedIn && isAuthRoute) return Response.redirect(new URL(DEFAULT_REDIRECT_PATH, nextUrl))
     
-    if (!isLoggedIn && !isPublicRoute) return Response.redirect(new URL("/auth/signin", nextUrl))
+    if (!isLoggedIn && !isPublicRoute && !isAuthRoute) return Response.redirect(new URL("/auth/signin", nextUrl))
     
     return undefined
 })
