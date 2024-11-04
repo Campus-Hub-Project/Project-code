@@ -15,7 +15,9 @@ export default {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
-          scope: 'openid profile email https://www.googleapis.com/auth/calendar'
+          scope: 'openid profile email https://www.googleapis.com/auth/calendar.events',
+          access_type: 'offline',
+          prompt: 'consent'
         }
       },
     }),
@@ -38,7 +40,7 @@ export default {
     })
   ],
   pages: {
-    signIn: '/signin',
+    signIn: 'auth/signin',
     verifyRequest: '/auth/email-send'
   },
   secret: 'senhaabcde',

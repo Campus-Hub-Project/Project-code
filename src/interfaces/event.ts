@@ -13,3 +13,10 @@ export interface EventCardProps {
         participants: { id: string }[];
     }
 }
+
+export interface EventGoogleCalendarProps {
+    name: string;
+    description: string;
+    starts: Date;
+    ends: Date;
+}

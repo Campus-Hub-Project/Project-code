@@ -3,34 +3,26 @@ import React from 'react'
 
 import { Button } from '@/src/components/ui/button'
 
-import formCss from '@/styles/Button.module.css'
-import getIntoEvent from '@/src/lib/events/getIntoEvent'
+import buttonCss from '@/styles/Button.module.css'
+import { participateInEventAction } from '@/src/actions/user-actions/participateInEventAction'
+import { redirect } from 'next/navigation'
 
-interface Props {
-    children: React.ReactNode,
-    id: string
-}
+const SubscribeEventButton = ({ children, id }: { children: React.ReactNode, id: string }) => {
 
-const SubscribeEventButton = ({ children, id }: Props) => {
-
-    const handleSubscribeEvent = async (id: string) => {
+    const handleSubscribeEvent = async () => {
         try {
-            await getIntoEvent(id)
-            alert('Você se inscreveu no evento!')
+            const event = await participateInEventAction(id)
+            if (event) redirect('/dashboard')
         } catch (error) {
-            alert('Algo deu errado, tente novamente mais tarde')
-            console.error(error);
-            throw error
+            alert('Algo deu errado, você não se inscreveu no evento')
         }
     }
 
-    return (
-        <Button
-            onClick={async () => await handleSubscribeEvent(id)}
-            className={formCss['basic']}>
-            {children}
-        </Button>
-    )
+    return <Button
+        onClick={handleSubscribeEvent}
+        className={`${buttonCss['reverse-basic']}`}>
+        {children}
+    </Button>
 }
 
 export default SubscribeEventButton

@@ -10,11 +10,10 @@ import {
   CardFooter
 } from '../../ui/card'
 
-import buttonCss from '@/styles/Button.module.css'
-import { Button } from '../../ui/button'
 import { formatDateTime, formatFormat, formatType } from '@/src/actions/event-actions/format-event-data'
 import { EventCardProps } from '@/src/interfaces/event'
 import { auth } from '@/src/auth'
+import SubscribeEventButton from '../button/SubscribeEventButton'
 
 const DashboardCard = async ({ event }: EventCardProps) => {
   const session = await auth()
@@ -46,7 +45,7 @@ const DashboardCard = async ({ event }: EventCardProps) => {
       </CardContent>
       {session?.user.role === 'USER' && (
         <CardFooter>
-          <Button className={`${buttonCss['reverse-basic']}`}>Participar</Button>
+          <SubscribeEventButton id={event.id}>Participar</SubscribeEventButton>
         </CardFooter>
       )}
     </Card>

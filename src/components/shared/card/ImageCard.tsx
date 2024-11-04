@@ -12,8 +12,8 @@ const ImageCard = async ({ src, alt }: { src: string, alt: string }) => {
             <Image
                 src={src}
                 alt={alt}
-                width={600}
-                height={600}
+                width={2000}
+                height={2000}
                 className='w-full'
             />
             <p className='text-bt-lightgray mt-1 text-sm'>Designed by

@@ -10,50 +10,38 @@ import React from 'react'
 
 const DashboardPage = async () => {
   const session = await auth()
+  const { role } = session!.user
 
-  if (session!.user.role === 'INSTITUITION') {
-    const eventsCreatedByUser = await getEventsCreatedByUser()
+  const getEvents = async () => {
+    if (role === 'INSTITUITION')
+      return {
+        events: await getEventsCreatedByUser(),
+        noEventText: 'Você não criou em nenhum evento ainda...'
+      }
 
-    if (eventsCreatedByUser === null || eventsCreatedByUser.length === 0) {
-      return (
-        <NoEventsLayout
-          src='/images/no-event-image.jpg'
-          alt='Imagem alternativa caso não hajam eventos para mostrar'
-          span='Você não criou em nenhum evento ainda...'
-        />
-      )
-    }
+    if (role === 'USER')
+      return {
+        events: await getEventsUserIsParticipatingAction(),
+        noEventText: 'Você não está participando de nenhum evento ainda...'
+      }
 
-    return (
-      <DashboardEventsLayout>
-        {eventsCreatedByUser.map(event => (
-          <DashboardCard key={event.id} event={event} />
-        ))}
-      </DashboardEventsLayout>
-    )
+    return { events: [], noEventText: '' }
   }
 
-  if (session!.user.role === 'USER') {
-    const eventsUserIsParticipating = await getEventsUserIsParticipatingAction()
+  const { events, noEventText } = await getEvents()
 
-    if (eventsUserIsParticipating === null || eventsUserIsParticipating.length === 0) {
-      return (
-        <NoEventsLayout
-          src='/images/no-event-image.jpg'
-          alt='Imagem alternativa caso não hajam eventos para mostrar'
-          span='Você não está participando de nenhum evento ainda...'
-        />
-      )
-    }
+  if (events === null || events.length === 0)
+    return <NoEventsLayout
+      src='/images/no-event-image.jpg'
+      alt='Imagem alternativa caso não hajam eventos para mostrar'
+      span={noEventText}
+    />
 
-    return (
-      <DashboardEventsLayout>
-        {eventsUserIsParticipating.map(event => (
-          <DashboardCard key={event.id} event={event} />
-        ))}
-      </DashboardEventsLayout>
-    )
-  }
+  return <DashboardEventsLayout>
+    {events.map(event => (
+      <DashboardCard key={event.id} event={event} />
+    ))}
+  </DashboardEventsLayout>
 }
 
 export default DashboardPage

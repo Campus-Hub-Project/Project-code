@@ -16,6 +16,14 @@ interface Event {
     userId: string
 }
 
+export const findUniqueEventById = async (id: string) => {
+    const event = await prisma.event.findUnique({
+        where: { id }
+    })
+
+    return event
+}
+
 export const insertNewInstituitionEvent = async (
     {
         name,
@@ -49,7 +57,6 @@ export const findEventsCreatedByInstituitionId = async (id: string) => {
     return events
 }
 
-// FALTA ARRUMAR ESSA QUERY QUE BUSCA OS EVENTOS QUE O USUÁRIO ESTÁ PARTICIPANDO
 export const findEventsWhereUserIsParticipating = async (id: string) => {
     const events = await prisma.event.findMany({
         where: {
@@ -57,6 +64,11 @@ export const findEventsWhereUserIsParticipating = async (id: string) => {
                 some: { id },
             },
         },
+        include: {
+            participants: {
+                select: { id: true }
+            }
+        }
     });
 
     return events;
@@ -71,4 +83,16 @@ export const findAllEventsFromPlataform = async () => {
         },
     })
     return events
+}
+
+export const addParticipantToEvent = async (eventId: string, userId: string) => {
+    const event = await prisma.event.update({
+        where: { id: eventId },
+        data: {
+            participants: {
+                connect: { id: userId },
+            }
+        }
+    })
+    return event
 }
