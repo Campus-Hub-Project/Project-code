@@ -50,61 +50,76 @@ export const findEventsCreatedByInstituitionId = async (id: string) => {
         where: { userId: id },
         include: {
             participants: {
-                select: { id: true },
-            }
+                select: {
+                    user: { select: { id: true } },
+                },
+            },
         },
     })
-    return events
+
+    return events.map(event => ({
+        ...event,
+        participants: event.participants.map(part => part.user.id),
+    }));
 }
 
 export const findEventsWhereUserIsParticipating = async (id: string) => {
     const events = await prisma.event.findMany({
         where: {
             participants: {
-                some: { id },
+                some: { userId: id },
             },
         },
         include: {
             participants: {
-                select: { id: true }
-            }
-        }
+                select: {
+                    user: { select: { id: true } },
+                },
+            },
+        },
     });
 
-    return events;
+    return events.map(event => ({
+        ...event,
+        participants: event.participants.map(part => part.user.id),
+    }))
 }
+
 
 export const findAllEventsFromPlataform = async () => {
     const events = await prisma.event.findMany({
         include: {
             participants: {
-                select: { id: true },
-            }
+                select: {
+                    user: { select: { id: true } },
+                },
+            },
         },
-    })
-    return events
+    });
+
+    return events.map(event => ({
+        ...event,
+        participants: event.participants.map(part => part.user.id),
+    }));
 }
+
 
 export const addParticipantToEvent = async (eventId: string, userId: string) => {
-    const event = await prisma.event.update({
-        where: { id: eventId },
-        data: {
-            participants: {
-                connect: { id: userId },
-            }
-        }
+    const participant = await prisma.userEvent.create({
+        data: { userId, eventId }
     })
-    return event
+
+    return participant
 }
 
+
 export const removeParticipantFromEvent = async (eventId: string, userId: string) => {
-    const event = await prisma.event.update({
-        where: { id: eventId },
-        data: {
-            participants: {
-                disconnect: { id: userId },
-            }
-        }
+    await prisma.userEvent.delete({
+        where: {
+            userId_eventId: {
+                userId: userId,
+                eventId: eventId
+            },
+        },
     })
-    return event
 }

@@ -10,11 +10,16 @@ import {
   CardFooter
 } from '../../ui/card'
 
-import { formatDateTime, formatFormat, formatType } from '@/src/actions/event-actions/format-event-data'
-import { EventCardProps } from '@/src/interfaces/event'
+import {
+  formatDateTime,
+  formatFormat,
+  formatType
+} from '@/src/actions/event-actions/format-event-data'
+
 import { auth } from '@/src/auth'
 import SubscribeEventButton from '../button/SubscribeEventButton'
 import RemoveFromEventButton from '../button/RemoveFromEventButton'
+import { EventCardProps } from '@/src/interfaces/event'
 
 const EventCard = async ({ event, isDashboard = false }: EventCardProps) => {
   const session = await auth()

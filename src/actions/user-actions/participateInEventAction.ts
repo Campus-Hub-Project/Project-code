@@ -12,11 +12,15 @@ export const participateInEventAction = async (eventId: string) => {
 
     if (!doesEventExists) return null
 
-    const event = await addParticipantToEvent(eventId, session.user.id as string)
+    await addParticipantToEvent(eventId, session.user.id as string)
 
     try {
-        const response = await addEventInGoogleCalendarAction({ event })
-        if (response) return event
+        const response = await addEventInGoogleCalendarAction({
+            event: {
+                name: doesEventExists.name, description: doesEventExists.description, starts: doesEventExists.starts, ends: doesEventExists.ends
+            }
+        })
+        if (response) return doesEventExists
     } catch (error) {
         console.error('Não foi possível adicionar esse evento à agenda do usuário', error)
     }

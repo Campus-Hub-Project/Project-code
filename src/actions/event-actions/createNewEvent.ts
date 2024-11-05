@@ -1,21 +1,13 @@
 'use server'
 
-import { auth } from "@/src/auth"
 import { newEventSchema, TypeNewEventSchema } from "@/src/hooks/use-form/new-event-useform"
 import { insertNewInstituitionEvent } from "@/src/lib/queries/event"
-import { findUniqueUserById } from "@/src/lib/queries/user"
 import { eventDatesFormatter } from "./eventDateTimeFormatter"
+import { getUserSession } from "../user-actions/getUserSession"
 
 export const createNewEvent = async (data: TypeNewEventSchema) => {
-    const session = await auth()
-
-    if (!session || !session.user || !session.user.id) return null
-
-    const doesUserExists = await findUniqueUserById(session.user.id)
-
-    if (!doesUserExists) return null
-
-    if (doesUserExists.role === 'USER') return null
+    const session = await getUserSession('INSTITUITION')
+    if (!session) return null
 
     const isDataAsSchema = newEventSchema.safeParse(data)
 
@@ -50,7 +42,7 @@ export const createNewEvent = async (data: TypeNewEventSchema) => {
         subs_starts: formattedEventDateTimeSubsStarts,
         subs_ends: formattedEventDateTimeSubsEnds,
         participantsLimit: isDataAsSchema.data.participantsLimit,
-        userId: session.user.id
+        userId: session.user.id as string
     })
 
     return event

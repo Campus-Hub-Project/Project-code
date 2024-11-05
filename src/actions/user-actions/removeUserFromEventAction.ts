@@ -1,25 +1,19 @@
 'use server'
 
-import { auth } from "@/src/auth"
 import { findUniqueEventById, removeParticipantFromEvent } from "@/src/lib/queries/event"
-import { findUniqueUserById } from "@/src/lib/queries/user"
+
+import { getUserSession } from "./getUserSession"
 
 export const removeUserFromEventAction = async (eventId: string) => {
-    const session = await auth()
+    const session = await getUserSession('USER')
 
-    if (!session || !session.user || !session.user.id) return null
-
-    const doesUserExists = await findUniqueUserById(session.user.id)
-
-    if (!doesUserExists) return null
-
-    if (doesUserExists.role !== 'USER') return null
+    if (!session) return null
 
     const doesEventExists = await findUniqueEventById(eventId)
 
     if (!doesEventExists) return null
     
-    const event = await removeParticipantFromEvent(eventId, doesEventExists.id)
+    const event = await removeParticipantFromEvent(doesEventExists.id, session.user.id as string)
     
     return event
 }

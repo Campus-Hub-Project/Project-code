@@ -1,8 +1,17 @@
+export interface EventGoogleCalendarProps {
+    name: string;
+    description: string;
+    starts: Date;
+    ends: Date;
+}
+
 export interface EventCardProps {
     event: {
-        id: string;
-        name: string;
+        participants: string[];
         description: string;
+        id: string;
+        userId: string;
+        name: string;
         type: string;
         format: string;
         starts: Date;
@@ -10,14 +19,8 @@ export interface EventCardProps {
         subs_starts: Date;
         subs_ends: Date;
         participants_limit: number;
-        participants: { id: string }[];
+        createdAt: Date;
+        updatedAt: Date;
     },
-    isDashboard?: boolean,
-}
-
-export interface EventGoogleCalendarProps {
-    name: string;
-    description: string;
-    starts: Date;
-    ends: Date;
-}
+    isDashboard: boolean,
+}[]
