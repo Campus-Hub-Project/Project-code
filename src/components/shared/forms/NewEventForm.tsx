@@ -33,19 +33,21 @@ const NewEventForm = () => {
             startTime: undefined,
             endTime: undefined,
             subscribePeriod: { from: undefined, to: undefined },
-            participantsLimit: 0
+            participantsLimit: undefined
         }
     })
 
     const submitForm = async (data: TypeNewEventSchema) => {
         try {
             startTransition(async () => {
-                await createNewEvent(data)
-                // form.reset()
-                alert('Evento criado')
+                const event = await createNewEvent(data)
+                if (event) {
+                    alert('Evento criado')
+                    form.reset()
+                }
             })
         } catch (error) {
-
+            
         }
     }
 

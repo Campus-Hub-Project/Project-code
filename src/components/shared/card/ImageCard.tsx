@@ -14,7 +14,7 @@ const ImageCard = async ({ src, alt }: { src: string, alt: string }) => {
                 alt={alt}
                 width={2000}
                 height={2000}
-                className='w-full'
+                className='object-cover'
             />
             <p className='text-bt-lightgray mt-1 text-sm'>Designed by
                 <a className='text-hub-blue cursor-pointer' target='_blank' href='https://br.freepik.com/'> Freepik</a>

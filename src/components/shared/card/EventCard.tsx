@@ -35,12 +35,12 @@ const EventCard = async ({ event, isDashboard = false }: EventCardProps) => {
   const formattedParticipantsLimit = event.participants_limit ? 0 : 'vagas ilimitadas'
 
   return (
-    <Card className='w-full rounded border-none bg-hub-white shadow-lg h-[635px]'>
-      <CardHeader>
+    <Card className='w-11/12 rounded border-none bg-hub-white shadow-lg h-[635px]'>
+      <CardHeader className='h-[50%]'>
         <CardTitle className='text-hub-blue uppercase text-xl'>{event.name}</CardTitle>
         <CardDescription className='text-hub-middlegray text-base'>{event.description}</CardDescription>
       </CardHeader>
-      <CardContent className='flex flex-col text-hub-middlegray'>
+      <CardContent className='flex flex-col text-hub-middlegray h-[40%]'>
         <span>Tipo do evento: {formattedType}</span>
         <span>Formato do evento: {formattedFormat}</span>
         <span>Data de início: {formattedStarts}</span>
@@ -51,13 +51,19 @@ const EventCard = async ({ event, isDashboard = false }: EventCardProps) => {
         </span>
       </CardContent>
       {role === 'USER' && isDashboard && (
-        <CardFooter>
+        <CardFooter className='h-[10%]'>
           <RemoveFromEventButton id={event.id}>Sair do evento</RemoveFromEventButton>
         </CardFooter>
       )}
       {role === 'USER' && !isDashboard && (
-        <CardFooter>
+        <CardFooter className='h-[10%]'>
           <SubscribeEventButton id={event.id}>Participar</SubscribeEventButton>
+        </CardFooter>
+      )}
+      {role === 'INSTITUITION' && (
+        <CardFooter className='flex gap-3 h-[10%]'>
+          <SubscribeEventButton id={event.id}>Alterar data</SubscribeEventButton>
+          <SubscribeEventButton id={event.id}>Deletar</SubscribeEventButton>
         </CardFooter>
       )}
     </Card>

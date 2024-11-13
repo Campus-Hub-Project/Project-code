@@ -14,21 +14,21 @@ enum UserRole {
 }
 
 model User {
-  id            String      @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  username      String?     @unique
-  email         String?     @unique
-  emailVerified DateTime?   @map("email_verified")
+  username      String?   @unique
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
   image         String?
   password      String?
-  role          UserRole    @default(USER)
+  role          UserRole  @default(USER)
 
   accounts       Account[]
   events         Event[]
   participations UserEvent[]
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@map("users")
 }
@@ -64,23 +64,24 @@ model VerificateEmailToken {
 }
 
 model Event {
-  id                 String      @id @default(uuid())
-  userId             String      @map("user_id")
+  id                 String   @id @default(uuid())
+  userId             String   @map("user_id")
   name               String
-  description        String      @db.Text
+  description        String   @db.Text
   type               String
   format             String
   starts             DateTime
   ends               DateTime
   subs_starts        DateTime
   subs_ends          DateTime
-  participants_limit Int         @default(0)
+  participants_limit Int      @default(0)
+  googleEventId      String?
 
-  participants       UserEvent[] 
-  user               User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  participants UserEvent[]
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@map("events")
 }
@@ -89,9 +90,9 @@ model UserEvent {
   userId  String
   eventId String
 
-  user   User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  event  Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
-   @@id([userId, eventId])
-   @@map("user_events")
+  @@id([userId, eventId])
+  @@map("user_events")
 }

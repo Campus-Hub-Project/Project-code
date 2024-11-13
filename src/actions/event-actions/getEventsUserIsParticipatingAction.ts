@@ -1,21 +1,13 @@
 'use server'
 
-import { auth } from "@/src/auth"
 import { findEventsWhereUserIsParticipating } from "@/src/lib/queries/event"
-import { findUniqueUserById } from "@/src/lib/queries/user"
+import { getUserSession } from "../user-actions/getUserSession"
 
 export const getEventsUserIsParticipatingAction = async () => {
-    const session = await auth()
+    const session = await getUserSession('USER')
+    if (!session) return null
 
-    if (!session || !session.user || !session.user.id) return null
-
-    const doesUserExists = await findUniqueUserById(session.user.id)
-
-    if (!doesUserExists) return null
-
-    if (doesUserExists.role !== 'USER') return null
-
-    const events = await findEventsWhereUserIsParticipating(session.user.id)
+    const events = await findEventsWhereUserIsParticipating(session.user.id as string)
 
     return events
 }

@@ -32,7 +32,7 @@ const DashboardPage = async () => {
 
   if (events === null || events.length === 0)
     return <NoContentLayout
-      src='/images/no-content.jpg'
+      src='/images/no-events.jpg'
       alt='Imagem alternativa caso não hajam eventos para mostrar'
       span={noEventText}
     />

@@ -9,24 +9,25 @@ import React from 'react'
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     const session = await auth()
+    const { role } = session!.user
 
-    if (session?.user.role === 'INSTITUITION') {
+    if (role === 'INSTITUITION')
         return (
             <>
                 <Aside icons={iconsRelatedToInstituition} />
                 {children}
             </>
         )
-    }
 
-    if (session?.user.role === 'USER') {
+
+    if (role === 'USER')
         return (
             <>
                 <Aside icons={iconsRelatedToRegularUser} />
                 {children}
             </>
         )
-    }
+
 
 }
 

@@ -123,3 +123,10 @@ export const removeParticipantFromEvent = async (eventId: string, userId: string
         },
     })
 }
+
+export const updateGcEvendID = async (eventId: string, gcEventID: string) => {
+    await prisma.event.update({
+        where: { id: eventId },
+        data: { googleEventId: gcEventID },
+    })
+}

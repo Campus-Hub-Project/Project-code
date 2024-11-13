@@ -24,6 +24,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       return token
     },
+
     async session({ token, session }) {
       if (token.sub && session.user) session.user.id = token.sub
       if (token.role && session.user) session.user.role = token.role as 'ADMIN' | 'USER' | 'INSTITUITION'
@@ -32,10 +33,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.accessToken = token.accessToken as string
         session.refreshToken = token.refreshToken as string | undefined
       }
-
-
       return session
     },
+
+    async signIn({ user }) {
+      const doesUserExists = await findUniqueUserById(user.id!)
+      if (!doesUserExists || !doesUserExists.emailVerified) return false
+
+      return true
+    }
   },
   ...authConfig,
 })

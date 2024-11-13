@@ -22,5 +22,5 @@ export interface EventCardProps {
         createdAt: Date;
         updatedAt: Date;
     },
-    isDashboard: boolean,
+    isDashboard?: boolean,
 }[]

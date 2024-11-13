@@ -43,3 +43,4 @@ const HomePage = async () => {
 }
 
 export default HomePage
+// REVALIDATE PATH

@@ -6,7 +6,6 @@ import { getUserSession } from "./getUserSession"
 
 export const removeUserFromEventAction = async (eventId: string) => {
     const session = await getUserSession('USER')
-
     if (!session) return null
 
     const doesEventExists = await findUniqueEventById(eventId)

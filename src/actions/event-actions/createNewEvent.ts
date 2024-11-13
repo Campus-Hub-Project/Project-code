@@ -10,14 +10,13 @@ export const createNewEvent = async (data: TypeNewEventSchema) => {
     if (!session) return null
 
     const isDataAsSchema = newEventSchema.safeParse(data)
-
     if (!isDataAsSchema.success) return null
 
     const formattedEventDateTimeStarts = new Date(
         await eventDatesFormatter(
             { date: isDataAsSchema.data.date.from, time: isDataAsSchema.data.startTime })
     )
-
+    
     const formattedEventDateTimeEnds = new Date(
         await eventDatesFormatter({ date: isDataAsSchema.data.date.to, time: isDataAsSchema.data.endTime })
     )
@@ -30,7 +29,6 @@ export const createNewEvent = async (data: TypeNewEventSchema) => {
     const formattedEventDateTimeSubsEnds = new Date(
         await eventDatesFormatter({ date: isDataAsSchema.data.subscribePeriod.to, isSubsPeriod: true })
     )
-
 
     const event = await insertNewInstituitionEvent({
         name: isDataAsSchema.data.name,

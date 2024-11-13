@@ -39,9 +39,9 @@ export const newEventSchema = z.object({
             { message: "A data de encerramento das inscrições não pode ser anterior à data de início" }
         ),
     participantsLimit: z
-        .number({ message: 'Esse campo aceita apenas números inteiros positivos' })
-        .int({ message: 'Esse campo aceita apenas números inteiros positivos' })
+        .preprocess((value) => Number(value), z.number().int().min(0, { message: "Esse campo aceita apenas números inteiros positivos" }))
         .default(0),
+
 })
 
 export type TypeNewEventSchema = z.infer<typeof newEventSchema>
