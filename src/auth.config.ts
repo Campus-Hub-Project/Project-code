@@ -2,7 +2,7 @@ import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 
 import type { NextAuthConfig } from "next-auth"
-import { signinSchema } from '@/src/hooks/use-form/signin-useform'
+import { signinSchema } from '@/src/hooks/use-formaaa/signin-useform'
 
 import { findUniqueUserByEmail } from './lib/queries/user'
 

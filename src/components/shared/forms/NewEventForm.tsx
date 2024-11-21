@@ -9,7 +9,7 @@ import { Textarea } from '@/src/components/ui/textarea'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/src/components/ui/select'
 
 import formCss from '@/styles/Form.module.css'
-import { newEventSchema, TypeNewEventSchema } from '@/src/hooks/use-form/new-event-useform'
+import { newEventSchema, TypeNewEventSchema } from '@/src/hooks/use-formaaa/new-event-useform'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
 import { Button } from '@/src/components/ui/button'

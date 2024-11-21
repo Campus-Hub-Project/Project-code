@@ -1,6 +1,6 @@
 'use server'
 
-import { newEventSchema, TypeNewEventSchema } from "@/src/hooks/use-form/new-event-useform"
+import { newEventSchema, TypeNewEventSchema } from "@/src/hooks/use-formaaa/new-event-useform"
 import { insertNewInstituitionEvent } from "@/src/lib/queries/event"
 import { eventDatesFormatter } from "./eventDateTimeFormatter"
 import { getUserSession } from "../user-actions/getUserSession"

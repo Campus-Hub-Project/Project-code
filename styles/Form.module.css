@@ -1,4 +1,4 @@
-.form-label {
+/* .form-label {
     @apply font-semibold text-hub-blue
 }
 
@@ -27,4 +27,30 @@
 .form-time-input {
     @apply border-2 border-hub-middlegray rounded text-hub-middlegray focus:border-hub-blue focus:text-hub-blue
     cursor-pointer
+} */
+
+.form-label {
+    @apply lg:h-12 px-12 rounded-sm shadow-none border-2 border-grays-five text-grays-five font-medium
+    placeholder:text-grays-five placeholder:font-medium focus:border-grays-three focus:text-grays-three
+}
+
+.textarea {
+    @apply h-56 px-12 p-3 rounded-sm shadow-none border-2 border-grays-five text-grays-five font-medium
+    placeholder:text-grays-five placeholder:font-medium focus:border-grays-three focus:text-grays-three
+}
+
+.hover-effect {
+    @apply hover:cursor-pointer hover:border-blues-three hover:text-blues-three hover:bg-blues-seven
+}
+
+.form-calendar {
+    @apply form-label bg-grays-seven hover-effect
+}
+
+.form-select-content {
+    @apply cursor-pointer rounded-sm border-2 border-grays-five text-grays-five
+}
+
+.form-select-item {
+    @apply hover-effect lg:h-12
 }

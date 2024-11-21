@@ -1,95 +1,83 @@
 'use client'
 
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/src/components/ui/form'
 import { Input } from '@/src/components/ui/input'
-import React, { useTransition } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { signupSchema, TypesignupSchema } from '@/src/hooks/use-form/signup-useform'
+import React, { useState } from 'react'
+import { IconMail, IconUser, IconLock, IconEye, IconEyeOff } from '@tabler/icons-react'
+
+
 
 import formCss from '@/styles/Form.module.css'
+import { signupUseForm, TypeSignupForm } from '@/src/hooks/use-form/auth-useform'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../../ui/form'
 import SubmitButton from '../button/SubmitButton'
-import { signupWithCredentialsAction } from '@/src/actions/user-actions/signupWithCredentialsAction'
-
 
 const SignupForm = () => {
-    const [isPending, startTransition] = useTransition()
+    const [showPassword, setShowPassword] = useState(false)
+    const form = signupUseForm()
 
-    const form = useForm<TypesignupSchema>({
-        resolver: zodResolver(signupSchema),
-        defaultValues: {
-            name: '',
-            email: '',
-            password: ''
-        }
-    })
-
-    const submitForm = async (data: TypesignupSchema) => {
-        try {
-            startTransition(async () => {
-                await signupWithCredentialsAction(data)
-                form.reset()
-            })
-        } catch (error) {
-
-        }
+    const submitForm = async (data: TypeSignupForm) => {
+        console.log(data)
     }
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitForm)}>
+            <form onSubmit={form.handleSubmit(submitForm)} className='flex flex-col gap-4'>
                 <FormField
-                    control={form.control}
                     name='name'
+                    control={form.control}
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Nome:</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input {...field}
-                                    className={formCss['form-text-input']}
-                                    disabled={isPending}
-                                    type='text'
-                                    placeholder='Nome da instituição aqui...' />
+                                <div className="relative flex items-center">
+                                    <IconUser className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Seu nome aqui...' className={formCss['form-label']} type='text' />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
-                    control={form.control}
                     name='email'
+                    control={form.control}
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>E-mail:</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input {...field}
-                                    className={formCss['form-text-input']}
-                                    disabled={isPending}
-                                    type='text'
-                                    placeholder='E-mail da instituição aqui...' />
+                                <div className="relative flex items-center">
+                                    <IconMail className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Seu e-mail aqui...' className={formCss['form-label']} type='text' />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
-                    control={form.control}
                     name='password'
+                    control={form.control}
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Senha:</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input {...field}
-                                    className={formCss['form-text-input']}
-                                    disabled={isPending}
-                                    type='text'
-                                    placeholder='Senha da conta da instituição aqui...' />
+                                <div className="relative flex items-center">
+                                    <IconLock className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Sua senha aqui...' className={formCss['form-label']}
+                                        type={showPassword ? 'text' : 'password'} />
+                                    <div
+                                        className='absolute right-3 cursor-pointer'
+                                        onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? (
+                                            <IconEye className="text-grays-five" />
+                                        ) : (
+                                            <IconEyeOff className="text-grays-five" />
+                                        )}
+                                    </div>
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <SubmitButton reverse extraCss='mt-4'>Criar conta</SubmitButton>
+                <SubmitButton>Criar conta</SubmitButton>
             </form>
         </Form>
     )

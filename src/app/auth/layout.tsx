@@ -1,18 +1,24 @@
 'use server'
 
-import ImageCard from '@/src/components/shared/card/ImageCard'
-import HalfContentHalfImageLayout from '@/src/components/shared/layouts/HalfContentHalfImageLayout'
-import { Card } from '@/src/components/ui/card'
+import { MiddleCard, MiddleCardFooter } from '@/src/components/shared/card/MiddleCard'
+import BasicLayout from '@/src/components/shared/layouts/BasicLayout'
+import { IconBrandGoogleFilled } from '@tabler/icons-react'
+
 import React from 'react'
+import ProviderButton from '@/src/components/shared/button/ProviderButton'
+
 
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
     return (
-        <HalfContentHalfImageLayout>
-            <ImageCard src='/images/signin-signup.jpg' alt='Imagem vetorial de uma pessoa realizando autenticação' />
-            <Card className='rounded border-none shadow-lg h-full w-1/2 flex flex-col justify-center bg-hub-white'>
+        <BasicLayout>
+            <MiddleCard>
                 {children}
-            </Card>
-        </HalfContentHalfImageLayout>
+                <MiddleCardFooter>
+                    <span className='lg:text-sm font-normal text-grays-four'>é aluno? Entre com...</span>
+                    <ProviderButton provider='google'><IconBrandGoogleFilled />Google</ProviderButton>
+                </MiddleCardFooter>
+            </MiddleCard>
+        </BasicLayout>
     )
 }
 

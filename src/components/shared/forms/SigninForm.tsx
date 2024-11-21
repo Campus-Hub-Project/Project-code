@@ -1,84 +1,70 @@
 'use client'
 
-import React, { useTransition } from 'react'
+import React, { useState } from 'react'
 
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage
-} from '@/src/components/ui/form'
-import { Input } from '@/src/components/ui/input'
-import SubmitButton from '../button/SubmitButton'
+import { IconMail, IconLock, IconEye, IconEyeOff } from '@tabler/icons-react'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
 
 import formCss from '@/styles/Form.module.css'
-import { TypeSigninSchema, signinSchema } from '@/src/hooks/use-form/signin-useform'
-import signInWithCredentialsAction from '@/src/actions/user-actions/signInWithCredentialsAction'
+import { Form, FormField, FormItem, FormControl, FormMessage } from '../../ui/form'
+import { Input } from '../../ui/input'
+import { signinUseForm, TypeSigninForm } from '@/src/hooks/use-form/auth-useform'
+import SubmitButton from '../button/SubmitButton'
 
-const SignInForm = () => {
-    const [isPending, startTransition] = useTransition()
+const SigninForm = () => {
+    const [showPassword, setShowPassword] = useState(false)
+    const form = signinUseForm()
 
-    const form = useForm<TypeSigninSchema>({
-        resolver: zodResolver(signinSchema),
-        defaultValues: {
-            email: '',
-            password: ''
-        }
-    })
-
-    const submitForm = async (data: TypeSigninSchema) => {
-        startTransition(async () => {
-            await signInWithCredentialsAction(data)
-            form.reset()
-        })
+    const submitForm = async (data: TypeSigninForm) => {
+        console.log(data)
     }
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitForm)}>
+            <form className='flex flex-col gap-4' onSubmit={form.handleSubmit(submitForm)}>
                 <FormField
-                    control={form.control}
                     name='email'
+                    control={form.control}
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Email:</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input {...field}
-                                    className={formCss['form-text-input']}
-                                    disabled={isPending}
-                                    type='text'
-                                    placeholder='Nome da instituição aqui...' />
+                                <div className="relative flex items-center">
+                                    <IconMail className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Seu e-mail aqui...' className={formCss['form-label']} type='text' />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
-                    control={form.control}
                     name='password'
+                    control={form.control}
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Senha:</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input {...field}
-                                    className={formCss['form-text-input']}
-                                    disabled={isPending}
-                                    type='text'
-                                    placeholder='Senha da conta cadastrada aqui...' />
+                                <div className="relative flex items-center">
+                                    <IconLock className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Sua senha aqui...' className={formCss['form-label']}
+                                        type={showPassword ? 'text' : 'password'} />
+                                    <div className='absolute right-3 ml-3 cursor-pointer'
+                                        onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? (
+                                            <IconEye className='text-grays-five' />
+                                        ) : (
+                                            <IconEyeOff className='text-grays-five' />
+                                        )}
+                                    </div>
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <SubmitButton reverse extraCss='mt-4'>Logar</SubmitButton>
+                <SubmitButton>Entrar</SubmitButton>
             </form>
         </Form>
     )
 }
 
-export default SignInForm
+export default SigninForm
