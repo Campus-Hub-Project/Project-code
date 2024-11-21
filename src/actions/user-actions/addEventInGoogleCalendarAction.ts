@@ -9,7 +9,8 @@ export const addEventInGoogleCalendarAction = async ({ event: { name, descriptio
     if (!session) return null
 
     const calendar = await createGoogleCalendar(session.accessToken)
-
+    console.log(session);
+    
     // TENTO INSERIR O EVENTO NA AGENDA E RETORNÁ-LO:
     try {
         const eventToInsert = await calendar.events.insert({

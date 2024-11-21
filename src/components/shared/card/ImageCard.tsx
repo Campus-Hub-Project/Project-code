@@ -7,7 +7,7 @@ const ImageCard = async ({ src, alt }: { src: string, alt: string }) => {
 
     return (
         <Card
-            className='rounded border-none shadow-lg bg-hub-white relative overflow-hidden h-full w-1/2 flex flex-col justify-center items-center'
+            className='rounded border-none shadow-lg bg-hub-white relative overflow-hidden h-full lg:w-1/2 flex flex-col justify-center items-center'
         >
             <Image
                 src={src}

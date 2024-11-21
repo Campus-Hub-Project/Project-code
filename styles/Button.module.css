@@ -1,13 +1,12 @@
-.basic {
-    @apply border-2 rounded border-hub-blue bg-hub-white text-hub-blue 
-    hover:bg-hub-blue hover:text-hub-white hover:border-hub-blue
+.link-as-button-must-have {
+    @apply rounded-sm text-center flex items-center justify-center h-12 px-4
+    bg-blues-three text-blues-seven hover:bg-blues-two hover:text-blues-six
 }
 
-.reverse-basic {
-    @apply border-2 rounded text-hub-white bg-hub-blue border-hub-blue
-    hover:text-hub-blue hover:bg-hub-white
+.blues-button {
+    @apply bg-blues-three text-blues-seven hover:bg-blues-two hover:text-blues-six
 }
 
-.link {
-    @apply basic flex items-center justify-center px-4 text-sm
+.grays-button {
+    @apply bg-grays-three text-grays-seven hover:bg-grays-two hover:text-grays-six
 }

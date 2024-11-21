@@ -11,6 +11,24 @@ const config: Config = {
 	theme: {
 		extend: {
 			colors: {
+				grays: {
+					one: '#222834',
+					two: '#5F6B7B',
+					three: '#8895A6',
+					four: '#B8C5CE',
+					five: '#CFD6DE',
+					six: '#E2E6EF',
+					seven: '#F8F9FB',
+				},
+				blues: {
+					one: '#213D63',
+					two: '#1A4A72',
+					three: '#2368A3',
+					four: '#3083C7',
+					five: '#63A2D8',
+					six: '#A9D4F6',
+					seven: '#F0F7FF',
+				},
 				hub: {
 					black: '#0a0907',
 					gray: '#252525',

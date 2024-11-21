@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import { Poppins } from "next/font/google";
 
 import './globals.css'
 
@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description: "Participe e publique seus eventos no campus_hub",
 };
 
-const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ['200', '300', '400', '500', '600', '700', '800', '900', '1000']
+const font = Poppins({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ['latin']
 })
 
 export default function RootLayout({
@@ -20,8 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${nunito.className}`}>
-        <main className="min-h-screen w-full bg-hub-white flex justify-center items-center">
+      <body className={`${font.className}`}>
+        <main className='w-full min-h-screen flex items-center justify-center bg-grays-six'>
           {children}
         </main>
       </body>

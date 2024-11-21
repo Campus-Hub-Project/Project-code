@@ -41,10 +41,8 @@ const EventCard = async ({ event, isDashboard = false }: EventCardProps) => {
         <CardDescription className='text-hub-middlegray text-base'>{event.description}</CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col text-hub-middlegray h-[40%]'>
-        <span>Tipo do evento: {formattedType}</span>
-        <span>Formato do evento: {formattedFormat}</span>
-        <span>Data de início: {formattedStarts}</span>
-        <span>Data de encerramento: {formattedEnds}</span>
+        <span>O evento será {formattedType} no formato {formattedFormat}</span>
+        <span>Inicia {formattedStarts} e termina {formattedEnds}</span>
         <span>Período de inscrição: {formattedSubsStarts} até {formattedSubsEnds}</span>
         <span className='text-hub-blue font-semibold'>
           Total de participantes inscritos: {formattedParticipantsCount} de {formattedParticipantsLimit}

@@ -37,8 +37,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     async signIn({ user }) {
-      const doesUserExists = await findUniqueUserById(user.id!)
-      if (!doesUserExists || !doesUserExists.emailVerified) return false
+      // const doesUserExists = await findUniqueUserById(user.id!)
+      // if (!doesUserExists || !doesUserExists.emailVerified) return false
 
       return true
     }
