@@ -43,8 +43,14 @@
     @apply hover:cursor-pointer hover:border-blues-three hover:text-blues-three hover:bg-blues-seven
 }
 
+.form-outline-button {
+    @apply h-12 w-full rounded-sm shadow-none text-grays-five border-2 border-grays-five bg-grays-seven
+    hover-effect
+}
+
 .form-calendar {
-    @apply form-label bg-grays-seven hover-effect
+    @apply w-[452px] flex justify-center border-2 border-grays-five rounded-sm text-grays-one
+    bg-grays-seven
 }
 
 .form-select-content {

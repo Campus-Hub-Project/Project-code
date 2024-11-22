@@ -1,19 +1,12 @@
 'use server'
 
-import {
-    signupSchema,
-    TypesignupSchema
-} from "@/src/hooks/use-formaaa/signup-useform"
+import { signupSchema, TypeSignupSchema } from "@/src/hooks/use-form/auth-useform"
 import { sendVerificationEmail } from "@/src/lib/mail"
-import {
-    findUniqueUserByEmail,
-    insertUserJustSignUp
-} from "@/src/lib/queries/user"
+import { findUniqueUserByEmail, insertUserJustSignUp } from "@/src/lib/queries/user"
 import { generateVerificationToken } from "@/src/lib/tokens"
+import { hash } from "bcryptjs"
 
-import { hash } from 'bcryptjs'
-
-export const signupWithCredentialsAction = async (data: TypesignupSchema) => {
+export const handleSignupAction = async (data: TypeSignupSchema) => {
     const isDataAsSchema = signupSchema.safeParse(data)
 
     if (!isDataAsSchema.success) return null
@@ -29,6 +22,4 @@ export const signupWithCredentialsAction = async (data: TypesignupSchema) => {
     const verificationToken = await generateVerificationToken(isDataAsSchema.data.email)
 
     await sendVerificationEmail(verificationToken.email as string, verificationToken.token)
-
-    return { success: 'E-mail de confirmação enviado' }
 }

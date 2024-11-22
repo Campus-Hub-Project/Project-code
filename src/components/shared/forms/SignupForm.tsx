@@ -4,21 +4,18 @@ import { Input } from '@/src/components/ui/input'
 import React, { useState } from 'react'
 import { IconMail, IconUser, IconLock, IconEye, IconEyeOff } from '@tabler/icons-react'
 
-
-
-import formCss from '@/styles/Form.module.css'
-import { signupUseForm, TypeSignupForm } from '@/src/hooks/use-form/auth-useform'
+import { signupUseForm, TypeSignupSchema } from '@/src/hooks/use-form/auth-useform'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../../ui/form'
 import SubmitButton from '../button/SubmitButton'
+import { handleSignupAction } from '@/src/actions/user-actions/signupAction'
+
+import formCss from '@/styles/Form.module.css'
 
 const SignupForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const form = signupUseForm()
 
-    const submitForm = async (data: TypeSignupForm) => {
-        console.log(data)
-    }
-
+    const submitForm = async (data: TypeSignupSchema) => handleSignupAction(data)
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(submitForm)} className='flex flex-col gap-4'>

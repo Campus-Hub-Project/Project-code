@@ -13,6 +13,21 @@ enum UserRole {
   INSTITUITION
 }
 
+enum EventType {
+  LECTURE
+  WORKSHOP
+  BOOTCAMP
+  CONFERENCE
+  CONGRESS
+  OTHER
+}
+
+enum EventFormat {
+  INPERSON
+  ONLINE
+  HYBRID
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -64,21 +79,21 @@ model VerificateEmailToken {
 }
 
 model Event {
-  id                 String   @id @default(uuid())
-  userId             String   @map("user_id")
-  name               String
-  description        String   @db.Text
-  type               String
-  format             String
-  starts             DateTime
-  ends               DateTime
-  subs_starts        DateTime
-  subs_ends          DateTime
-  participants_limit Int      @default(0)
-  googleEventId      String?
+  id             String      @id @default(uuid())
+  userId         String      @map("user_id")
+  summary        String
+  description    String      @db.Text
+  type           EventType
+  format         EventFormat
+  dayStarts      DateTime    @map("day_starts")
+  dayEnds        DateTime    @map("day_ends")
+  subsDayStarts  DateTime    @map("subs_day_starts")
+  subsDayEnds    DateTime    @map("subs_day_ends")
+  attendeesLimit Int         @default(0) @map("attendees_limit")
+  googleEventId  String?
 
-  participants UserEvent[]
-  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  atendees UserEvent[]
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt

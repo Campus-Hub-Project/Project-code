@@ -1,112 +1,84 @@
 'use client'
 
-import React, { useTransition } from 'react'
+import React from 'react'
 
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/src/components/ui/form'
-import { useForm } from 'react-hook-form'
-import { Input } from '@/src/components/ui/input'
-import { Textarea } from '@/src/components/ui/textarea'
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/src/components/ui/select'
+import { Form, FormField, FormControl, FormItem, FormMessage } from '@/src/components/ui/form'
 
 import formCss from '@/styles/Form.module.css'
-import { newEventSchema, TypeNewEventSchema } from '@/src/hooks/use-formaaa/new-event-useform'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover'
+import { Input } from '@/src/components/ui/input'
+import {
+    IconClipboardText, IconFileText, IconAlarm,
+    IconUsers, IconSchool, IconDeviceDesktopQuestion, IconCalendarMonth
+} from '@tabler/icons-react'
+import { Textarea } from '@/src/components/ui/textarea'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/src/components/ui/select'
+import SubmitButton from '../button/SubmitButton'
+import { newEventUseForm, TypeNewEventSchema } from '@/src/hooks/use-form/new-event-useform'
+import { handleCreateNewEvent } from '@/src/actions/event-actions/handleCreateNewEvent'
+import { Popover, PopoverTrigger, PopoverContent } from '../../ui/popover'
 import { Button } from '@/src/components/ui/button'
 import { Calendar } from '@/src/components/ui/calendar'
-
 import { format } from 'date-fns'
-import SubmitButton from '../button/SubmitButton'
-import { createNewEvent } from '@/src/actions/event-actions/createNewEvent'
 
 const NewEventForm = () => {
-    const [isPending, startTransition] = useTransition()
-
-    const form = useForm<TypeNewEventSchema>({
-        resolver: zodResolver(newEventSchema),
-        defaultValues: {
-            name: '',
-            description: '',
-            type: undefined,
-            format: undefined,
-            date: { from: undefined, to: undefined },
-            startTime: undefined,
-            endTime: undefined,
-            subscribePeriod: { from: undefined, to: undefined },
-            participantsLimit: undefined
-        }
-    })
+    const form = newEventUseForm()
 
     const submitForm = async (data: TypeNewEventSchema) => {
-        try {
-            startTransition(async () => {
-                const event = await createNewEvent(data)
-                if (event) {
-                    alert('Evento criado')
-                    form.reset()
-                }
-            })
-        } catch (error) {
-            
-        }
+        await handleCreateNewEvent(data)
     }
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(submitForm)} className='w-7/12'>
+            <form className='flex flex-col gap-4' onSubmit={form.handleSubmit(submitForm)}>
                 <FormField
+                    name='summary'
                     control={form.control}
-                    name="name"
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Nome do evento:</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input
-                                    disabled={isPending}
-                                    placeholder="Nome do evento aqui..." {...field}
-                                    className={formCss['form-text-input']}
-                                />
+                                <div className="relative flex items-center">
+                                    <IconClipboardText className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Título do evento aqui...' className={formCss['form-label']}
+                                        type='text' />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
+                    name='description'
                     control={form.control}
-                    name="description"
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Descrição do evento:</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Textarea
-                                    disabled={isPending}
-                                    placeholder='Pontos mais importantes do evento aqui...' {...field}
-                                    className={`${formCss['form-text-input']} h-36`}
-                                />
+                                <div className="relative flex items-center">
+                                    <IconFileText className="absolute top-3 mx-3 text-grays-five" />
+                                    <Textarea {...field} placeholder='Breve descrição do curso aqui...' className={formCss['textarea']} />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
+                    name='type'
                     control={form.control}
-                    name="type"
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Tipo do evento:</FormLabel>
+                        <FormItem>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                    <SelectTrigger className={formCss['form-select-trigger']}>
+                                    <SelectTrigger className={`${formCss['form-label']} ${formCss['hover-effect']}`}>
                                         <SelectValue placeholder="Seu evento é um(a)..." />
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent className={formCss['form-select-content']}>
-                                    <SelectItem disabled={isPending} value="lectures" className={formCss['form-select-item']}>Palestra</SelectItem>
-                                    <SelectItem disabled={isPending} value="workshop" className={formCss['form-select-item']}>Workshop</SelectItem>
-                                    <SelectItem disabled={isPending} value="bootcamp" className={formCss['form-select-item']}>Bootcamp</SelectItem>
-                                    <SelectItem disabled={isPending} value="conference" className={formCss['form-select-item']}>Conferência</SelectItem>
-                                    <SelectItem disabled={isPending} value="congress" className={formCss['form-select-item']}>Congresso</SelectItem>
-                                    <SelectItem disabled={isPending} value="other" className={formCss['form-select-item']}>Outro</SelectItem>
+                                    <SelectItem value="lectures" className={formCss['form-select-item']}>Palestra</SelectItem>
+                                    <SelectItem value="workshop" className={formCss['form-select-item']}>Workshop</SelectItem>
+                                    <SelectItem value="bootcamp" className={formCss['form-select-item']}>Bootcamp</SelectItem>
+                                    <SelectItem value="conference" className={formCss['form-select-item']}>Conferência</SelectItem>
+                                    <SelectItem value="congress" className={formCss['form-select-item']}>Congresso</SelectItem>
+                                    <SelectItem value="other" className={formCss['form-select-item']}>Outro</SelectItem>
                                 </SelectContent>
                             </Select>
                             <FormMessage />
@@ -114,21 +86,20 @@ const NewEventForm = () => {
                     )}
                 />
                 <FormField
+                    name='format'
                     control={form.control}
-                    name="format"
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Formato:</FormLabel>
+                        <FormItem>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                 <FormControl>
-                                    <SelectTrigger className={formCss['form-select-trigger']}>
+                                    <SelectTrigger className={`${formCss['form-label']} ${formCss['hover-effect']}`}>
                                         <SelectValue placeholder="Seu evento é..." />
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent className={formCss['form-select-content']}>
-                                    <SelectItem disabled={isPending} value="inperson" className={formCss['form-select-item']}>Presencial</SelectItem>
-                                    <SelectItem disabled={isPending} value="online" className={formCss['form-select-item']}>Online</SelectItem>
-                                    <SelectItem disabled={isPending} value="hybrid" className={formCss['form-select-item']}>Híbrido</SelectItem>
+                                    <SelectItem value="inperson" className={formCss['form-select-item']}>Presencial</SelectItem>
+                                    <SelectItem value="online" className={formCss['form-select-item']}>Online</SelectItem>
+                                    <SelectItem value="hybrid" className={formCss['form-select-item']}>Híbrido</SelectItem>
                                 </SelectContent>
                             </Select>
                             <FormMessage />
@@ -136,38 +107,33 @@ const NewEventForm = () => {
                     )}
                 />
                 <FormField
+                    name="day"
                     control={form.control}
-                    name="date"
                     render={({ field }) => (
-                        <FormItem className="flex flex-col mt-2">
-                            <FormLabel className={formCss['form-label']}>Data do evento:</FormLabel>
+                        <FormItem>
                             <Popover>
-                                <PopoverTrigger asChild className={formCss['form-popover-trigger']}>
+                                <PopoverTrigger asChild>
                                     <FormControl>
-                                        <Button variant="outline">
-                                            {field.value?.from ? (
-                                                field.value.to ? (
-                                                    <>
-                                                        {format(field.value.from, "dd LLL, y")} -{" "}
-                                                        {format(field.value.to, "dd LLL, y")}
-                                                    </>
-                                                ) : (
-                                                    format(field.value.from, "dd LLL, y")
-                                                )
+                                        <Button variant="outline" className={formCss['form-outline-button']}>
+                                            {field.value ? (
+                                                <>{format(field.value, "dd LLL, y")}</>
                                             ) : (
-                                                <span>Data que ocorrerá o evento aqui...</span>
+                                                <EventIcon>
+                                                    <IconCalendarMonth />
+                                                    <span>Data que o evento ocorrerá aqui...</span>
+                                                </EventIcon>
                                             )}
                                         </Button>
                                     </FormControl>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-auto p-0" align="start">
                                     <Calendar
-                                        mode="range"
+                                        mode='single'
                                         selected={field.value}
-                                        onSelect={(range) => field.onChange(range)}
+                                        onSelect={field.onChange}
                                         disabled={(date) => date < new Date("2024-08-01")}
                                         initialFocus
-                                        className='text-hub-middlegray'
+                                        className={formCss['form-calendar']}
                                     />
                                 </PopoverContent>
                             </Popover>
@@ -176,45 +142,46 @@ const NewEventForm = () => {
                     )}
                 />
                 <FormField
+                    name='starts'
                     control={form.control}
-                    name='startTime'
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Horário de início do evento (Horas: minutos):</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input
-                                    disabled={isPending} placeholder="Horário do início do evento aqui..."
-                                    {...field} className={formCss['form-time-input']} type='time' />
+                                <div className="relative flex items-center">
+                                    <IconAlarm className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Horário do início do evento aqui...'
+                                        className={`${formCss['form-label']} cursor-text`} type='time' />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
+                    name='ends'
                     control={form.control}
-                    name='endTime'
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Horário de encerramento do evento (Horas: minutos):</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input
-                                    disabled={isPending} placeholder="Horário do encerramento do evento aqui..."
-                                    {...field} className={formCss['form-time-input']} type='time' />
+                                <div className="relative flex items-center">
+                                    <IconAlarm className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Horário do encerramento do evento aqui...'
+                                        className={`${formCss['form-label']} cursor-text`} type='time' />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
                 <FormField
+                    name='subs'
                     control={form.control}
-                    name="subscribePeriod"
                     render={({ field }) => (
-                        <FormItem className='flex flex-col mt-2'>
-                            <FormLabel className={formCss['form-label']}>Data de abertura e encerramento das inscrições:</FormLabel>
+                        <FormItem>
                             <Popover>
                                 <PopoverTrigger asChild className={formCss['form-popover-trigger']}>
                                     <FormControl>
-                                        <Button variant='outline' disabled={isPending}>
+                                        <Button variant="outline" className={formCss['form-outline-button']}>
                                             {field.value.from ? (
                                                 field.value.to ? (
                                                     <>
@@ -225,19 +192,22 @@ const NewEventForm = () => {
                                                     format(field.value.from, 'LLL dd, y')
                                                 )
                                             ) : (
-                                                <span>Abertura e encerramento das inscrições aqui...</span>
+                                                <EventIcon>
+                                                    <IconCalendarMonth />
+                                                    <span>Abertura e encerramento das inscrições aqui...</span>
+                                                </EventIcon>
                                             )}
                                         </Button>
                                     </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
+                                <PopoverContent className="w-auto p-0 mx-auto" align="start">
                                     <Calendar
                                         mode='range'
                                         selected={field.value}
                                         onSelect={field.onChange}
                                         disabled={(date) => date < new Date('2024-08-10')}
                                         initialFocus
-                                        className='text-hub-middlegray'
+                                        className={formCss['form-calendar']}
                                     />
                                 </PopoverContent>
                             </Popover>
@@ -246,27 +216,28 @@ const NewEventForm = () => {
                     )}
                 />
                 <FormField
+                    name="atendeesLimit"
                     control={form.control}
-                    name="participantsLimit"
                     render={({ field }) => (
-                        <FormItem className='mt-2'>
-                            <FormLabel className={formCss['form-label']}>Limite de participantes: (mantenha zero caso não haja)</FormLabel>
+                        <FormItem>
                             <FormControl>
-                                <Input
-                                    disabled={isPending}
-                                    placeholder="Limite de participantes do evento aqui..."
-                                    {...field} type='number'
-                                    className={formCss['form-text-input']}
-                                />
+                                <div className="relative flex items-center">
+                                    <IconUsers className="absolute mx-3 text-grays-five" />
+                                    <Input {...field} placeholder='Limite de participantes do evento aqui...' className={formCss['form-label']}
+                                        type='number' />
+                                </div>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <SubmitButton extraCss='mt-4' reverse>Criar evento</SubmitButton>
+                <SubmitButton>Criar evento</SubmitButton>
             </form>
         </Form>
     )
 }
 
 export default NewEventForm
+
+const EventIcon = ({ children }: { children: React.ReactNode }) =>
+    <div className={`relative flex items-center gap-2 ${formCss['hover-effect']}`}>{children}</div>

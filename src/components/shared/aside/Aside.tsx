@@ -2,42 +2,32 @@
 
 import React from 'react'
 
+import {
+    IconLayoutDashboard, IconUser, IconBook2, IconCertificate,
+    IconBellExclamation, IconSchool, IconBackpack, IconFlask, IconLogout2, IconTrash, IconMapPin
+} from '@tabler/icons-react'
 import IconButton from '../button/IconButton'
-import Image from 'next/image'
-import SignoutModal from '../modal/SignoutModal'
-import { iconsRelatedToBoth } from './icons'
-import DeactivateModal from '../modal/DeactivateModal'
+import { AlertModal, AlertModalTrigger } from '../modal/AlertModal'
 
-interface Props {
-    icons: {
-        svg: JSX.Element,
-        text: string,
-        to: string,
-    }[],
-}
+const icons = [
+    { to: '', icon: <IconLayoutDashboard />, text: 'Dashboard' },
+    { to: '/dashboard/new-event', icon: <IconFlask />, text: 'Novo evento' },
+    // { to: '', icon: <IconMapPin />, text: 'Buscar eventos' },
+    { to: '', icon: <IconLogout2 />, text: 'Sair' },
+    { to: '', icon: <IconTrash />, text: 'Deletar conta' },
+]
 
-const Aside = ({ icons }: Props) => {
-
-    const getSignoutIcon = iconsRelatedToBoth[0]
-    const getDeactiveIcon = iconsRelatedToBoth[1]
+const Aside = async () => {
 
     return (
-        <aside className='rounded border-hub-middlegray bg-hub-white shadow-lg fixed top-12 bottom-12 left-12 w-40 py-12 px-8'>
-            <ul className='flex flex-col gap-6'>
-                <li>
-                    <Image src='/images/logo.png' alt='Logo do campus_hub' className='bg-hub-white' width={100} height={100} />
-                </li>
+        <aside className='w-[260px] border-2 border-grays-five bg-grays-seven fixed top-0 bottom-0 left-0 flex flex-col pl-4'>
+            <h3 className='font-bold text-lg text-blues-three mt-4'>Painel de controle</h3>
+            <ul>
                 {icons.map((icon, index) => (
                     <li key={index}>
-                        <IconButton icon={icon} />
+                        <IconButton to={icon.to}>{icon.icon} {icon.text} </IconButton>
                     </li>
                 ))}
-                <li>
-                    <SignoutModal>{getSignoutIcon.svg} {getSignoutIcon.text}</SignoutModal>
-                </li>
-                <li>
-                    <DeactivateModal>{getDeactiveIcon.svg} {getDeactiveIcon.text}</DeactivateModal>
-                </li>
             </ul>
         </aside>
     )

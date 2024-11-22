@@ -1,47 +1,30 @@
 'use server'
 
-import { getEventsCreatedByUser } from '@/src/actions/event-actions/getEventsCreatedByUser'
-import { getEventsUserIsParticipatingAction } from '@/src/actions/event-actions/getEventsUserIsParticipatingAction'
-import { auth } from '@/src/auth'
 import EventCard from '@/src/components/shared/card/EventCard'
-import DashboardEventsLayout from '@/src/components/shared/layouts/DashboardEventsLayout'
-import NoContentLayout from '@/src/components/shared/layouts/NoContentLayout'
+import { MiddleCardContent, MiddleCardDescription, MiddleCardHeader, MiddleCardTitle } from '@/src/components/shared/card/MiddleCard'
+
 import React from 'react'
 
-const DashboardPage = async () => {
-  const session = await auth()
-  const { role } = session!.user
+const DashboradPage = async () => {
 
-  const getEvents = async () => {
-    if (role === 'INSTITUITION')
-      return {
-        events: await getEventsCreatedByUser(),
-        noEventText: 'Você não criou em nenhum evento ainda...'
-      }
-
-    if (role === 'USER')
-      return {
-        events: await getEventsUserIsParticipatingAction(),
-        noEventText: 'Você não está participando de nenhum evento ainda...'
-      }
-
-    return { events: [], noEventText: '' }
-  }
-
-  const { events, noEventText } = await getEvents()
-
-  if (events === null || events.length === 0)
-    return <NoContentLayout
-      src='/images/no-events.jpg'
-      alt='Imagem alternativa caso não hajam eventos para mostrar'
-      span={noEventText}
-    />
-
-  return <DashboardEventsLayout>
-    {events.map(event => (
-      <EventCard key={event.id} event={event} isDashboard/>
-    ))}
-  </DashboardEventsLayout>
+  return (
+    <>
+      <MiddleCardHeader>
+        <MiddleCardTitle>Dashboard</MiddleCardTitle>
+        <MiddleCardDescription>
+          Aqui você pode ver os eventos que criou
+        </MiddleCardDescription>
+      </MiddleCardHeader>
+      <MiddleCardContent>
+        {/* {content != null ? <Content>{content}</Content> : <Content>Sem conteúdo no momento...</Content>} */}
+        <EventCard />
+      </MiddleCardContent>
+    </>
+  )
 }
 
-export default DashboardPage
+export default DashboradPage
+
+const Content = async ({ children }: { children: React.ReactNode }) =>
+  <span className='text-center text-3xl text-grays-four font-semibold lg:mt-48'>{children}</span>
+

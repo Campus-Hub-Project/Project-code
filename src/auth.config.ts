@@ -2,11 +2,11 @@ import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 
 import type { NextAuthConfig } from "next-auth"
-import { signinSchema } from '@/src/hooks/use-formaaa/signin-useform'
 
 import { findUniqueUserByEmail } from './lib/queries/user'
 
 import { compare } from 'bcryptjs'
+import { signinSchema } from './hooks/use-form/auth-useform'
 
 export default {
   providers: [
@@ -41,7 +41,6 @@ export default {
   ],
   pages: {
     signIn: 'auth/signin',
-    verifyRequest: '/auth/email-send'
   },
   secret: 'senhaabcde',
 } satisfies NextAuthConfig

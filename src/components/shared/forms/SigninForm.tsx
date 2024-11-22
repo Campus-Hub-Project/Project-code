@@ -8,15 +8,19 @@ import { IconMail, IconLock, IconEye, IconEyeOff } from '@tabler/icons-react'
 import formCss from '@/styles/Form.module.css'
 import { Form, FormField, FormItem, FormControl, FormMessage } from '../../ui/form'
 import { Input } from '../../ui/input'
-import { signinUseForm, TypeSigninForm } from '@/src/hooks/use-form/auth-useform'
+import { signinUseForm, TypeSigninSchema } from '@/src/hooks/use-form/auth-useform'
 import SubmitButton from '../button/SubmitButton'
+import { handleSignInWithCredentials } from '@/src/actions/user-actions/signInAction'
+import { redirect } from 'next/navigation'
+import { DEFAULT_REDIRECT_PATH } from '@/src/routes'
 
 const SigninForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const form = signinUseForm()
 
-    const submitForm = async (data: TypeSigninForm) => {
-        console.log(data)
+    const submitForm = async (data: TypeSigninSchema) => {
+        const response = await handleSignInWithCredentials(data)
+        if (response) redirect(DEFAULT_REDIRECT_PATH)
     }
 
     return (

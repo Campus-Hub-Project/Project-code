@@ -1,6 +1,6 @@
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+import z from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
 
 export const signupSchema = z.object({
     name: z.string().trim()
@@ -11,10 +11,10 @@ export const signupSchema = z.object({
         .min(6, { message: 'O campo "Senha" deve ter pelo menos 6 caracteres' }),
 })
 
-export type TypeSignupForm = z.infer<typeof signupSchema>
+export type TypeSignupSchema = z.infer<typeof signupSchema>
 
 export const signupUseForm = () =>
-    useForm<TypeSignupForm>({
+    useForm<TypeSignupSchema>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
             name: '',
@@ -30,10 +30,10 @@ export const signinSchema = z.object({
         .min(1, { message: 'Preencha o campo "Senha"' }),
 })
 
-export type TypeSigninForm = z.infer<typeof signinSchema>
+export type TypeSigninSchema = z.infer<typeof signinSchema>
 
 export const signinUseForm = () =>
-    useForm<TypeSigninForm>({
+    useForm<TypeSigninSchema>({
         resolver: zodResolver(signinSchema),
         defaultValues: {
             email: '',
