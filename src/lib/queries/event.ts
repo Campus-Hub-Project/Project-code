@@ -1,34 +1,7 @@
 'use server'
 
-import { EventFormat, EventType } from "@prisma/client"
+import { EventToInsert } from "@/src/interfaces/event"
 import { prisma } from "../db"
-
-
-interface Event {
-    name: string,
-    description: string,
-    type: string,
-    format: string,
-    starts: Date,
-    ends: Date,
-    subs_starts: Date,
-    subs_ends: Date,
-    participantsLimit: number,
-    userId: string
-}
-
-interface EventToInsert {
-    summary: string,
-    description: string,
-    type: EventType,
-    format: EventFormat,
-    dayStarts: Date,
-    dayEnds: Date,
-    subsDayStarts: Date,
-    subsDayEnds: Date,
-    attendeesLimit: number,
-    userId: string,
-}
 
 export const findUniqueEventById = async (id: string) => {
     const event = await prisma.event.findUnique({
@@ -41,17 +14,16 @@ export const findUniqueEventById = async (id: string) => {
 export const createNewEvent = async ({ event }: { event: EventToInsert }) => {
     return await prisma.event.create({
         data: {
-            sumary: event.summary,
+            summary: event.summary,
             description: event.description,
             type: event.type,
             format: event.format,
-            
-            // dayStarts: event.dayStarts,
-            // dayEnds: event.dayEnds,
-            // subsDayStarts: event.subsDayStarts,
-            // subsDayEnds: event.subsDayEnds,
-            // attendeesLimit: event.attendeesLimit,
-            // userId: event.userId,
+            dayStarts: event.dayStarts,
+            dayEnds: event.dayEnds,
+            subsDayStarts: event.subsDayStarts,
+            subsDayEnds: event.subsDayEnds,
+            attendeesLimit: event.attendeesLimit,
+            userId: event.userId,
         }
     })
 }

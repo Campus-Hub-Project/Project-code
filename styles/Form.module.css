@@ -1,34 +1,3 @@
-/* .form-label {
-    @apply font-semibold text-hub-blue
-}
-
-.form-text-input {
-    @apply border-2 border-hub-middlegray rounded text-hub-middlegray focus:border-hub-blue focus:text-hub-blue
-}
-
-.form-select-trigger {
-    @apply border-2 border-hub-middlegray rounded text-hub-middlegray
-}
-
-.form-select-content {
-    @apply cursor-pointer bg-hub-white rounded 
-    border-2 border-hub-lightgray text-hub-middlegray
-}
-
-.form-select-item {
-    @apply cursor-pointer focus:text-hub-blue
-}
-
-.form-popover-trigger {
-    @apply border-2 border-hub-middlegray rounded text-hub-middlegray
-    hover:border-hub-blue hover:text-hub-blue
-}
-
-.form-time-input {
-    @apply border-2 border-hub-middlegray rounded text-hub-middlegray focus:border-hub-blue focus:text-hub-blue
-    cursor-pointer
-} */
-
 .form-label {
     @apply lg:h-12 px-12 rounded-sm shadow-none border-2 border-grays-five text-grays-five font-medium
     placeholder:text-grays-five placeholder:font-medium focus:border-grays-three focus:text-grays-three

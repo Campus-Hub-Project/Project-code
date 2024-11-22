@@ -6,7 +6,7 @@ import type { NextAuthConfig } from "next-auth"
 import { findUniqueUserByEmail } from './lib/queries/user'
 
 import { compare } from 'bcryptjs'
-import { signinSchema } from './hooks/use-form/auth-useform'
+import { signinSchema } from '@/src/hooks/use-form/auth-useform'
 
 export default {
   providers: [

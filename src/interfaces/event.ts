@@ -1,3 +1,5 @@
+import { EventFormat, EventType } from "@prisma/client";
+
 export interface EventGoogleCalendarProps {
     name: string;
     description: string;
@@ -24,3 +26,16 @@ export interface EventCardProps {
     },
     isDashboard?: boolean,
 }[]
+
+export interface EventToInsert {
+    summary: string,
+    description: string,
+    type: EventType,
+    format: EventFormat,
+    dayStarts: Date,
+    dayEnds: Date,
+    subsDayStarts: Date,
+    subsDayEnds: Date,
+    attendeesLimit: number,
+    userId: string,
+}

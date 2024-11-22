@@ -24,7 +24,11 @@ const NewEventForm = () => {
     const form = newEventUseForm()
 
     const submitForm = async (data: TypeNewEventSchema) => {
-        await handleCreateNewEvent(data)
+        const response = await handleCreateNewEvent(data)
+        if (response) {
+            alert('Evento criado com sucesso')
+            form.reset()
+        }
     }
 
     return (
@@ -73,12 +77,12 @@ const NewEventForm = () => {
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent className={formCss['form-select-content']}>
-                                    <SelectItem value="lectures" className={formCss['form-select-item']}>Palestra</SelectItem>
-                                    <SelectItem value="workshop" className={formCss['form-select-item']}>Workshop</SelectItem>
-                                    <SelectItem value="bootcamp" className={formCss['form-select-item']}>Bootcamp</SelectItem>
-                                    <SelectItem value="conference" className={formCss['form-select-item']}>Conferência</SelectItem>
-                                    <SelectItem value="congress" className={formCss['form-select-item']}>Congresso</SelectItem>
-                                    <SelectItem value="other" className={formCss['form-select-item']}>Outro</SelectItem>
+                                    <SelectItem value="LECTURE" className={formCss['form-select-item']}>Palestra</SelectItem>
+                                    <SelectItem value="WORKSHOP" className={formCss['form-select-item']}>Workshop</SelectItem>
+                                    <SelectItem value="BOOTCAMP" className={formCss['form-select-item']}>Bootcamp</SelectItem>
+                                    <SelectItem value="CONFERENCE" className={formCss['form-select-item']}>Conferência</SelectItem>
+                                    <SelectItem value="CONGRESS" className={formCss['form-select-item']}>Congresso</SelectItem>
+                                    <SelectItem value="OTHER" className={formCss['form-select-item']}>Outro</SelectItem>
                                 </SelectContent>
                             </Select>
                             <FormMessage />
@@ -97,9 +101,9 @@ const NewEventForm = () => {
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent className={formCss['form-select-content']}>
-                                    <SelectItem value="inperson" className={formCss['form-select-item']}>Presencial</SelectItem>
-                                    <SelectItem value="online" className={formCss['form-select-item']}>Online</SelectItem>
-                                    <SelectItem value="hybrid" className={formCss['form-select-item']}>Híbrido</SelectItem>
+                                    <SelectItem value="INPERSON" className={formCss['form-select-item']}>Presencial</SelectItem>
+                                    <SelectItem value="ONLINE" className={formCss['form-select-item']}>Online</SelectItem>
+                                    <SelectItem value="HYBRID" className={formCss['form-select-item']}>Híbrido</SelectItem>
                                 </SelectContent>
                             </Select>
                             <FormMessage />
@@ -216,7 +220,7 @@ const NewEventForm = () => {
                     )}
                 />
                 <FormField
-                    name="atendeesLimit"
+                    name="attendeesLimit"
                     control={form.control}
                     render={({ field }) => (
                         <FormItem>

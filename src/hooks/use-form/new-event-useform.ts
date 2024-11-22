@@ -2,9 +2,9 @@ import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-export const types = ['lectures', 'workshop', 'bootcamp', 'conference', 'congress', 'other'] as const
+export const types = ['LECTURE', 'WORKSHOP', 'BOOTCAMP', 'CONFERENCE', 'CONGRESS', 'OTHER'] as const
 
-const formats = ['inperson', 'online', 'hybrid'] as const
+const formats = ['INPERSON', 'ONLINE', 'HYBRID'] as const
 
 export const newEventSchema = z.object({
     summary: z.string().trim()
@@ -32,7 +32,7 @@ export const newEventSchema = z.object({
             (period) => !period.to || period.to >= period.from,
             { message: "A data de encerramento das inscrições não pode ser anterior à data de início" }
         ),
-    atendeesLimit: z
+    attendeesLimit: z
         .preprocess((value) => Number(value), z.number().int()
             .min(0, { message: 'O campo de limite de participantes deve ser preenchido por um número' }))
         .default(0),
@@ -52,6 +52,6 @@ export const newEventUseForm = () =>
             starts: undefined,
             ends: undefined,
             subs: { from: undefined, to: undefined },
-            atendeesLimit: undefined
+            attendeesLimit: undefined
         }
     })

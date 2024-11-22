@@ -22,7 +22,7 @@ export const formatDateToUTC = async ({ date }: { date: Date }) => {
     const datePart = date.toISOString().slice(0, 10)
 
     // PEGO O HORÁRIO E ALTERO
-    const formattedDate = new Date(`${datePart}T$00:00:00.000Z`)
+    const formattedDate = new Date(`${datePart}T00:00:00.000Z`)
 
     return formattedDate
 }
