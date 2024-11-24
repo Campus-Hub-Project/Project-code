@@ -6,15 +6,14 @@ import {
     IconLayoutDashboard, IconUser, IconBook2, IconCertificate,
     IconBellExclamation, IconSchool, IconBackpack, IconFlask, IconLogout2, IconTrash, IconMapPin
 } from '@tabler/icons-react'
-import IconButton from '../button/IconButton'
-import { AlertModal, AlertModalTrigger } from '../modal/AlertModal'
+import { IconButton, IconLinkButton } from '../button/IconButton'
 
 const icons = [
-    { to: '', icon: <IconLayoutDashboard />, text: 'Dashboard' },
+    { to: '/dashboard', icon: <IconLayoutDashboard />, text: 'Dashboard' },
     { to: '/dashboard/new-event', icon: <IconFlask />, text: 'Novo evento' },
+    { to: '/dashboard/my-account/signout', icon: <IconLogout2 />, text: 'Sair' },
+    { to: '/dashboard/my-account/delete-account', icon: <IconTrash />, text: 'Deletar conta' }
     // { to: '', icon: <IconMapPin />, text: 'Buscar eventos' },
-    { to: '', icon: <IconLogout2 />, text: 'Sair' },
-    { to: '', icon: <IconTrash />, text: 'Deletar conta' },
 ]
 
 const Aside = async () => {
@@ -25,7 +24,7 @@ const Aside = async () => {
             <ul>
                 {icons.map((icon, index) => (
                     <li key={index}>
-                        <IconButton to={icon.to}>{icon.icon} {icon.text} </IconButton>
+                        <IconLinkButton to={icon.to}>{icon.icon} {icon.text} </IconLinkButton>
                     </li>
                 ))}
             </ul>

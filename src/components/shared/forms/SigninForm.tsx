@@ -20,7 +20,6 @@ const SigninForm = () => {
 
     const submitForm = async (data: TypeSigninSchema) => {
         const response = await handleSignInWithCredentials(data)
-        if (response) redirect(DEFAULT_REDIRECT_PATH)
     }
 
     return (

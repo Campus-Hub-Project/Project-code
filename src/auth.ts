@@ -6,6 +6,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { findUniqueUserById } from "./lib/queries/user"
 
 import { prisma } from "./lib/db"
+import { UserRole } from "@prisma/client"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -27,9 +28,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     async session({ token, session }) {
       if (token.sub && session.user) session.user.id = token.sub
-      if (token.role && session.user) session.user.role = token.role as 'ADMIN' | 'USER' | 'INSTITUITION'
+      if (token.role && session.user) session.user.role = token.role as UserRole
 
-      if (token.role === 'USER') {
+      if (token.role === UserRole.USER) {
         session.accessToken = token.accessToken as string
         session.refreshToken = token.refreshToken as string | undefined
       }

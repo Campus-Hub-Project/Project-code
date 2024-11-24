@@ -7,26 +7,6 @@ export interface EventGoogleCalendarProps {
     ends: Date;
 }
 
-export interface EventCardProps {
-    event: {
-        participants: string[];
-        description: string;
-        id: string;
-        userId: string;
-        name: string;
-        type: string;
-        format: string;
-        starts: Date;
-        ends: Date;
-        subs_starts: Date;
-        subs_ends: Date;
-        participants_limit: number;
-        createdAt: Date;
-        updatedAt: Date;
-    },
-    isDashboard?: boolean,
-}[]
-
 export interface EventToInsert {
     summary: string,
     description: string,
@@ -38,4 +18,38 @@ export interface EventToInsert {
     subsDayEnds: Date,
     attendeesLimit: number,
     userId: string,
+}
+
+export interface EventToFormatComplexData {
+    summary: string,
+    description: string,
+    type: EventType,
+    format: EventFormat,
+    dayStarts: Date,
+    dayEnds: Date,
+    subsDayStarts: Date,
+    subsDayEnds: Date,
+    attendeesLimit: number,
+    atendees: {
+        user: {
+            id: string
+        }
+    }[]
+}
+
+export interface EventToShowOnCard {
+    summary: string,
+    description: string,
+    type: string,
+    format: string,
+    dayStarts: string,
+    dayEnds: string,
+    subsDayStarts: string,
+    subsDayEnds: string,
+    attendeesLimit: number | 'vagas ilimitadas',
+    atendees: {
+        user: {
+            id: string
+        }
+    }[]
 }

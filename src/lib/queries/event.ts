@@ -28,51 +28,42 @@ export const createNewEvent = async ({ event }: { event: EventToInsert }) => {
     })
 }
 
-export const findEventsCreatedByInstituitionId = async (id: string) => {
+export const findEventsCreatedWhereInstituitionID = async (id: string) => {
     const events = await prisma.event.findMany({
         where: { userId: id },
         include: {
-            participants: {
+            atendees: {
+                select: {
+                    user: { select: { id: true } }
+                }
+            }
+        }
+    })
+    return events
+}
+
+export const findEventsWhereUserIDIsAttendee = async (id: string) => {
+    const events = await prisma.event.findMany({
+        where: {
+            atendees: { some: { userId: id } },
+        },
+        include: {
+            atendees: {
                 select: {
                     user: { select: { id: true } },
                 },
             },
         },
     })
-
-    return events.map(event => ({
-        ...event,
-        participants: event.participants.map(part => part.user.id),
-    }));
+    return events
 }
 
-export const findEventsWhereUserIsParticipating = async (id: string) => {
-    const events = await prisma.event.findMany({
-        where: {
-            participants: {
-                some: { userId: id },
-            },
-        },
-        include: {
-            participants: {
-                select: {
-                    user: { select: { id: true } },
-                },
-            },
-        },
-    });
-
-    return events.map(event => ({
-        ...event,
-        participants: event.participants.map(part => part.user.id),
-    }))
-}
 
 
 export const findAllEventsFromPlataform = async () => {
     const events = await prisma.event.findMany({
         include: {
-            participants: {
+            atendees: {
                 select: {
                     user: { select: { id: true } },
                 },
@@ -82,7 +73,7 @@ export const findAllEventsFromPlataform = async () => {
 
     return events.map(event => ({
         ...event,
-        participants: event.participants.map(part => part.user.id),
+        attendees: event.atendees.map(part => part.user.id),
     }));
 }
 

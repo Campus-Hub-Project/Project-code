@@ -2,8 +2,9 @@
 
 import { auth } from "@/src/auth"
 import { findUniqueUserById } from "@/src/lib/queries/user"
+import { UserRole } from "@prisma/client"
 
-export const getUserSession = async (role: 'ADMIN' | 'USER' | 'INSTITUITION') => {
+export const getUserSession = async (role: UserRole) => {
     const session = await auth()
 
     if (!session || !session.user || !session.user.id) return null

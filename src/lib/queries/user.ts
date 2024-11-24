@@ -50,3 +50,9 @@ export const deleteVerificationToken = async (id: string) => {
         where: { id }
     })
 }
+
+export const deleteUserAccount = async (id: string) => {
+    await prisma.user.delete({
+        where: { id }
+    })
+}

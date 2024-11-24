@@ -1,11 +1,16 @@
 'use server'
 
+import { getDashboardEvents } from '@/src/actions/event-actions/getDashboardEvents'
+import { auth } from '@/src/auth'
 import EventCard from '@/src/components/shared/card/EventCard'
 import { MiddleCardContent, MiddleCardDescription, MiddleCardHeader, MiddleCardTitle } from '@/src/components/shared/card/MiddleCard'
+import { UserRole } from '@prisma/client'
 
 import React from 'react'
 
 const DashboradPage = async () => {
+  const session = await auth()
+  const events = await getDashboardEvents({ role: session?.user.role as UserRole })
 
   return (
     <>
@@ -16,8 +21,9 @@ const DashboradPage = async () => {
         </MiddleCardDescription>
       </MiddleCardHeader>
       <MiddleCardContent>
-        {/* {content != null ? <Content>{content}</Content> : <Content>Sem conteúdo no momento...</Content>} */}
-        <EventCard />
+        {(!events || events.length === 0) ?
+          (<Content>Sem eventos no momento...</Content>) :
+          (events.map((event, index) => (<EventCard event={event} key={index} />)))}
       </MiddleCardContent>
     </>
   )

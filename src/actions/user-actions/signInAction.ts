@@ -23,7 +23,7 @@ export const handleSignInWithCredentials = async (data: TypeSigninSchema) => {
         const result = !!await signIn('credentials', {
             email: isDataAsSchema.data.email,
             password: isDataAsSchema.data.password,
-            redirect: false
+            redirectTo: DEFAULT_REDIRECT_PATH
         })
         return result
     } catch (error) {
