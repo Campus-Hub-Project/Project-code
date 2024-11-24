@@ -6,6 +6,8 @@ import EventCard from '@/src/components/shared/card/EventCard'
 import { MiddleCardContent, MiddleCardDescription, MiddleCardHeader, MiddleCardTitle } from '@/src/components/shared/card/MiddleCard'
 import { UserRole } from '@prisma/client'
 
+import { NoEventsText } from '@/src/components/shared/text/Text'
+
 import React from 'react'
 
 const DashboradPage = async () => {
@@ -22,8 +24,12 @@ const DashboradPage = async () => {
       </MiddleCardHeader>
       <MiddleCardContent>
         {(!events || events.length === 0) ?
-          (<Content>Sem eventos no momento...</Content>) :
-          (events.map((event, index) => (<EventCard event={event} key={index} />)))}
+          (
+            <NoEventsText>Sem eventos no momento...</NoEventsText>
+          ) :
+          (events.map((event, index) => (
+            <EventCard event={event} key={index} role={session!.user.role} />
+          )))}
       </MiddleCardContent>
     </>
   )
@@ -31,6 +37,4 @@ const DashboradPage = async () => {
 
 export default DashboradPage
 
-const Content = async ({ children }: { children: React.ReactNode }) =>
-  <span className='text-center text-3xl text-grays-four font-semibold lg:mt-48'>{children}</span>
 

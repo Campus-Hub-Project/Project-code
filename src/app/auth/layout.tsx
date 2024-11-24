@@ -15,7 +15,7 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
                 {children}
                 <MiddleCardFooter>
                     <span className='lg:text-sm font-normal text-grays-four'>é aluno? Entre com...</span>
-                    <ProviderButton provider='google'><IconBrandGoogleFilled />Google</ProviderButton>
+                    <ProviderButton><IconBrandGoogleFilled />Google</ProviderButton>
                 </MiddleCardFooter>
             </MiddleCard>
         </BasicLayout>

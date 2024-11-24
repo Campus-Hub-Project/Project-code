@@ -7,7 +7,7 @@ import { IconMail, IconUser, IconLock, IconEye, IconEyeOff } from '@tabler/icons
 import { signupUseForm, TypeSignupSchema } from '@/src/hooks/use-form/auth-useform'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../../ui/form'
 import SubmitButton from '../button/SubmitButton'
-import { handleSignupAction } from '@/src/actions/user-actions/signupAction'
+import { handleSignup } from '@/src/actions/auth-action'
 
 import formCss from '@/styles/Form.module.css'
 
@@ -15,7 +15,7 @@ const SignupForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const form = signupUseForm()
 
-    const submitForm = async (data: TypeSignupSchema) => handleSignupAction(data)
+    const submitForm = async (data: TypeSignupSchema) => handleSignup(data)
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(submitForm)} className='flex flex-col gap-4'>

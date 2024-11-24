@@ -1,33 +1,41 @@
 'use server'
-import { getAllPlataformEventsAction } from '@/src/actions/event-actions/getAllPlataformEventsAction'
-import EventCard from '@/src/components/shared/card/EventCard'
-import DashboardEventsLayout from '@/src/components/shared/layouts/DashboardEventsLayout'
-import NoContentLayout from '@/src/components/shared/layouts/NoContentLayout'
+import { getAllEvents } from '@/src/actions/event-actions/getAllEvents'
 import React from 'react'
+import {
+    MiddleCardContent,
+    MiddleCardDescription,
+    MiddleCardHeader,
+    MiddleCardTitle
+} from '@/src/components/shared/card/MiddleCard'
+
+import { NoEventsText } from '@/src/components/shared/text/Text'
+
+import EventCard from '@/src/components/shared/card/EventCard'
+import { auth } from '@/src/auth'
 
 const FindEventsPage = async () => {
-
-    const events = await getAllPlataformEventsAction()
-
-    if (events === null || events.length === 0) {
-        return (
-            <NoContentLayout
-                src='/images/no-events.jpg'
-                alt='Imagem alternativa caso não hajam eventos para mostrar'
-                span='Não há nenhum evento para ser mostrado ainda...'
-            />
-        )
-    }
+    const session = await auth()
+    const events = await getAllEvents()
 
     return (
-        <DashboardEventsLayout>
-            {events.map((event) => (
-                <EventCard event={event} />
-            ))}
-        </DashboardEventsLayout>
+        <>
+            <MiddleCardHeader>
+                <MiddleCardTitle>Buscar eventos</MiddleCardTitle>
+                <MiddleCardDescription>
+                    Aqui você pode buscar e participar dos eventos das faculdades e universidades
+                </MiddleCardDescription>
+            </MiddleCardHeader>
+            <MiddleCardContent>
+                {(!events || events.length === 0) ?
+                    (
+                        <NoEventsText>Sem eventos no momento...</NoEventsText>
+                    ) :
+                    (events.map((event, index) => (
+                        <EventCard event={event} key={index} role={session!.user.role} />
+                    )))}
+            </MiddleCardContent>
+        </>
     )
-
-
 }
 
 export default FindEventsPage

@@ -1,12 +1,12 @@
 'use server'
 
 import { newEventSchema, TypeNewEventSchema } from "@/src/hooks/use-form/new-event-useform"
-import { getUserSession } from "../user-actions/getUserSession"
+import { getUserSession } from '@/src/actions/auth-action'
 
 import { createNewEvent } from '@/src/lib/queries/event'
-import { formatDateToUTC, formatDateTimeToUTC } from "./formatDateTime"
 import { EventToInsert } from "@/src/interfaces/event"
 import { EventType, EventFormat } from "@prisma/client"
+import { formatDateTimeToUTC, formatDateToUTC } from "../format-actions/backend"
 
 export const handleCreateNewEvent = async (data: TypeNewEventSchema) => {
     const session = await getUserSession('INSTITUITION')

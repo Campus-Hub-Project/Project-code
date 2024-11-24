@@ -1,10 +1,10 @@
 import { EventFormat, EventType } from "@prisma/client";
 
-export interface EventGoogleCalendarProps {
-    name: string;
+export interface AddEventInGoogleCalendar {
+    summary: string;
     description: string;
-    starts: Date;
-    ends: Date;
+    dayStarts: Date;
+    dayEnds: Date;
 }
 
 export interface EventToInsert {

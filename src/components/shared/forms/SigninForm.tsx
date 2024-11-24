@@ -10,17 +10,13 @@ import { Form, FormField, FormItem, FormControl, FormMessage } from '../../ui/fo
 import { Input } from '../../ui/input'
 import { signinUseForm, TypeSigninSchema } from '@/src/hooks/use-form/auth-useform'
 import SubmitButton from '../button/SubmitButton'
-import { handleSignInWithCredentials } from '@/src/actions/user-actions/signInAction'
-import { redirect } from 'next/navigation'
-import { DEFAULT_REDIRECT_PATH } from '@/src/routes'
+import { signInWithCredentials } from '@/src/actions/auth-action'
 
 const SigninForm = () => {
     const [showPassword, setShowPassword] = useState(false)
     const form = signinUseForm()
 
-    const submitForm = async (data: TypeSigninSchema) => {
-        const response = await handleSignInWithCredentials(data)
-    }
+    const submitForm = async (data: TypeSigninSchema) => await signInWithCredentials(data)
 
     return (
         <Form {...form}>

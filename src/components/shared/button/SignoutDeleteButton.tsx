@@ -5,18 +5,18 @@ import React from 'react'
 import buttonCss from '@/styles/Button.module.css'
 import { Button } from '../../ui/button'
 import { useRouter } from 'next/navigation'
-import { handleSignoutAction } from '@/src/actions/user-actions/handleSignoutAction'
+import { regularSignout } from '@/src/actions/auth-action'
 
 const SignoutDeleteButton = ({ children, isForever = false }: { children: React.ReactNode, isForever?: boolean }) => {
     const router = useRouter()
 
     const handleSignoutDelete = async () => {
         if (isForever) {
-            await handleSignoutAction({ isForever: true })
+            await regularSignout({ isForever: true })
             router.push('/')
         }
         else {
-            await handleSignoutAction({ isForever: false })
+            await regularSignout({ isForever: false })
             router.push('/')
         }
     }

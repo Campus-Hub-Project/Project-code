@@ -71,10 +71,7 @@ export const findAllEventsFromPlataform = async () => {
         },
     });
 
-    return events.map(event => ({
-        ...event,
-        attendees: event.atendees.map(part => part.user.id),
-    }));
+    return events
 }
 
 
@@ -87,7 +84,7 @@ export const addParticipantToEvent = async (eventId: string, userId: string) => 
 }
 
 
-export const removeParticipantFromEvent = async (eventId: string, userId: string) => {
+export const removeAttendee = async (eventId: string, userId: string) => {
     await prisma.userEvent.delete({
         where: {
             userId_eventId: {

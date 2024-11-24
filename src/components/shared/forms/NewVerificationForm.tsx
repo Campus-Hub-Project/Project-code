@@ -1,6 +1,6 @@
 'use client'
 
-import { newVerificationAction } from '@/src/actions/user-actions/newVerificationAction'
+import { verifyVerificationToken } from '@/src/actions/auth-action'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
 
@@ -12,7 +12,7 @@ const NewVerificationForm = () => {
 
     const submitForm = useCallback(async () => {
         try {
-            if (token) await newVerificationAction(token)
+            if (token) await verifyVerificationToken(token)
         } catch (error) {
             alert('Algo deu errado')
         }
