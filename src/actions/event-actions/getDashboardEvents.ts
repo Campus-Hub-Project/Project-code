@@ -1,6 +1,6 @@
 'use server'
 
-import { findEventsCreatedWhereInstituitionID } from "@/src/lib/queries/event"
+import { findEventsCreatedWhereInstituitionID, findEventsWhereUserIDIsAttendee } from "@/src/lib/queries/event"
 import { getUserSession } from '@/src/actions/auth-action'
 import { UserRole } from "@prisma/client"
 import { EventToFormatComplexData, EventToShowOnCard } from "@/src/interfaces/event"
@@ -13,10 +13,8 @@ export const getDashboardEvents = async ({ role }: { role: UserRole }) => {
 
     let complexEvents: EventToFormatComplexData[] = []
     if (role === UserRole.INSTITUITION) complexEvents = await findEventsCreatedWhereInstituitionID(session.user.id as string)
-    if (role === UserRole.USER) complexEvents = await findEventsCreatedWhereInstituitionID(session.user.id as string)
+    if (role === UserRole.USER) complexEvents = await findEventsWhereUserIDIsAttendee(session.user.id as string)
 
-
-    // 1- MELHORAR A FORMATAÇÃO DAS DATAS
     const events = await turnComplexEventDataIntoSimpleOne({ complexEvents })
     return events
 }

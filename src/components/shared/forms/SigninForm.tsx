@@ -4,10 +4,9 @@ import React, { useState } from 'react'
 
 import { IconMail, IconLock, IconEye, IconEyeOff } from '@tabler/icons-react'
 
-
 import formCss from '@/styles/Form.module.css'
-import { Form, FormField, FormItem, FormControl, FormMessage } from '../../ui/form'
-import { Input } from '../../ui/input'
+import { Form, FormField, FormItem, FormControl, FormMessage } from '@/src/components/ui/form'
+import { Input } from '@/src/components/ui/input'
 import { signinUseForm, TypeSigninSchema } from '@/src/hooks/use-form/auth-useform'
 import SubmitButton from '../button/SubmitButton'
 import { signInWithCredentials } from '@/src/actions/auth-action'

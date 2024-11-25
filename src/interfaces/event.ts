@@ -7,6 +7,22 @@ export interface AddEventInGoogleCalendar {
     dayEnds: Date;
 }
 
+export interface RegularEventData {
+    id: string,
+    userId: string,
+    summary: string,
+    description: string,
+    type: EventType,
+    format: EventFormat,
+    dayStarts: Date,
+    dayEnds: Date,
+    subsDayStarts: Date,
+    subsDayEnds: Date,
+    attendeesLimit: number,
+    updatedAt: Date,
+    createdAt: Date,
+}
+
 export interface EventToInsert {
     summary: string,
     description: string,
@@ -21,6 +37,7 @@ export interface EventToInsert {
 }
 
 export interface EventToFormatComplexData {
+    id: string,
     summary: string,
     description: string,
     type: EventType,
@@ -38,6 +55,7 @@ export interface EventToFormatComplexData {
 }
 
 export interface EventToShowOnCard {
+    id: string,
     summary: string,
     description: string,
     type: string,
@@ -47,9 +65,5 @@ export interface EventToShowOnCard {
     subsDayStarts: string,
     subsDayEnds: string,
     attendeesLimit: number | 'vagas ilimitadas',
-    atendees: {
-        user: {
-            id: string
-        }
-    }[]
+    atendees: number
 }

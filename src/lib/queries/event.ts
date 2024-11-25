@@ -70,7 +70,6 @@ export const findAllEventsFromPlataform = async () => {
             },
         },
     });
-
     return events
 }
 

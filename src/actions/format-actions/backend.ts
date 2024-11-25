@@ -10,7 +10,7 @@ export const formatDateTimeToUTC = async ({ date, time }: { date: Date, time: st
     const formattedDateTime = new Date(`${datePart}T${time}:00.000Z`)
 
     // ALTERO O HORÁRIO
-    // if (isSubsPeriod) formattedDate = new Date(`${datePart}T03:00:00.000Z`)
+    formattedDateTime.setHours(formattedDateTime.getHours() + 3)
 
     return formattedDateTime
 }

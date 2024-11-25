@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { memo } from 'react'
 
 import { Form, FormField, FormControl, FormItem, FormMessage } from '@/src/components/ui/form'
 
@@ -8,7 +8,7 @@ import formCss from '@/styles/Form.module.css'
 import { Input } from '@/src/components/ui/input'
 import {
     IconClipboardText, IconFileText, IconAlarm,
-    IconUsers, IconSchool, IconDeviceDesktopQuestion, IconCalendarMonth
+    IconUsers, IconBriefcase, IconCalendarMonth
 } from '@tabler/icons-react'
 import { Textarea } from '@/src/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/src/components/ui/select'
@@ -40,11 +40,9 @@ const NewEventForm = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <div className="relative flex items-center">
-                                    <IconClipboardText className="absolute mx-3 text-grays-five" />
-                                    <Input {...field} placeholder='Título do evento aqui...' className={formCss['form-label']}
-                                        type='text' />
-                                </div>
+                                <InputWithIcon icon={IconClipboardText}>
+                                    <Input {...field} placeholder="Título do evento aqui..." className={formCss['form-label']} type="text" />
+                                </InputWithIcon>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -56,10 +54,9 @@ const NewEventForm = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <div className="relative flex items-center">
-                                    <IconFileText className="absolute top-3 mx-3 text-grays-five" />
-                                    <Textarea {...field} placeholder='Breve descrição do curso aqui...' className={formCss['textarea']} />
-                                </div>
+                                <InputWithIcon icon={IconFileText} isTextArea>
+                                    <Textarea {...field} placeholder='Breve descrição do curso aqui...' className={`${formCss['textarea']}`} />
+                                </InputWithIcon>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -70,21 +67,24 @@ const NewEventForm = () => {
                     control={form.control}
                     render={({ field }) => (
                         <FormItem>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                    <SelectTrigger className={`${formCss['form-label']} ${formCss['hover-effect']}`}>
-                                        <SelectValue placeholder="Seu evento é um(a)..." />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent className={formCss['form-select-content']}>
-                                    <SelectItem value="LECTURE" className={formCss['form-select-item']}>Palestra</SelectItem>
-                                    <SelectItem value="WORKSHOP" className={formCss['form-select-item']}>Workshop</SelectItem>
-                                    <SelectItem value="BOOTCAMP" className={formCss['form-select-item']}>Bootcamp</SelectItem>
-                                    <SelectItem value="CONFERENCE" className={formCss['form-select-item']}>Conferência</SelectItem>
-                                    <SelectItem value="CONGRESS" className={formCss['form-select-item']}>Congresso</SelectItem>
-                                    <SelectItem value="OTHER" className={formCss['form-select-item']}>Outro</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <div className="relative flex items-center">
+                                <IconBriefcase className="absolute mx-3 text-grays-five" />
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                        <SelectTrigger className={`pl-10 ${formCss['form-label']} ${formCss['hover-effect']}`}>
+                                            <SelectValue placeholder="Seu evento é um(a)..." />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent className={formCss['form-select-content']}>
+                                        <SelectItem value="LECTURE" className={formCss['form-select-item']}>Palestra</SelectItem>
+                                        <SelectItem value="WORKSHOP" className={formCss['form-select-item']}>Workshop</SelectItem>
+                                        <SelectItem value="BOOTCAMP" className={formCss['form-select-item']}>Bootcamp</SelectItem>
+                                        <SelectItem value="CONFERENCE" className={formCss['form-select-item']}>Conferência</SelectItem>
+                                        <SelectItem value="CONGRESS" className={formCss['form-select-item']}>Congresso</SelectItem>
+                                        <SelectItem value="OTHER" className={formCss['form-select-item']}>Outro</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -94,18 +94,21 @@ const NewEventForm = () => {
                     control={form.control}
                     render={({ field }) => (
                         <FormItem>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                    <SelectTrigger className={`${formCss['form-label']} ${formCss['hover-effect']}`}>
-                                        <SelectValue placeholder="Seu evento é..." />
-                                    </SelectTrigger>
-                                </FormControl>
-                                <SelectContent className={formCss['form-select-content']}>
-                                    <SelectItem value="INPERSON" className={formCss['form-select-item']}>Presencial</SelectItem>
-                                    <SelectItem value="ONLINE" className={formCss['form-select-item']}>Online</SelectItem>
-                                    <SelectItem value="HYBRID" className={formCss['form-select-item']}>Híbrido</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <div className="relative flex items-center">
+                                <IconBriefcase className="absolute mx-3 text-grays-five" />
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                    <FormControl>
+                                        <SelectTrigger className={`${formCss['form-label']} ${formCss['hover-effect']}`}>
+                                            <SelectValue placeholder="Seu evento é..." />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent className={formCss['form-select-content']}>
+                                        <SelectItem value="INPERSON" className={formCss['form-select-item']}>Presencial</SelectItem>
+                                        <SelectItem value="ONLINE" className={formCss['form-select-item']}>Online</SelectItem>
+                                        <SelectItem value="HYBRID" className={formCss['form-select-item']}>Híbrido</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
                             <FormMessage />
                         </FormItem>
                     )}
@@ -151,11 +154,10 @@ const NewEventForm = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <div className="relative flex items-center">
-                                    <IconAlarm className="absolute mx-3 text-grays-five" />
+                                <InputWithIcon icon={IconAlarm}>
                                     <Input {...field} placeholder='Horário do início do evento aqui...'
                                         className={`${formCss['form-label']} cursor-text`} type='time' />
-                                </div>
+                                </InputWithIcon>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -167,11 +169,10 @@ const NewEventForm = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <div className="relative flex items-center">
-                                    <IconAlarm className="absolute mx-3 text-grays-five" />
+                                <InputWithIcon icon={IconAlarm}>
                                     <Input {...field} placeholder='Horário do encerramento do evento aqui...'
                                         className={`${formCss['form-label']} cursor-text`} type='time' />
-                                </div>
+                                </InputWithIcon>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -225,11 +226,10 @@ const NewEventForm = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <div className="relative flex items-center">
-                                    <IconUsers className="absolute mx-3 text-grays-five" />
-                                    <Input {...field} placeholder='Limite de participantes do evento aqui...' className={formCss['form-label']}
-                                        type='number' />
-                                </div>
+                                <InputWithIcon icon={IconUsers}>
+                                    <Input {...field} placeholder="Limite de participantes do evento aqui..."
+                                        className={formCss['form-label']} type="number" />
+                                </InputWithIcon>
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -245,3 +245,26 @@ export default NewEventForm
 
 const EventIcon = ({ children }: { children: React.ReactNode }) =>
     <div className={`relative flex items-center gap-2 ${formCss['hover-effect']}`}>{children}</div>
+
+const InputWithIcon = memo(({
+    icon: Icon,
+    children,
+    className = '',
+    isTextArea = false,
+}: {
+    icon: React.ElementType;
+    children: React.ReactNode;
+    className?: string;
+    isTextArea?: boolean;
+}) => (
+    <div className="relative flex items-center">
+        {isTextArea ? (
+            <Icon className="absolute mx-3 text-grays-five top-3" />
+        ) : (
+            <Icon className="absolute mx-3 text-grays-five" />
+        )}
+        <div className={`w-full ${className}`}>
+            {children}
+        </div>
+    </div>
+));

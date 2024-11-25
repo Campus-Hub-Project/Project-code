@@ -22,7 +22,7 @@ const FindEventsPage = async () => {
             <MiddleCardHeader>
                 <MiddleCardTitle>Buscar eventos</MiddleCardTitle>
                 <MiddleCardDescription>
-                    Aqui você pode buscar e participar dos eventos das faculdades e universidades
+                    Aqui você pode buscar e participar de eventos de faculdades e universidades
                 </MiddleCardDescription>
             </MiddleCardHeader>
             <MiddleCardContent>

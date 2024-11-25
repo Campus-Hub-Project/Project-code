@@ -3,7 +3,7 @@
 import React from 'react'
 
 import {
-    IconLayoutDashboard, IconUser, IconBook2, IconFlask, IconLogout2, IconTrash, IconMapPin
+    IconLayoutDashboard, IconFlask, IconLogout2, IconTrash, IconMapPin
 } from '@tabler/icons-react'
 import IconButton from '../button/IconButton'
 import { UserRole } from '@prisma/client'

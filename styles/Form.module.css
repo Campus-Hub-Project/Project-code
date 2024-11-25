@@ -1,11 +1,13 @@
 .form-label {
     @apply lg:h-12 px-12 rounded-sm shadow-none border-2 border-grays-five text-grays-five font-medium
     placeholder:text-grays-five placeholder:font-medium focus:border-grays-three focus:text-grays-three
+    focus-visible:ring-0
 }
 
 .textarea {
     @apply h-56 px-12 p-3 rounded-sm shadow-none border-2 border-grays-five text-grays-five font-medium
     placeholder:text-grays-five placeholder:font-medium focus:border-grays-three focus:text-grays-three
+    focus-visible:ring-0
 }
 
 .hover-effect {
@@ -15,6 +17,7 @@
 .form-outline-button {
     @apply h-12 w-full rounded-sm shadow-none text-grays-five border-2 border-grays-five bg-grays-seven
     hover-effect
+    focus:ring-0 focus-visible:ring-0
 }
 
 .form-calendar {

@@ -12,7 +12,8 @@ import React from 'react'
 
 const DashboradPage = async () => {
   const session = await auth()
-  const events = await getDashboardEvents({ role: session?.user.role as UserRole })
+  const role = session?.user.role as UserRole
+  const events = await getDashboardEvents({ role })
 
   return (
     <>
