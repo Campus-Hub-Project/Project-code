@@ -4,6 +4,7 @@ import BasicLayout from '../components/shared/layouts/BasicLayout'
 import { MiddleCard, MiddleCardDescription, MiddleCardFooter, MiddleCardHeader, MiddleCardTitle } from '../components/shared/card/MiddleCard'
 import BgImageLayout from '../components/shared/layouts/BgImageLayout'
 import LinkButton from '../components/shared/button/LinkButton'
+import Image from 'next/image'
 
 const HomePage = async () => {
   return (
@@ -12,6 +13,7 @@ const HomePage = async () => {
         <MiddleCard>
           <BgImageLayout>
             <MiddleCardHeader isLP>
+              <Image src='/logo.svg' alt='Logo' width={200} height={200} className='cursor-pointer' />
               <MiddleCardTitle isLP>
                 Olá, seja bem-vindo(a) ao <strong className='text-blues-three'>campus_hub</strong>
               </MiddleCardTitle>

@@ -19,7 +19,9 @@ const DashboradPage = async () => {
       <MiddleCardHeader>
         <MiddleCardTitle>Dashboard</MiddleCardTitle>
         <MiddleCardDescription>
-          Aqui você pode ver os eventos que criou
+          {session!.user.role === UserRole.INSTITUITION ? <>Aqui você pode ver os eventos que criou</>
+            : session!.user.role === UserRole.USER ? <>Aqui você pode ver os eventos que está participando</>
+              : <>Página de dashboard</>}
         </MiddleCardDescription>
       </MiddleCardHeader>
       <MiddleCardContent>
