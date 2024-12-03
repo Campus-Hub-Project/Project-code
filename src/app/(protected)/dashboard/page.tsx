@@ -31,7 +31,7 @@ const DashboradPage = async () => {
             <NoEventsText>Sem eventos no momento...</NoEventsText>
           ) :
           (events.map((event, index) => (
-            <EventCard event={event} key={index} role={session!.user.role} />
+            <EventCard event={event} key={index} role={session!.user.role} isDashboard={true}/>
           )))}
       </MiddleCardContent>
     </>

@@ -8,11 +8,10 @@ import { IconUsers } from '@tabler/icons-react'
 import EventCardButton from '../button/EventCardButton'
 import { addStudentParticipation } from '@/src/actions/user-event-participation-action'
 
-const EventCard = ({ event, role }: { event: EventToShowOnCard, role: UserRole }) => {
+const EventCard = ({ event, role, isDashboard }: { event: EventToShowOnCard, role: UserRole, isDashboard: boolean }) => {
     const [showMore, setShowMore] = useState(false)
 
     const handleTurnIntoAttendee = async () => await addStudentParticipation({ eventID: event.id })
-
     return (
         <EventCardWrapper>
             <EventCardHeader>
@@ -23,10 +22,12 @@ const EventCard = ({ event, role }: { event: EventToShowOnCard, role: UserRole }
             <div>
                 {showMore ? (
                     <EventCardShowMoreContent
-                        {...event} setShowMore={setShowMore} handleTurnIntoAttendee={handleTurnIntoAttendee}
-                        role={role} />
+                        isDashboard={isDashboard}
+                        {...event} setShowMore={setShowMore} handleTurnIntoAttendee={handleTurnIntoAttendee} role={role} />
                 ) : (
-                    <EventCardShowLessContent setShowMore={setShowMore} handleTurnIntoAttendee={handleTurnIntoAttendee} role={role} />
+                    <EventCardShowLessContent
+                        isDashboard={isDashboard}
+                        setShowMore={setShowMore} handleTurnIntoAttendee={handleTurnIntoAttendee} role={role} />
                 )}
             </div>
         </EventCardWrapper>
@@ -52,7 +53,7 @@ const EventCardDescription = ({ children }: { children: React.ReactNode }) =>
     <span className='font-normal text-sm text-grays-five'>{children}</span>
 
 const EventCardShowMoreContent = memo(({
-    description, dayStarts, dayEnds, subsDayStarts, subsDayEnds, setShowMore, handleTurnIntoAttendee, role }: {
+    description, dayStarts, dayEnds, subsDayStarts, subsDayEnds, setShowMore, handleTurnIntoAttendee, role, isDashboard }: {
         description: string;
         dayStarts: string;
         dayEnds: string;
@@ -60,7 +61,8 @@ const EventCardShowMoreContent = memo(({
         subsDayEnds: string;
         setShowMore: React.Dispatch<React.SetStateAction<boolean>>;
         handleTurnIntoAttendee: () => Promise<RegularEventData | null | undefined>,
-        role: UserRole
+        role: UserRole,
+        isDashboard: boolean,
     }) => (
     <>
         <CardContent className="p-0 mt-4 flex flex-col gap-4">
@@ -74,7 +76,7 @@ const EventCardShowMoreContent = memo(({
                 text="Ver menos"
                 className="text-grays-two hover:border-grays-one hover:text-grays-one"
             />
-            {role === UserRole.USER && (
+            {!isDashboard && role === UserRole.USER && (
                 <EventCardButton
                     onClick={async () => await handleTurnIntoAttendee()}
                     text="Participar"
@@ -85,10 +87,11 @@ const EventCardShowMoreContent = memo(({
     </>
 ))
 
-const EventCardShowLessContent = memo(({ setShowMore, handleTurnIntoAttendee, role }: {
+const EventCardShowLessContent = memo(({ setShowMore, handleTurnIntoAttendee, role, isDashboard }: {
     setShowMore: React.Dispatch<React.SetStateAction<boolean>>;
     handleTurnIntoAttendee: () => Promise<RegularEventData | null | undefined>,
-    role: UserRole;
+    role: UserRole,
+    isDashboard: boolean
 }) => (
     <CardFooter className="p-0 mt-4 flex gap-2">
         <EventCardButton
@@ -96,14 +99,13 @@ const EventCardShowLessContent = memo(({ setShowMore, handleTurnIntoAttendee, ro
             text="Ver mais"
             className="text-grays-two hover:border-grays-one hover:text-grays-one"
         />
-        {role === UserRole.USER && (
+        {!isDashboard && role === UserRole.USER && (
             <EventCardButton
                 onClick={async () => await handleTurnIntoAttendee()}
                 text="Participar"
                 className="text-blues-one hover:border-blues-three hover:text-blues-three"
             />
         )}
-
     </CardFooter>
 ))
 

@@ -3,7 +3,7 @@
 import { findEventsCreatedWhereInstituitionID, findEventsWhereUserIDIsAttendee } from "@/src/lib/queries/event"
 import { getUserSession } from '@/src/actions/auth-action'
 import { UserRole } from "@prisma/client"
-import { EventToFormatComplexData, EventToShowOnCard } from "@/src/interfaces/event"
+import { EventToFormatComplexData } from "@/src/interfaces/event"
 
 import { turnComplexEventDataIntoSimpleOne } from '@/src/actions/format-actions/frontend'
 
